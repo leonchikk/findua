@@ -1,5 +1,4 @@
 ﻿using Common.Core.Models;
-using System;
 
 namespace FindUa.Parser.Core.Entities
 {
