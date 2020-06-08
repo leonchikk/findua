@@ -1,17 +1,11 @@
 ﻿using FindUa.Parser.Core.Entities;
 using FindUa.Parser.Data.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace FindUa.Parser.Data.Contexts
 {
     public class TransportParserContext : DbContext
     {
-        public TransportParserContext()
-        {
-
-        }
-
         public TransportParserContext(DbContextOptions<TransportParserContext> options)
             : base(options)
         {
@@ -24,7 +18,7 @@ namespace FindUa.Parser.Data.Contexts
         public DbSet<EngineType> EngineTypes { get; set; }
         public DbSet<Locality> Localities { get; set; }
         public DbSet<Region> Regions { get; set; }
-        public DbSet<TransmissionType> TransmissionTypes { get; set; } 
+        public DbSet<TransmissionType> TransmissionTypes { get; set; }
         public DbSet<TransportBrand> Brands { get; set; }
         public DbSet<TransportModel> Models { get; set; }
         public DbSet<TransportSaleAnnounce> SaleAnnounces { get; set; }
