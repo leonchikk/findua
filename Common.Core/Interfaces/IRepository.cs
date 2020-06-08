@@ -28,9 +28,15 @@ namespace Common.Core.Interfaces
         IQueryable<T> FindBy(Expression<Func<T, bool>> predicate);
         IQueryable<T> FindBy<T2>(Expression<Func<T, bool>> predicate, params Expression<Func<T, T2>>[] paths);
         IQueryable<T> GetAll();
+        IQueryable<T> GetAllAsNoTracking();
+
         IQueryable<T> GetAllWithIncludies(params Expression<Func<T, object>>[] includeProperties);
+        IQueryable<T> GetAllWithIncludiesAsNoTracking(params Expression<Func<T, object>>[] includeProperties);
+
 
         T GetById(Guid id);
+        T GetByIdAsNoTracking(Guid id);
         T GetByIdWithIncludies(Guid id, params Expression<Func<T, object>>[] includeProperties);
+        T GetByIdWithIncludiesAsNoTracking(Guid id, params Expression<Func<T, object>>[] includeProperties);
     }
 }

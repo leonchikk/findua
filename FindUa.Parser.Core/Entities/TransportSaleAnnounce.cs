@@ -19,5 +19,10 @@ namespace FindUa.Parser.Core.Entities
         public Guid EngineTypeId { get; set; }
         public Guid LocalityId { get; set; }
 
+        public BodyType BodyType { get; set; }
+        public CarCondition CarCondition { get; set; }
+        public TransmissionType TransmissionType { get; set; }
+        public EngineType EngineType { get; set; }
+        public Locality Locality { get; set; }
     }
 }

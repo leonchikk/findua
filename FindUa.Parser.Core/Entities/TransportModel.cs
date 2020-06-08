@@ -7,5 +7,7 @@ namespace FindUa.Parser.Core.Entities
     {
         public Guid BrandId { get; set; }
         public string Name { get; set; }
+
+        public TransportBrand Brand { get; set; }
     }
 }
