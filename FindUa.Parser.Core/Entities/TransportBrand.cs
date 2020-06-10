@@ -11,7 +11,9 @@ namespace FindUa.Parser.Core.Entities
         }
 
         public string Name { get; set; }
+        public int VehicleTypeId { get; set; }
 
-        public ICollection<TransportModel> Models;
+        public VehicleType VehicleType { get; set; }
+        public ICollection<TransportModel> Models { get; set; }
     }
 }

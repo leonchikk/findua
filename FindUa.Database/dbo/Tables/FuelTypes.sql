@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[FuelTypes]
+(
+	[Id]	INT				NOT NULL,
+	[Name]	NVARCHAR(255)	NOT NULL,
+	CONSTRAINT [PK_FuelTypes] PRIMARY KEY CLUSTERED ([Id])
+)

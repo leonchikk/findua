@@ -1,10 +1,16 @@
 ﻿using Common.Core.Models;
 using System;
+using System.Collections.Generic;
 
 namespace FindUa.Parser.Core.Entities
 {
     public class TransportSaleAnnounce : BaseEntity
     {
+        public TransportSaleAnnounce()
+        {
+            TransportConditions = new HashSet<TransportConditionInSaleAnnounce>();
+        }
+
         public long AdNumber { get; set; }
         public int Year { get; set; }
         public int Mileage { get; set; }
@@ -13,16 +19,21 @@ namespace FindUa.Parser.Core.Entities
         public string ImageLink { get; set; }
         public DateTime UpdateOfferTime { get; set; }
         public string Description { get; set; }
-        public Guid BodyTypeId { get; set; }
-        public Guid CarConditionId { get; set; }
-        public Guid TranssmisionTypeId { get; set; }
-        public Guid EngineTypeId { get; set; }
-        public Guid LocalityId { get; set; }
+        public int EngineVolumetric { get; set; }
+        public int BodyTypeId { get; set; }
+        public int TranssmisionTypeId { get; set; }
+        public int CityId { get; set; }
+        public int FuelTypeId { get; set; }
+        public int ModelId { get; set; }
+        public int SourceProviderId { get; set; }
 
         public BodyType BodyType { get; set; }
-        public CarCondition CarCondition { get; set; }
         public TransmissionType TransmissionType { get; set; }
-        public EngineType EngineType { get; set; }
-        public Locality Locality { get; set; }
+        public City City { get; set; }
+        public FuelType FuelType { get; set; }
+        public TransportModel Model { get; set; }
+        public TransportSourceProvider SourceProvider { get; set; }
+
+        public ICollection<TransportConditionInSaleAnnounce> TransportConditions { get; set; }
     }
 }

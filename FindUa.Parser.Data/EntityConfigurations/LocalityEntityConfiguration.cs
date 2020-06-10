@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace FindUa.Parser.Data.EntityConfigurations
 {
-    public class LocalityEntityConfiguration : IEntityTypeConfiguration<Locality>
+    public class LocalityEntityConfiguration : IEntityTypeConfiguration<City>
     {
-        public void Configure(EntityTypeBuilder<Locality> builder)
+        public void Configure(EntityTypeBuilder<City> builder)
         {
             builder.HasKey(x => x.Id);
 
             builder.HasOne(x => x.Region)
-                   .WithMany(x => x.Localities)
+                   .WithMany(x => x.Cities)
                    .HasForeignKey(x => x.RegionId);
         }
     }

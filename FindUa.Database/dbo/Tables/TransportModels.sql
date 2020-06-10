@@ -1,0 +1,11 @@
+﻿CREATE TABLE [dbo].[TransportModels]
+(
+	[Id]		INT				NOT NULL,
+	[BrandId]	INT				NOT NULL,
+	[Name]		NVARCHAR(255)	NOT NULL,
+	[CreatedAt]	DATETIME			NULL, 
+	[UpdatedAt]	DATETIME			NULL, 
+	[DeletedAt]	DATETIME			NULL,
+	CONSTRAINT [PK_TransportModels] PRIMARY KEY CLUSTERED ([Id] ASC),
+	CONSTRAINT [FK_TransportModels_BrandId] FOREIGN KEY ([BrandId]) REFERENCES [dbo].[TransportBrands] ([Id])
+)

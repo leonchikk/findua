@@ -49,7 +49,7 @@ namespace FindUa.Parser.Data.Repositories
             return DbSet.FirstOrDefault(t => t == entity) != null;
         }
 
-        public void Delete(Guid id)
+        public void Delete(int id)
         {
             T obj = DbSet.First(x => x.Id == id);
             DbSet.Remove(obj);
@@ -60,7 +60,7 @@ namespace FindUa.Parser.Data.Repositories
             DbSet.Remove(obj);
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(int id)
         {
             T obj = await DbSet.FirstAsync(x => x.Id == id);
             DbSet.Remove(obj);
@@ -128,17 +128,17 @@ namespace FindUa.Parser.Data.Repositories
             return query;
         }
 
-        public T GetById(Guid id)
+        public T GetById(int id)
         {
             return DbSet.FirstOrDefault(x => x.Id == id);
         }
 
-        public T GetByIdAsNoTracking(Guid id)
+        public T GetByIdAsNoTracking(int id)
         {
             return DbSet.AsNoTracking().FirstOrDefault(x => x.Id == id);
         }
 
-        public T GetByIdWithIncludies(Guid id, params Expression<Func<T, object>>[] includeProperties)
+        public T GetByIdWithIncludies(int id, params Expression<Func<T, object>>[] includeProperties)
         {
             IQueryable<T> query = DbSet.Where(x => x.Id == id);
             foreach (Expression<Func<T, object>> include in includeProperties)
@@ -149,7 +149,7 @@ namespace FindUa.Parser.Data.Repositories
             return query.FirstOrDefault();
         }
 
-        public T GetByIdWithIncludiesAsNoTracking(Guid id, params Expression<Func<T, object>>[] includeProperties)
+        public T GetByIdWithIncludiesAsNoTracking(int id, params Expression<Func<T, object>>[] includeProperties)
         {
             IQueryable<T> query = DbSet.Where(x => x.Id == id).AsNoTracking();
             foreach (Expression<Func<T, object>> include in includeProperties)

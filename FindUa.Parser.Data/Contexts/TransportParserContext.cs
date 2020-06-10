@@ -13,23 +13,28 @@ namespace FindUa.Parser.Data.Contexts
         }
 
         public DbSet<BodyType> BodyTypes { get; set; }
-        public DbSet<CarCondition> CarConditions { get; set; }
+        public DbSet<City> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }
-        public DbSet<EngineType> EngineTypes { get; set; }
-        public DbSet<Locality> Localities { get; set; }
+        public DbSet<FuelType> FuelTypes { get; set; }
         public DbSet<Region> Regions { get; set; }
         public DbSet<TransmissionType> TransmissionTypes { get; set; }
         public DbSet<TransportBrand> Brands { get; set; }
+        public DbSet<TransportCondition> TransportConditions { get; set; }
+        public DbSet<TransportConditionInSaleAnnounce> TransportConditionInSaleAnnounces { get; set; }
         public DbSet<TransportModel> Models { get; set; }
         public DbSet<TransportSaleAnnounce> SaleAnnounces { get; set; }
+        public DbSet<TransportSourceProvider> TransportSourceProviders { get; set; }
         public DbSet<VehicleType> VehicleTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new BodyTypeEntityConfiguration());
             modelBuilder.ApplyConfiguration(new LocalityEntityConfiguration());
             modelBuilder.ApplyConfiguration(new RegionEntityConfiguration());
-            modelBuilder.ApplyConfiguration(new TransportModelEntityConfiguration());
             modelBuilder.ApplyConfiguration(new SaleAnnounceEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new TransportBrandEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new TransportModelEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new TransportConditionInSaleAnnounceEntityConfiguration());
         }
     }
 }

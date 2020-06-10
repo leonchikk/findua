@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace Common.Core.Interfaces
 {
-    public interface IRepository<T> where T : BaseEntity
+    public interface IRepository<T> where T : class
     {
         bool Any(Expression<Func<T, bool>> predicate);
 
         T Add(T obj);
         T Update(T obj);
-        void Delete(Guid id);
+        void Delete(int id);
         bool Contains(T entity);
 
         Task<T> AddAsync(T obj);
         Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> obj);
-        Task DeleteAsync(Guid id);
+        Task DeleteAsync(int id);
         void Delete(T obj);
         void DeleteRange(IEnumerable<T> obj);
 
@@ -34,9 +34,9 @@ namespace Common.Core.Interfaces
         IQueryable<T> GetAllWithIncludiesAsNoTracking(params Expression<Func<T, object>>[] includeProperties);
 
 
-        T GetById(Guid id);
-        T GetByIdAsNoTracking(Guid id);
-        T GetByIdWithIncludies(Guid id, params Expression<Func<T, object>>[] includeProperties);
-        T GetByIdWithIncludiesAsNoTracking(Guid id, params Expression<Func<T, object>>[] includeProperties);
+        T GetById(int id);
+        T GetByIdAsNoTracking(int id);
+        T GetByIdWithIncludies(int id, params Expression<Func<T, object>>[] includeProperties);
+        T GetByIdWithIncludiesAsNoTracking(int id, params Expression<Func<T, object>>[] includeProperties);
     }
 }

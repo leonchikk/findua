@@ -2,8 +2,9 @@
 
 namespace FindUa.Parser.Core.Entities
 {
-    public class CarCondition : BaseEntity
+    public class TransportSourceProvider : BaseEntity
     {
         public string Name { get; set; }
+        public string Url { get; set; }
     }
 }

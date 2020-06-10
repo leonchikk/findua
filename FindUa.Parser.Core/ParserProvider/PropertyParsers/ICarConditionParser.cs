@@ -1,11 +1,12 @@
 ﻿using FindUa.Parser.Core.Entities;
 using HtmlAgilityPack;
+using System.Collections.Generic;
 
 namespace FindUa.Parser.Core.ParserProvider.PropertyParsers
 {
     public interface ICarConditionParser
     {
-        CarCondition ParseForPreview(HtmlNode htmlNode);
-        CarCondition ParseForDetailed(HtmlNode htmlNode);
+        IEnumerable<TransportCondition> ParseForPreview(HtmlNode htmlNode);
+        IEnumerable<TransportCondition> ParseForDetailed(HtmlNode htmlNode);
     }
 }

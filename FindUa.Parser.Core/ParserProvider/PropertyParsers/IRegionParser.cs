@@ -5,7 +5,7 @@ namespace FindUa.Parser.Core.ParserProvider.PropertyParsers
 {
     public interface IRegionParser
     {
-        Locality ParseForPreview(HtmlNode htmlNode);
-        Locality ParseForDetailed(HtmlNode htmlNode);
+        City ParseForPreview(HtmlNode htmlNode);
+        City ParseForDetailed(HtmlNode htmlNode);
     }
 }

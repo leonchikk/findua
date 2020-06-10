@@ -1,5 +1,4 @@
 ﻿using Common.Core.Models;
-using System;
 using System.Collections.Generic;
 
 namespace FindUa.Parser.Core.Entities
@@ -8,14 +7,13 @@ namespace FindUa.Parser.Core.Entities
     {
         public Region()
         {
-            Localities = new HashSet<Locality>();
+            Cities = new HashSet<City>();
         }
 
-        public Guid CountryId { get; set; }
+        public int CountryId { get; set; }
         public string Name { get; set; }
 
         public Country Country { get; set; }
-        public ICollection<Locality> Localities { get; set; }
-
+        public ICollection<City> Cities { get; set; }
     }
 }

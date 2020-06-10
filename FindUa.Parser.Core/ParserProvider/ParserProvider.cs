@@ -12,7 +12,8 @@ namespace FindUa.Parser.Core.ParserProvider
         protected IBodyTypeParser BodyTypeParser;
         protected IBrandParser BrandParser;
         protected ICarConditionParser CarConditionParser;
-        protected IEngineTypeParser EngineTypeParser;
+        protected IEngineVolumetricParser EngineTypeParser;
+        protected IFuelTypeParser FuelTypeParser;
         protected IMileageParser MileageParser;
         protected IModelParser ModelParser;
         protected IOfferNumberParser OfferNumberParser;
@@ -28,7 +29,8 @@ namespace FindUa.Parser.Core.ParserProvider
             IBrandParser brandParser,
             ICarConditionParser carConditionParser,
             IParserDataLoader dataLoader,
-            IEngineTypeParser engineTypeParser,
+            IEngineVolumetricParser engineVolumetricParser,
+            IFuelTypeParser fuelTypeParser,
             IStructureExtractor structureExtractor,
             IMileageParser mileageParser,
             IModelParser modelParser,
@@ -45,7 +47,8 @@ namespace FindUa.Parser.Core.ParserProvider
             BrandParser = brandParser;
             CarConditionParser = carConditionParser;
             DataLoader = dataLoader;
-            EngineTypeParser = engineTypeParser;
+            EngineTypeParser = engineVolumetricParser;
+            FuelTypeParser = fuelTypeParser;
             StructureExtractor = structureExtractor;
             MileageParser = mileageParser;
             ModelParser = modelParser;
