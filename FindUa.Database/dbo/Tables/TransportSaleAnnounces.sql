@@ -18,7 +18,7 @@
 	[CreatedAt]			DATETIME		NULL, 
 	[UpdatedAt]			DATETIME		NULL, 
 	[DeletedAt]			DATETIME		NULL,
-	CONSTRAINT	[PK_TransportSaleAnnounces] PRIMARY KEY CLUSTERED ([Id]),
+	CONSTRAINT	[PK_TransportSaleAnnounces] PRIMARY KEY CLUSTERED ([Id] ASC),
 	CONSTRAINT  [FK_TransportSaleAnnounces_BodyTypeId] FOREIGN KEY ([BodyTypeId]) REFERENCES [dbo].[BodyTypes]	([Id]),
 	CONSTRAINT  [FK_TransportSaleAnnounces_TranssmisionTypeId] FOREIGN KEY ([TranssmisionTypeId]) REFERENCES [dbo].[TransmissionTypes]	([Id]),
 	CONSTRAINT  [FK_TransportSaleAnnounces_CityId] FOREIGN KEY ([CityId]) REFERENCES [dbo].[Cities]	([Id]),

@@ -18,4 +18,4 @@ USING
 ON (Target.[Id] = Source.[Id])
 WHEN NOT MATCHED THEN
 	INSERT ([Id], [Name])
-	VALUES (Source.[Id], Source.[Name], Source.[Code], Source.[Language]);
+	VALUES (Source.[Id], Source.[Name]);
