@@ -5,6 +5,6 @@ namespace FindUa.Parser.Core.ParserProvider
 {
     public interface IParserDataLoader
     {
-        Task<HtmlDocument> LoadHtmlDocumentAsync();
+        Task<HtmlDocument> LoadHtmlDocumentAsync(string url);
     }
 }

@@ -1,11 +1,17 @@
-﻿using FindUa.Parser.Core.Entities;
+﻿using FindUa.Parser.Core.DataAccess;
 using FindUa.Parser.Core.ParserProvider.PropertyParsers;
-using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FindUa.Parser.Core.ParserProvider
 {
     public abstract class ParserProvider
     {
+        protected int DaysCountForProcessing;
+        protected int DelayBetweenStepsInMilliseconds;
+        protected int ItemsCountForStep;
+
+        protected IUnitOfWork UnitOfWork;
+
         protected IParserDataLoader DataLoader;
         protected IStructureExtractor StructureExtractor;
 
@@ -25,6 +31,7 @@ namespace FindUa.Parser.Core.ParserProvider
         protected IYearParser YearParser;
 
         public ParserProvider(
+            IUnitOfWork unitOfWork,
             IBodyTypeParser bodyTypeParser,
             IBrandParser brandParser,
             ICarConditionParser carConditionParser,
@@ -43,6 +50,7 @@ namespace FindUa.Parser.Core.ParserProvider
             IYearParser yearParser
         )
         {
+            UnitOfWork = unitOfWork;
             BodyTypeParser = bodyTypeParser;
             BrandParser = brandParser;
             CarConditionParser = carConditionParser;
@@ -61,6 +69,20 @@ namespace FindUa.Parser.Core.ParserProvider
             YearParser = yearParser;
         }
 
-        public abstract IEnumerable<TransportSaleAnnounce> GetFreshData();
+        public abstract Task ProcessDataAsync();
+
+        public ParserProvider SetDaysCountForProcessing(int daysCount)
+        {
+            DaysCountForProcessing = daysCount;
+
+            return this;
+        }
+
+        public ParserProvider SetItemsCountForStep(int itemsCount)
+        {
+            ItemsCountForStep = itemsCount;
+
+            return this;
+        }
     }
 }
