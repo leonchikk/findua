@@ -1,8 +1,8 @@
-﻿using FindUa.Parser.Core.DataAccess;
+﻿using FindUa.Parser.Core.Common;
+using FindUa.Parser.Core.DataAccess;
 using FindUa.Parser.Core.Entities;
 using FindUa.Parser.Core.ParserProvider;
 using FindUa.Parser.Core.ParserProvider.PropertyParsers;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,10 +12,11 @@ namespace FindUa.Parser.Domain.ParserProviders.RST
     {
         public RstParserProvider(
             IUnitOfWork unitOfWork,
+            IMemoryStore memoryStore,
             IBodyTypeParser bodyTypeParser,
             IBrandParser brandParser,
             ICarConditionParser carConditionParser,
-            IParserDataLoader dataLoader,
+            IDataLoader dataLoader,
             IEngineVolumetricParser engineVolumetricParser,
             IFuelTypeParser fuelTypeParser,
             IStructureExtractor structureExtractor,
@@ -29,21 +30,22 @@ namespace FindUa.Parser.Domain.ParserProviders.RST
             ITransmissionTypeParser transmissionType,
             IYearParser yearParser)
             : base(unitOfWork,
-                  bodyTypeParser, 
-                  brandParser, 
-                  carConditionParser, 
-                  dataLoader, 
-                  engineVolumetricParser, 
-                  fuelTypeParser, 
-                  structureExtractor, 
-                  mileageParser, 
-                  modelParser, 
-                  offerNumberParser, 
-                  priceParser, 
-                  publishDateParser, 
-                  regionParser, 
-                  sourceLinkParser, 
-                  transmissionType, 
+                  memoryStore,
+                  bodyTypeParser,
+                  brandParser,
+                  carConditionParser,
+                  dataLoader,
+                  engineVolumetricParser,
+                  fuelTypeParser,
+                  structureExtractor,
+                  mileageParser,
+                  modelParser,
+                  offerNumberParser,
+                  priceParser,
+                  publishDateParser,
+                  regionParser,
+                  sourceLinkParser,
+                  transmissionType,
                   yearParser)
         { }
 
@@ -51,17 +53,24 @@ namespace FindUa.Parser.Domain.ParserProviders.RST
         {
             var scrapedSaleAnnounces = new List<TransportSaleAnnounce>();
 
-            var htmlDocument = await DataLoader.LoadHtmlDocumentAsync();
-
+            var htmlDocument = await DataLoader.LoadHtmlDocumentAsync(UrlForScrapping);
             var previewOffers = StructureExtractor.GetPreviewOfferStructure(htmlDocument);
 
             foreach (var previewOffer in previewOffers)
             {
                 var sourceLink = SourceLinkParser.GetLink(previewOffer);
                 var detailedHtmlDocument = await DataLoader.LoadHtmlDocumentAsync(sourceLink);
-
                 var detailedOffer = StructureExtractor.GetDetailedOfferStructure(detailedHtmlDocument);
+
+                var saleAnnounce = new TransportSaleAnnounce()
+                {
+                    SourceLink = sourceLink
+                };
+
+                scrapedSaleAnnounces.Add(saleAnnounce);
             }
+
+            await UnitOfWork.TransportSaleAnnouncesRepository.AddRangeAsync(scrapedSaleAnnounces);
         }
     }
 }

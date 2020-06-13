@@ -15,6 +15,7 @@
 	[FuelTypeId]		 INT			NOT NULL,
 	[ModelId]			 INT			NOT NULL,
 	[SourceProviderId]   INT			NOT NULL,
+	[IsDeleted]			BIT				DEFAULT 0 NOT NULL,
 	[CreatedAt]			DATETIME		NULL, 
 	[UpdatedAt]			DATETIME		NULL, 
 	[DeletedAt]			DATETIME		NULL,
@@ -23,6 +24,5 @@
 	CONSTRAINT  [FK_TransportSaleAnnounces_TranssmisionTypeId] FOREIGN KEY ([TranssmisionTypeId]) REFERENCES [dbo].[TransmissionTypes]	([Id]),
 	CONSTRAINT  [FK_TransportSaleAnnounces_CityId] FOREIGN KEY ([CityId]) REFERENCES [dbo].[Cities]	([Id]),
 	CONSTRAINT  [FK_TransportSaleAnnounces_FuelTypeId] FOREIGN KEY ([FuelTypeId]) REFERENCES [dbo].[FuelTypes] ([Id]),
-	CONSTRAINT  [FK_TransportSaleAnnounces_ModelId] FOREIGN KEY ([ModelId]) REFERENCES [dbo].[TransportModels] ([Id]),
-	CONSTRAINT  [FK_TransportSaleAnnounces_SourceProviderId] FOREIGN KEY ([SourceProviderId]) REFERENCES [dbo].[TransportSourceProviders] ([Id]),
+	CONSTRAINT  [FK_TransportSaleAnnounces_ModelId] FOREIGN KEY ([ModelId]) REFERENCES [dbo].[TransportModels] ([Id])
 )

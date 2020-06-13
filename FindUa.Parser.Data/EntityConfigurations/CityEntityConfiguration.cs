@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace FindUa.Parser.Data.EntityConfigurations
 {
-    public class LocalityEntityConfiguration : IEntityTypeConfiguration<City>
+    public class CityEntityConfiguration : IEntityTypeConfiguration<City>
     {
         public void Configure(EntityTypeBuilder<City> builder)
         {

@@ -8,8 +8,8 @@ namespace FindUa.Parser.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<TransportModel> builder)
         {
+            builder.ToTable("TransportModels");
             builder.HasKey(x => x.Id);
-
             builder.HasOne(x => x.Brand)
                    .WithMany(x => x.Models)
                    .HasForeignKey(x => x.BrandId); 

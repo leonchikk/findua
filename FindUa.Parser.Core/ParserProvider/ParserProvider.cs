@@ -1,4 +1,5 @@
-﻿using FindUa.Parser.Core.DataAccess;
+﻿using FindUa.Parser.Core.Common;
+using FindUa.Parser.Core.DataAccess;
 using FindUa.Parser.Core.ParserProvider.PropertyParsers;
 using System.Threading.Tasks;
 
@@ -6,13 +7,17 @@ namespace FindUa.Parser.Core.ParserProvider
 {
     public abstract class ParserProvider
     {
+        protected string BaseUrl;
+        protected string UrlForScrapping;
+
         protected int DaysCountForProcessing;
         protected int DelayBetweenStepsInMilliseconds;
         protected int ItemsCountForStep;
 
         protected IUnitOfWork UnitOfWork;
+        protected IMemoryStore MemoryStore;
 
-        protected IParserDataLoader DataLoader;
+        protected IDataLoader DataLoader;
         protected IStructureExtractor StructureExtractor;
 
         protected IBodyTypeParser BodyTypeParser;
@@ -32,10 +37,11 @@ namespace FindUa.Parser.Core.ParserProvider
 
         public ParserProvider(
             IUnitOfWork unitOfWork,
+            IMemoryStore memoryStore,
             IBodyTypeParser bodyTypeParser,
             IBrandParser brandParser,
             ICarConditionParser carConditionParser,
-            IParserDataLoader dataLoader,
+            IDataLoader dataLoader,
             IEngineVolumetricParser engineVolumetricParser,
             IFuelTypeParser fuelTypeParser,
             IStructureExtractor structureExtractor,
@@ -51,6 +57,7 @@ namespace FindUa.Parser.Core.ParserProvider
         )
         {
             UnitOfWork = unitOfWork;
+            MemoryStore = memoryStore;
             BodyTypeParser = bodyTypeParser;
             BrandParser = brandParser;
             CarConditionParser = carConditionParser;
@@ -81,6 +88,20 @@ namespace FindUa.Parser.Core.ParserProvider
         public ParserProvider SetItemsCountForStep(int itemsCount)
         {
             ItemsCountForStep = itemsCount;
+
+            return this;
+        }
+
+        public ParserProvider SetBaseUrl(string url)
+        {
+            BaseUrl = url;
+
+            return this;
+        }
+
+        public ParserProvider SetUrlForScrapping(string url)
+        {
+            UrlForScrapping = url;
 
             return this;
         }

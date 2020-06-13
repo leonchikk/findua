@@ -6,20 +6,18 @@ namespace FindUa.Parser.Core.DataAccess
 {
     public interface IUnitOfWork
     {
-        IRepository<BodyType> BodyTypesRepository { get; }
-        IRepository<City> CitiesRepository { get; }
+        IBodyTypeRepository BodyTypesRepository { get; }
+        ICityRepository CitiesRepository { get; }
         IRepository<Country> CountiesRepository { get; }
-        IRepository<FuelType> FuelTypesRepository { get; }
+        IFuelTypeRepository FuelTypesRepository { get; }
         IRepository<Region> RegionsRepository { get; }
-        IRepository<TransmissionType> TransmissionTypesRepository { get; }
+        ITransmissionTypeRepository TransmissionTypesRepository { get; }
         IRepository<TransportBrand> BrandsRepository { get; }
-        IRepository<TransportCondition> TransportConditionsRepository { get; }
+        ITransportConditionRepository TransportConditionsRepository { get; }
         IRepository<TransportConditionInSaleAnnounce> TransportConditionInSaleAnnouncesRepository { get; }
-        IRepository<TransportModel> ModelsRepository { get; }
+        ITransportModelRepository ModelsRepository { get; }
         IRepository<TransportSaleAnnounce> TransportSaleAnnouncesRepository { get; }
-        IRepository<TransportSourceProvider> TransportSourceProvidersRepository { get; }
-        IRepository<TransportSourceProviderUrl> TransportSourceProviderUrlsRepository { get; }
-        IRepository<VehicleType> VehicleTypesRepository { get; }
+        IVehicleTypeRepository VehicleTypesRepository { get; }
 
         Task SaveChangesAsync();
     }

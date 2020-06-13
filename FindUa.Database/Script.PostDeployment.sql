@@ -22,20 +22,12 @@ GO
 :r .\Init\006.BodyTypes.sql
 GO
 
-/*007.SourceProviders*/
-:r .\Init\007.SourceProviders.sql
-GO
-
-/*008.SourceProviderUrls*/
-:r .\Init\008.SourceProviderUrls.sql
-GO
-
 /*009.TransportBrands*/
-:r .\Init\009.TransportBrands.sql
+:r .\Init\007.TransportBrands.sql
 GO
 
-/*010.TransportModels*/
-:r .\Init\010.TransportModels.sql
+/*008.TransportModels*/
+:r .\Init\008.TransportModels.sql
 GO
 
 /*020.Regions*/

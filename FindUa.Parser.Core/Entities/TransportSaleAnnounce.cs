@@ -32,7 +32,6 @@ namespace FindUa.Parser.Core.Entities
         public City City { get; set; }
         public FuelType FuelType { get; set; }
         public TransportModel Model { get; set; }
-        public TransportSourceProvider SourceProvider { get; set; }
 
         public ICollection<TransportConditionInSaleAnnounce> TransportConditions { get; set; }
     }

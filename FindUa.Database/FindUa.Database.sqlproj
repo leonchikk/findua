@@ -73,14 +73,11 @@
     <Build Include="dbo\Tables\TransportBrands.sql" />
     <Build Include="dbo\Tables\TransportModels.sql" />
     <Build Include="dbo\Tables\VehicleTypes.sql" />
-    <Build Include="dbo\Tables\TransportSourceProviders.sql" />
     <Build Include="dbo\Tables\TransportSaleAnnounces.sql" />
     <Build Include="dbo\Tables\TransportConditionInSaleAnnounces.sql" />
     <Build Include="dbo\Tables\FuelTypes.sql" />
     <None Include="Init\001.VehicleTypes.sql" />
     <None Include="Init\006.BodyTypes.sql" />
-    <None Include="Init\007.SourceProviders.sql" />
-    <Build Include="dbo\Tables\TransportSourceProviderUrls.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
@@ -93,8 +90,7 @@
     <None Include="Init\002.TransportConditions.sql" />
     <None Include="Init\003.TransmissionTypes.sql" />
     <None Include="Init\004.FuelTypes.sql" />
-    <None Include="Init\008.SourceProviderUrls.sql" />
-    <None Include="Init\009.TransportBrands.sql" />
-    <None Include="Init\010.TransportModels.sql" />
+    <None Include="Init\007.TransportBrands.sql" />
+    <None Include="Init\008.TransportModels.sql" />
   </ItemGroup>
 </Project>

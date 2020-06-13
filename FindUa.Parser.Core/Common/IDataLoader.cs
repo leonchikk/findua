@@ -1,9 +1,9 @@
 ﻿using HtmlAgilityPack;
 using System.Threading.Tasks;
 
-namespace FindUa.Parser.Core.ParserProvider
+namespace FindUa.Parser.Core.Common
 {
-    public interface IParserDataLoader
+    public interface IDataLoader
     {
         Task<HtmlDocument> LoadHtmlDocumentAsync(string url);
     }

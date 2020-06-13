@@ -23,13 +23,13 @@ namespace FindUa.Parser.Data.Contexts
         public DbSet<TransportConditionInSaleAnnounce> TransportConditionInSaleAnnounces { get; set; }
         public DbSet<TransportModel> Models { get; set; }
         public DbSet<TransportSaleAnnounce> SaleAnnounces { get; set; }
-        public DbSet<TransportSourceProvider> TransportSourceProviders { get; set; }
         public DbSet<VehicleType> VehicleTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasDefaultSchema("dbo");
             modelBuilder.ApplyConfiguration(new BodyTypeEntityConfiguration());
-            modelBuilder.ApplyConfiguration(new LocalityEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new CityEntityConfiguration());
             modelBuilder.ApplyConfiguration(new RegionEntityConfiguration());
             modelBuilder.ApplyConfiguration(new SaleAnnounceEntityConfiguration());
             modelBuilder.ApplyConfiguration(new TransportBrandEntityConfiguration());
