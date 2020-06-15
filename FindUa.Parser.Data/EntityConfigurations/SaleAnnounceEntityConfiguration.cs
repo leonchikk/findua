@@ -8,6 +8,8 @@ namespace FindUa.Parser.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<TransportSaleAnnounce> builder)
         {
+            builder.ToTable("TransportSaleAnnounces");
+
             builder.HasKey(x => x.Id);
 
             builder.HasOne(x => x.BodyType);

@@ -9,6 +9,7 @@ namespace FindUa.Parser.Core.ParserProvider
     {
         protected string BaseUrl;
         protected string UrlForScrapping;
+        protected int ScrappingPage;
 
         protected int DaysCountForProcessing;
         protected int DelayBetweenStepsInMilliseconds;
@@ -74,6 +75,8 @@ namespace FindUa.Parser.Core.ParserProvider
             SourceLinkParser = sourceLinkParser;
             TransmissionType = transmissionType;
             YearParser = yearParser;
+
+            ScrappingPage = 1;
         }
 
         public abstract Task ProcessDataAsync();

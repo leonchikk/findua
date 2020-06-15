@@ -3,6 +3,7 @@ using FindUa.Parser.Core.DataAccess;
 using FindUa.Parser.Core.Entities;
 using FindUa.Parser.Core.ParserProvider;
 using FindUa.Parser.Core.ParserProvider.PropertyParsers;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -13,10 +14,10 @@ namespace FindUa.Parser.Domain.ParserProviders.RST
         public RstParserProvider(
             IUnitOfWork unitOfWork,
             IMemoryStore memoryStore,
+            IDataLoader dataLoader,
             IBodyTypeParser bodyTypeParser,
             IBrandParser brandParser,
             ICarConditionParser carConditionParser,
-            IDataLoader dataLoader,
             IEngineVolumetricParser engineVolumetricParser,
             IFuelTypeParser fuelTypeParser,
             IStructureExtractor structureExtractor,
@@ -53,24 +54,52 @@ namespace FindUa.Parser.Domain.ParserProviders.RST
         {
             var scrapedSaleAnnounces = new List<TransportSaleAnnounce>();
 
-            var htmlDocument = await DataLoader.LoadHtmlDocumentAsync(UrlForScrapping);
-            var previewOffers = StructureExtractor.GetPreviewOfferStructure(htmlDocument);
-
-            foreach (var previewOffer in previewOffers)
+            while (ItemsCountForStep > scrapedSaleAnnounces.Count)
             {
-                var sourceLink = SourceLinkParser.GetLink(previewOffer);
-                var detailedHtmlDocument = await DataLoader.LoadHtmlDocumentAsync(sourceLink);
-                var detailedOffer = StructureExtractor.GetDetailedOfferStructure(detailedHtmlDocument);
-
-                var saleAnnounce = new TransportSaleAnnounce()
+                try
                 {
-                    SourceLink = sourceLink
-                };
+                    UrlForScrapping += $"&start={ScrappingPage}";
+                    var htmlDocument = await DataLoader.LoadHtmlDocumentAsync(UrlForScrapping);
+                    var previewOffers = StructureExtractor.GetPreviewOfferStructure(htmlDocument, ScrappingPage);
 
-                scrapedSaleAnnounces.Add(saleAnnounce);
+                    foreach (var previewOffer in previewOffers)
+                    {
+                        var sourceLink = SourceLinkParser.GetLink(previewOffer, BaseUrl);
+                        var detailedHtmlDocument = await DataLoader.LoadHtmlDocumentAsync(sourceLink);
+                        var detailedOfferNode = StructureExtractor.GetDetailedOfferStructure(detailedHtmlDocument);
+
+                        var saleAnnounce = new TransportSaleAnnounce()
+                        {
+                            SourceLink = sourceLink,
+                            TransmissionTypeId = 1,
+                            AdNumber = OfferNumberParser.ParseForDetailed(detailedOfferNode),
+                            BodyTypeId = 1,
+                            CityId = 2480119,
+                            Description = "bla bla bla",
+                            EngineVolumetric = 1600,
+                            FuelTypeId = 1,
+                            ImageLink = "https://empty.com/image",
+                            Mileage = MileageParser.ParseForDetailed(detailedOfferNode),
+                            ModelId = 1666,
+                            Price = 20,
+                            UpdateOfferTime = DateTime.Now,
+                            Year = YearParser.ParseForDetailed(detailedOfferNode)
+                        };
+
+                        scrapedSaleAnnounces.Add(saleAnnounce);
+                    }
+                }
+                catch(Exception ex)
+                {
+
+                }
+                finally
+                {
+                    ScrappingPage++;
+                }
             }
 
-            await UnitOfWork.TransportSaleAnnouncesRepository.AddRangeAsync(scrapedSaleAnnounces);
+            await UnitOfWork.TransportSaleAnnouncesRepository.InsertBulkAsync(scrapedSaleAnnounces);
         }
     }
 }

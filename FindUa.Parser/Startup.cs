@@ -9,12 +9,9 @@ using FindUa.Parser.Settings.Interfaces;
 using FindUa.Parser.Settings.Models;
 using FindUa.Parser.Settings.Services;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System.Threading.Tasks;
 
 namespace FindUa.Parser
 {
@@ -36,6 +33,7 @@ namespace FindUa.Parser
             services.AddTransient(typeof(IRepository<>), typeof(BaseRepository<>));
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
+            services.AddSingleton<IDataLoader, DataLoader>();
             services.AddSingleton<IParserSettingsService, ParserSettingsService>();
             services.AddSingleton<IMemoryStore>(serviceProvider =>
             {
@@ -55,10 +53,9 @@ namespace FindUa.Parser
             services.Configure<ParserSettings>(parserSettings);
 
             services.AddHostedService<RstParserBackgroundWorker>();
-            //services.AddHostedService<TestBW>();
         }
 
-        public async void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app)
         {
 
         }

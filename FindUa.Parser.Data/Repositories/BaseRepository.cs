@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Common.Core.Interfaces;
 using Common.Core.Models;
+using EFCore.BulkExtensions;
 using FindUa.Parser.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 
@@ -164,6 +165,11 @@ namespace FindUa.Parser.Data.Repositories
         {
             DbSet.Update(obj);
             return obj;
+        }
+
+        public async Task InsertBulkAsync(IList<T> entities)
+        {
+            await _dbContext.BulkInsertAsync(entities);
         }
     }
 }

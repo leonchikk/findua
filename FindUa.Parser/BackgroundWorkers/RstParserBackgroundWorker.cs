@@ -1,11 +1,11 @@
-﻿using FindUa.Parser.Core.Common;
+﻿using FindUa.Parser.Domain.Common;
 using FindUa.Parser.Settings.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace FindUa.Parser.BackgroundWorkers
 {
@@ -13,24 +13,41 @@ namespace FindUa.Parser.BackgroundWorkers
     {
         private readonly ILogger<RstParserBackgroundWorker> _logger;
         private readonly IParserSettingsService _settingsService;
-        private readonly IMemoryStore _memoryStore;
+        private readonly IServiceProvider _serviceProvider;
 
         public RstParserBackgroundWorker(
             ILogger<RstParserBackgroundWorker> logger,
             IParserSettingsService settingsService,
-            IMemoryStore memoryStore)
+            IServiceProvider serviceProvider)
         {
             _logger = logger;
             _settingsService = settingsService;
-            _memoryStore = memoryStore;
+            _serviceProvider = serviceProvider;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            while (!stoppingToken.IsCancellationRequested)
+            using (var scope = _serviceProvider.CreateScope())
             {
-                _logger.LogInformation($"Thread {Thread.CurrentThread.ManagedThreadId}");
-                await Task.Delay(_settingsService.GetDelayBetweenStepsInMilliseconds(), stoppingToken);
+                var processItemsCount = 1000;
+                var provider = ParserProviderFactory.CreateRtsParserProvider(scope)
+                                                .SetDaysCountForProcessing(1)
+                                                .SetItemsCountForStep(processItemsCount)
+                                                .SetBaseUrl("https://rst.ua")
+                                                .SetUrlForScrapping("https://rst.ua/oldcars/?make%5B%5D=0&year%5B%5D=0&year%5B%5D=0&price%5B%5D=0&price%5B%5D=0&engine%5B%5D=0&engine%5B%5D=0&gear=0&fuel=0&drive=0&condition=0&saled=0&notcust=-1&sort=1&task=newresults&from=sform");
+
+                while (!stoppingToken.IsCancellationRequested)
+                {
+                    var start = DateTime.Now;
+
+                    await provider.ProcessDataAsync();
+
+                    var end = DateTime.Now;
+
+                    _logger.LogInformation($"{processItemsCount} items processing occurs {(end - start).TotalMilliseconds} ms");
+
+                    await Task.Delay(_settingsService.GetDelayBetweenStepsInMilliseconds(), stoppingToken);
+                }
             }
         }
     }

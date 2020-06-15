@@ -21,11 +21,10 @@ namespace FindUa.Parser.Core.Entities
         public string Description { get; set; }
         public int EngineVolumetric { get; set; }
         public int BodyTypeId { get; set; }
-        public int TranssmisionTypeId { get; set; }
+        public int TransmissionTypeId { get; set; }
         public int CityId { get; set; }
         public int FuelTypeId { get; set; }
         public int ModelId { get; set; }
-        public int SourceProviderId { get; set; }
 
         public BodyType BodyType { get; set; }
         public TransmissionType TransmissionType { get; set; }
