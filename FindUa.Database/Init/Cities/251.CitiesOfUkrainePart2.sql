@@ -18845,7 +18845,7 @@ USING
 	(2518852, 3543, N'Zapolye'),
 	(2518853, 3532, N'Zaporizhzhya'),
 	(2518854, 3549, N'Zaporizhzhya'),
-	(2518855, 3549, N'Zaporogye'),
+	(2518855, 3549, N'Zaporozh''e'),
 	(2518856, 3540, N'Zaporozhets'),
 	(2518857, 3532, N'Zaporozhets'),
 	(2518858, 3549, N'Zaporozhe'),

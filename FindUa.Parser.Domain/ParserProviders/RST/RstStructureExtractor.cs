@@ -10,7 +10,18 @@ namespace FindUa.Parser.Domain.ParserProviders.RST
     {
         public HtmlNode GetDetailedOfferStructure(HtmlDocument htmlDocument)
         {
-            return htmlDocument.GetElementbyId($"rst-page-oldcars-item");
+            var structure = htmlDocument.GetElementbyId($"rst-page-oldcars-item");
+
+            var adviceFromRstNode = structure.SelectSingleNode("//span[@class='rst-uix-billet']");
+
+            if (adviceFromRstNode != null)
+            {
+                var tableDataNode = adviceFromRstNode.ParentNode;
+                var tableRowNode = tableDataNode.ParentNode;
+                tableRowNode.Remove();
+            }
+
+            return structure;
         }
 
 

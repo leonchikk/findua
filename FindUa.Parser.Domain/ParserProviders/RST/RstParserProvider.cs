@@ -3,6 +3,7 @@ using FindUa.Parser.Core.DataAccess;
 using FindUa.Parser.Core.Entities;
 using FindUa.Parser.Core.ParserProvider;
 using FindUa.Parser.Core.ParserProvider.PropertyParsers;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,7 +12,10 @@ namespace FindUa.Parser.Domain.ParserProviders.RST
 {
     public class RstParserProvider : ParserProvider
     {
+        private readonly ILogger<RstParserProvider> _logger;
+
         public RstParserProvider(
+            ILogger<RstParserProvider> logger,
             IUnitOfWork unitOfWork,
             IMemoryStore memoryStore,
             IDataLoader dataLoader,
@@ -48,7 +52,9 @@ namespace FindUa.Parser.Domain.ParserProviders.RST
                   sourceLinkParser,
                   transmissionType,
                   yearParser)
-        { }
+        {
+            _logger = logger;
+        }
 
         public override async Task ProcessDataAsync()
         {
@@ -68,15 +74,18 @@ namespace FindUa.Parser.Domain.ParserProviders.RST
                         var detailedHtmlDocument = await DataLoader.LoadHtmlDocumentAsync(sourceLink);
                         var detailedOfferNode = StructureExtractor.GetDetailedOfferStructure(detailedHtmlDocument);
 
+                        if(detailedOfferNode == null)
+                            _logger.LogError("detailedOfferNode is null, source link " + sourceLink);
+
                         var saleAnnounce = new TransportSaleAnnounce()
                         {
                             SourceLink = sourceLink,
                             TransmissionTypeId = 1,
                             AdNumber = OfferNumberParser.ParseForDetailed(detailedOfferNode),
                             BodyTypeId = 1,
-                            CityId = 2480119,
+                            CityId = RegionParser.ParseForDetailed(detailedOfferNode).Id,
                             Description = "bla bla bla",
-                            EngineVolumetric = 1600,
+                            EngineVolumetric = EngineVolumetricParser.ParseForDetailed(detailedOfferNode),
                             FuelTypeId = 1,
                             ImageLink = "https://empty.com/image",
                             Mileage = MileageParser.ParseForDetailed(detailedOfferNode),
@@ -91,7 +100,7 @@ namespace FindUa.Parser.Domain.ParserProviders.RST
                 }
                 catch(Exception ex)
                 {
-
+                    _logger.LogError($"{ex.Message}\n{ex.StackTrace}");
                 }
                 finally
                 {
@@ -99,7 +108,8 @@ namespace FindUa.Parser.Domain.ParserProviders.RST
                 }
             }
 
-            await UnitOfWork.TransportSaleAnnouncesRepository.InsertBulkAsync(scrapedSaleAnnounces);
+            await UnitOfWork.TransportSaleAnnouncesRepository.AddRangeAsync(scrapedSaleAnnounces);
+            await UnitOfWork.SaveChangesAsync();
         }
     }
 }
