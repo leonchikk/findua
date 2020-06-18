@@ -76,21 +76,24 @@
     <Build Include="dbo\Tables\TransportSaleAnnounces.sql" />
     <Build Include="dbo\Tables\TransportConditionInSaleAnnounces.sql" />
     <Build Include="dbo\Tables\FuelTypes.sql" />
-    <None Include="Init\001.VehicleTypes.sql" />
-    <None Include="Init\006.BodyTypes.sql" />
+    <None Include="Init\003.VehicleTypes.sql" />
+    <None Include="Init\008.BodyTypes.sql" />
+    <Build Include="dbo\Tables\LocalizationKeys.sql" />
+    <Build Include="dbo\Tables\Localizations.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Init\005.Countries.sql" />
+    <None Include="Init\007.Countries.sql" />
     <None Include="Init\Regions\020.RegionsOfUkraine.sql" />
-    <None Include="Init\Cities\250.CitiesOfUkrainePart1.sql" />
-    <None Include="Init\Cities\251.CitiesOfUkrainePart2.sql" />
-    <None Include="Init\002.TransportConditions.sql" />
-    <None Include="Init\003.TransmissionTypes.sql" />
-    <None Include="Init\004.FuelTypes.sql" />
-    <None Include="Init\007.TransportBrands.sql" />
-    <None Include="Init\008.TransportModels.sql" />
+    <None Include="Init\Cities\250.CitiesOfUkraine.sql" />
+    <None Include="Init\004.TransportConditions.sql" />
+    <None Include="Init\005.TransmissionTypes.sql" />
+    <None Include="Init\006.FuelTypes.sql" />
+    <None Include="Init\009.TransportBrands.sql" />
+    <None Include="Init\010.TransportModels.sql" />
+    <None Include="Init\001.LocalizationKeys.sql" />
+    <None Include="Init\002.Localizations.sql" />
   </ItemGroup>
 </Project>

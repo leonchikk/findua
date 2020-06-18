@@ -1,6 +1,7 @@
 ﻿using FindUa.Parser.Core.ParserProvider.PropertyParsers;
 using HtmlAgilityPack;
 using System;
+using System.Linq;
 
 namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
 {
@@ -8,14 +9,16 @@ namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
     {
         public int ParseForDetailed(HtmlNode htmlNode)
         {
-            var charactiristicsBlock = htmlNode.ChildNodes[10];
-            var charactiristicsList = charactiristicsBlock.ChildNodes[3];
-            var yearAndMileageBlock = charactiristicsList.ChildNodes[1];
-            var yearAndMileageContent = yearAndMileageBlock.ChildNodes[1];
-            var year = yearAndMileageContent.ChildNodes[0];
+            var yearBlock = htmlNode.Descendants()
+               .Where(n => n.InnerText.Contains("Год выпуска", StringComparison.OrdinalIgnoreCase))
+               .ToList();
 
-            var numberString = year.InnerText;
+            var isTableRepresentation = yearBlock.Any(n => n.Name == "tr");
+            var targetTag = isTableRepresentation ? "tr" : "li";
 
+            var yearInfo = yearBlock.FirstOrDefault(x => x.Name == targetTag).ChildNodes.Last().ChildNodes["a"];
+
+            var numberString = yearInfo.InnerText;
             return int.Parse(numberString);
         }
 

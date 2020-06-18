@@ -16,6 +16,8 @@ namespace FindUa.Parser.Data.Contexts
         public DbSet<City> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<FuelType> FuelTypes { get; set; }
+        public DbSet<Localization> Localizations { get; set; }
+        public DbSet<LocalizationKey> LocalizationKeys { get; set; }
         public DbSet<Region> Regions { get; set; }
         public DbSet<TransmissionType> TransmissionTypes { get; set; }
         public DbSet<TransportBrand> Brands { get; set; }
@@ -30,6 +32,9 @@ namespace FindUa.Parser.Data.Contexts
             modelBuilder.HasDefaultSchema("dbo");
             modelBuilder.ApplyConfiguration(new BodyTypeEntityConfiguration());
             modelBuilder.ApplyConfiguration(new CityEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new CountryEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new LocalizationEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new LocalizationKeyEntityConfiguration());
             modelBuilder.ApplyConfiguration(new RegionEntityConfiguration());
             modelBuilder.ApplyConfiguration(new SaleAnnounceEntityConfiguration());
             modelBuilder.ApplyConfiguration(new TransportBrandEntityConfiguration());

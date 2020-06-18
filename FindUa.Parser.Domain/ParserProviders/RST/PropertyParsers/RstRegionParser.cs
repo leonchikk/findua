@@ -2,6 +2,7 @@
 using FindUa.Parser.Core.Entities;
 using FindUa.Parser.Core.ParserProvider.PropertyParsers;
 using HtmlAgilityPack;
+using System;
 using System.Linq;
 using UnidecodeSharpCore;
 
@@ -18,39 +19,46 @@ namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
 
         public City ParseForDetailed(HtmlNode htmlNode)
         {
-            City parsedCity = null;
+            var regionBlock = htmlNode.Descendants()
+                .Where(n => n.InnerText.Contains("Область"))
+                .ToList();
 
-            var charactiristicsBlock = htmlNode.ChildNodes[10];
-            var charactiristicsList = charactiristicsBlock.ChildNodes[3];
+            var containsCity = regionBlock.Any(n => n.InnerText.Contains("город"));
+            var isTableRepresentation = regionBlock.Any(n => n.Name == "tr");
+            var targetTag = isTableRepresentation ? "tr" : "li";
+         
+            var regionInfoBlock = regionBlock.FirstOrDefault(x => x.Name == targetTag);
 
-            var regionBlock = charactiristicsList.ChildNodes[5];
-            var regionCityBlock = regionBlock.ChildNodes[1];
-            var cityBlock = regionCityBlock.ChildNodes[2];
-
-            string latinCityName = string.Empty;
-
-            if (cityBlock.ChildNodes.Count == 0) // We get only region, without city
-            {
-                var latinNameOfRegion = regionCityBlock.InnerText.Unidecode();
-
-                parsedCity = _memoryStore.Cities.FirstOrDefault(x => x.Name.Contains(regionCityBlock.InnerText.Unidecode()));
-
-                if (parsedCity == null) // When region and main city names on't match (for example lutsk is volynsk'a oblast) so take first city
-                {
-                    parsedCity = _memoryStore.Cities.FirstOrDefault(x => x.Region.Name.Contains(regionCityBlock.InnerText.Unidecode()));
-                }
-            }
+            if (containsCity)
+                return GetTargetCity(regionInfoBlock);
             else
-            {
-                latinCityName = cityBlock.ChildNodes[1]?.InnerText.Unidecode();
+                return GetRegionCenter(regionInfoBlock);
+        }
 
-                parsedCity = _memoryStore.Cities.FirstOrDefault(x => x.Name == latinCityName);
-            }
+        private City GetTargetCity(HtmlNode regionInfoBlock)
+        {
+            var cyrillicCityName = regionInfoBlock.Descendants().Where(x => x.Name == "a").Last().InnerText;
+            var latinCityName = cyrillicCityName.Unidecode();
 
-            if (parsedCity == null) 
-            {
-                throw new System.Exception("Latin city name = " + latinCityName + " " + regionBlock.InnerHtml);
-            }
+            var parsedCity = _memoryStore.Cities.FirstOrDefault(x => x.Title.Contains(latinCityName, StringComparison.OrdinalIgnoreCase));
+
+            if (parsedCity == null)
+                return GetRegionCenter(regionInfoBlock);
+
+            return parsedCity;
+        }
+
+        private City GetRegionCenter(HtmlNode regionInfoBlock)
+        {
+            var cyrillicRegionName = regionInfoBlock.Descendants().Where(x => x.Name == "a").First().InnerText;
+            var latinRegionName = cyrillicRegionName.Unidecode();
+
+            var parsedCity = _memoryStore.Cities.FirstOrDefault(x => 
+                (
+                    x.Region.Title.Contains(latinRegionName, StringComparison.OrdinalIgnoreCase) || 
+                    x.Region.ShortTitle.Contains(latinRegionName, StringComparison.OrdinalIgnoreCase)
+                ) 
+                && x.IsRegionalCenter);
 
             return parsedCity;
         }

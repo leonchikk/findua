@@ -19,11 +19,13 @@ namespace FindUa.Parser.Domain.ParserProviders.RST
             IUnitOfWork unitOfWork,
             IMemoryStore memoryStore,
             IDataLoader dataLoader,
+            IDescriptionParser descriptionParser,
             IBodyTypeParser bodyTypeParser,
             IBrandParser brandParser,
             ICarConditionParser carConditionParser,
             IEngineVolumetricParser engineVolumetricParser,
             IFuelTypeParser fuelTypeParser,
+            IImageLinkParser imageLinkParser,
             IStructureExtractor structureExtractor,
             IMileageParser mileageParser,
             IModelParser modelParser,
@@ -40,8 +42,10 @@ namespace FindUa.Parser.Domain.ParserProviders.RST
                   brandParser,
                   carConditionParser,
                   dataLoader,
+                  descriptionParser,
                   engineVolumetricParser,
                   fuelTypeParser,
+                  imageLinkParser,
                   structureExtractor,
                   mileageParser,
                   modelParser,
@@ -68,14 +72,11 @@ namespace FindUa.Parser.Domain.ParserProviders.RST
                     var htmlDocument = await DataLoader.LoadHtmlDocumentAsync(UrlForScrapping);
                     var previewOffers = StructureExtractor.GetPreviewOfferStructure(htmlDocument, ScrappingPage);
 
-                    foreach (var previewOffer in previewOffers)
+                    foreach (var previewOfferNode in previewOffers)
                     {
-                        var sourceLink = SourceLinkParser.GetLink(previewOffer, BaseUrl);
+                        var sourceLink = SourceLinkParser.GetLink(previewOfferNode, BaseUrl);
                         var detailedHtmlDocument = await DataLoader.LoadHtmlDocumentAsync(sourceLink);
                         var detailedOfferNode = StructureExtractor.GetDetailedOfferStructure(detailedHtmlDocument);
-
-                        if(detailedOfferNode == null)
-                            _logger.LogError("detailedOfferNode is null, source link " + sourceLink);
 
                         var saleAnnounce = new TransportSaleAnnounce()
                         {
@@ -84,19 +85,22 @@ namespace FindUa.Parser.Domain.ParserProviders.RST
                             AdNumber = OfferNumberParser.ParseForDetailed(detailedOfferNode),
                             BodyTypeId = 1,
                             CityId = RegionParser.ParseForDetailed(detailedOfferNode).Id,
-                            Description = "bla bla bla",
+                            Description = DescriptionParser.ParseForDetailed(detailedOfferNode),
                             EngineVolumetric = EngineVolumetricParser.ParseForDetailed(detailedOfferNode),
                             FuelTypeId = 1,
-                            ImageLink = "https://empty.com/image",
+                            PreviewImageLink = ImageLinkParser.ParseForPreview(previewOfferNode),
                             Mileage = MileageParser.ParseForDetailed(detailedOfferNode),
                             ModelId = 1666,
                             Price = 20,
                             UpdateOfferTime = DateTime.Now,
-                            Year = YearParser.ParseForDetailed(detailedOfferNode)
+                            Year = YearParser.ParseForDetailed(detailedOfferNode),
+                            CreatedAt = DateTime.Now
                         };
 
                         scrapedSaleAnnounces.Add(saleAnnounce);
                     }
+
+                    await UnitOfWork.TransportSaleAnnouncesRepository.InsertBulkAsync(scrapedSaleAnnounces);
                 }
                 catch(Exception ex)
                 {
@@ -107,9 +111,6 @@ namespace FindUa.Parser.Domain.ParserProviders.RST
                     ScrappingPage++;
                 }
             }
-
-            await UnitOfWork.TransportSaleAnnouncesRepository.AddRangeAsync(scrapedSaleAnnounces);
-            await UnitOfWork.SaveChangesAsync();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace FindUa.Parser.Core.Entities
         public int Mileage { get; set; }
         public double Price { get; set; }
         public string SourceLink { get; set; }
-        public string ImageLink { get; set; }
+        public string PreviewImageLink { get; set; }
         public DateTime UpdateOfferTime { get; set; }
         public string Description { get; set; }
         public int EngineVolumetric { get; set; }

@@ -1,6 +1,8 @@
 ﻿using FindUa.Parser.Core.ParserProvider.PropertyParsers;
 using HtmlAgilityPack;
 using System;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
 {
@@ -8,23 +10,18 @@ namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
     {
         public int ParseForDetailed(HtmlNode htmlNode)
         {
-            var charactiristicsBlock = htmlNode.ChildNodes[10];
-            var charactiristicsList = charactiristicsBlock.ChildNodes[3];
-            var fuelTypeAndEngineVolumetricBlock = charactiristicsList.ChildNodes[2];
-            var fuelTypeAndEngineVolumetric = fuelTypeAndEngineVolumetricBlock.ChildNodes[1];
-            var engineVolumetricNode = fuelTypeAndEngineVolumetric.ChildNodes[0];
+            var engineBlock = htmlNode.Descendants()
+                .Where(n => n.InnerText.Contains("Двигатель"))
+                .ToList();
 
-            string numberString = null;
-            try
-            {
-                numberString = engineVolumetricNode.InnerText;
-                var engineVolumetric = double.Parse(numberString);
-                return (int)Math.Ceiling(engineVolumetric * 1000);
-            }
-            catch(Exception ex)
-            {
-                throw new Exception($"RstEngineVolumetricParser {fuelTypeAndEngineVolumetricBlock.InnerHtml}\n Number string: {numberString}");
-            }
+            var isTableRepresentation = engineBlock.Any(n => n.Name == "tr");
+            var targetTag = isTableRepresentation ? "tr" : "li";
+
+            var engineVolumetricNode = engineBlock.FirstOrDefault(x => x.Name == targetTag).ChildNodes.Last();
+            var numberString = Regex.Replace(engineVolumetricNode.InnerText, "[^0-9.]", "");
+            var engineVolumetric = double.Parse(numberString);
+
+            return (int)Math.Ceiling(engineVolumetric * 1000);
         }
 
         public int ParseForPreview(HtmlNode htmlNode)

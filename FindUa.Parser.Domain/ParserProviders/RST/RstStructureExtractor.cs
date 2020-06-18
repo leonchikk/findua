@@ -21,6 +21,11 @@ namespace FindUa.Parser.Domain.ParserProviders.RST
                 tableRowNode.Remove();
             }
 
+            structure.Descendants()
+                .Where(n => n.Name == "script" || n.Name == "style")
+                .ToList()
+                .ForEach(n => n.Remove());
+
             return structure;
         }
 

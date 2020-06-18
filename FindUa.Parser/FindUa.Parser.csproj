@@ -9,4 +9,10 @@
     <ProjectReference Include="..\FindUa.Parser.Domain\FindUa.Parser.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

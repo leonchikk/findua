@@ -10,10 +10,15 @@ namespace FindUa.Parser.Core.Entities
             Cities = new HashSet<City>();
         }
 
-        public int CountryId { get; set; }
-        public string Name { get; set; }
+        public string Title { get; set; }
+        public string ShortTitle { get; set; }
 
+        public int LocalizationKeyId { get; set; }
+        public LocalizationKey LocalizationKey { get; set; }
+
+        public int CountryId { get; set; }
         public Country Country { get; set; }
+
         public ICollection<City> Cities { get; set; }
     }
 }

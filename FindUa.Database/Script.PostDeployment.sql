@@ -1,33 +1,41 @@
-﻿/*001.VehicleTypes*/
-:r .\Init\001.VehicleTypes.sql
+﻿/*001.LocalizationKeys*/
+:r .\Init\001.LocalizationKeys.sql
 GO
 
-/*002.TransportConditions*/
-:r .\Init\002.TransportConditions.sql
+/*002.LocalizationKeys*/
+:r .\Init\002.Localizations.sql
 GO
 
-/*003.TransmissionTypes*/
-:r .\Init\003.TransmissionTypes.sql
+/*003.VehicleTypes*/
+:r .\Init\003.VehicleTypes.sql
 GO
 
-/*004.FuelTypes*/
-:r .\Init\004.FuelTypes.sql
+/*004.TransportConditions*/
+:r .\Init\004.TransportConditions.sql
 GO
 
-/*005.Countries*/
-:r .\Init\005.Countries.sql
+/*005.TransmissionTypes*/
+:r .\Init\005.TransmissionTypes.sql
 GO
 
-/*006.BodyTypes*/
-:r .\Init\006.BodyTypes.sql
+/*006.FuelTypes*/
+:r .\Init\006.FuelTypes.sql
+GO
+
+/*007.Countries*/
+:r .\Init\007.Countries.sql
+GO
+
+/*008.BodyTypes*/
+:r .\Init\008.BodyTypes.sql
 GO
 
 /*009.TransportBrands*/
-:r .\Init\007.TransportBrands.sql
+:r .\Init\009.TransportBrands.sql
 GO
 
-/*008.TransportModels*/
-:r .\Init\008.TransportModels.sql
+/*010.TransportModels*/
+:r .\Init\010.TransportModels.sql
 GO
 
 /*020.Regions*/
@@ -35,9 +43,5 @@ GO
 GO
 
 /*250.Cities*/
-:r .\Init\Cities\250.CitiesOfUkrainePart1.sql
-GO
-
-/*251.Cities*/
-:r .\Init\Cities\251.CitiesOfUkrainePart2.sql
+:r .\Init\Cities\250.CitiesOfUkraine.sql
 GO

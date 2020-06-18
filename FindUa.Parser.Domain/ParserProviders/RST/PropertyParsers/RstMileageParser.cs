@@ -1,6 +1,7 @@
 ﻿using FindUa.Parser.Core.ParserProvider.PropertyParsers;
 using HtmlAgilityPack;
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
@@ -15,13 +16,16 @@ namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
 
         public int ParseForDetailed(HtmlNode htmlNode)
         {
-            var charactiristicsBlock = htmlNode.ChildNodes[10];
-            var charactiristicsList = charactiristicsBlock.ChildNodes[3];
-            var yearAndMileageBlock = charactiristicsList.ChildNodes[1];
-            var yearAndMileageContent = yearAndMileageBlock.ChildNodes[1];
-            var mileage = yearAndMileageContent.ChildNodes[2];
+            var millageBlock = htmlNode.Descendants()
+                .Where(n => n.InnerText.Contains("Пробег", StringComparison.OrdinalIgnoreCase))
+                .ToList();
 
-            var numberString = mileage.InnerText;
+            var isTableRepresentation = millageBlock.Any(n => n.Name == "tr");
+            var targetTag = isTableRepresentation ? "tr" : "li";
+
+            var mileageInfo = millageBlock.FirstOrDefault(x => x.Name == targetTag).ChildNodes.Last().ChildNodes["span"];
+
+            var numberString = mileageInfo.InnerText;
 
             return MileageStringToInt(numberString);
         }

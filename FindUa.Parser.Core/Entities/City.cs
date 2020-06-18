@@ -5,9 +5,13 @@ namespace FindUa.Parser.Core.Entities
 {
     public class City : BaseEntity
     {
-        public int RegionId { get; set; }
-        public string Name { get; set; }
+        public string Title { get; set; }
+        public bool IsRegionalCenter { get; set; }
 
+        public int RegionId { get; set; }
         public Region Region { get; set; }
+
+        public int LocalizationKeyId { get; set; }
+        public LocalizationKey LocalizationKey { get; set; }
     }
 }

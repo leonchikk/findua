@@ -29,7 +29,7 @@ namespace FindUa.Parser.BackgroundWorkers
         {
             using (var scope = _serviceProvider.CreateScope())
             {
-                var processItemsCount = 1000;
+                var processItemsCount = _settingsService.GetItemsCountForStep();
                 var provider = ParserProviderFactory.CreateRtsParserProvider(scope)
                                                 .SetDaysCountForProcessing(1)
                                                 .SetItemsCountForStep(processItemsCount)

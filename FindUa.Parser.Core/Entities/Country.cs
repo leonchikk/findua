@@ -10,9 +10,11 @@ namespace FindUa.Parser.Core.Entities
             Regions = new HashSet<Region>();
         }
 
-        public string Name { get; set; }
-        public string Code { get; set; }
-        public string Language { get; set; }
+        public string Title { get; set; }
+
+        public int LocalizationKeyId { get; set; }
+        public LocalizationKey LocalizationKey { get; set; }
+
         public ICollection<Region> Regions { get; set; }
     }
 }

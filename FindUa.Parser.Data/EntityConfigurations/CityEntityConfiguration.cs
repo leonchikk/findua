@@ -13,6 +13,8 @@ namespace FindUa.Parser.Data.EntityConfigurations
             builder.HasOne(x => x.Region)
                    .WithMany(x => x.Cities)
                    .HasForeignKey(x => x.RegionId);
+
+            builder.HasOne(x => x.LocalizationKey);
         }
     }
 }

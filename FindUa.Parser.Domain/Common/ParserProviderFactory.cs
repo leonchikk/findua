@@ -23,17 +23,21 @@ namespace FindUa.Parser.Domain.Common
             var mileageParser = new RstMileageParser();
             var engineVolumetric = new RstEngineVolumetricParser();
             var regionParser = new RstRegionParser(memoryStore);
+            var imageLinkParser = new RstImageLinkParser();
+            var descriptionParser = new RstDescriptionParser();
 
             var parser = new RstParserProvider(
                 logger,
                 unitOfWork,
                 memoryStore,
                 dataLoader,
+                descriptionParser,
                 null,
                 null,
                 null,
                 engineVolumetric,
                 null,
+                imageLinkParser,
                 structureExtractor,
                 mileageParser,
                 null,
