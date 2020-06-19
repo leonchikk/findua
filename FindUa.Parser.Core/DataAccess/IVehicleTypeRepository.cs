@@ -7,6 +7,6 @@ namespace FindUa.Parser.Core.DataAccess
 {
     public interface IVehicleTypeRepository: IRepository<VehicleType>
     {
-        Task<IList<VehicleType>> LoadAllAsync();
+        Task<IList<VehicleType>> LoadAllAsyncAsNoTracking();
     }
 }

@@ -7,6 +7,6 @@ namespace FindUa.Parser.Core.DataAccess
 {
     public interface ITransportConditionRepository : IRepository<TransportCondition>
     {
-        Task<IList<TransportCondition>> LoadAllAsync();
+        Task<IList<TransportCondition>> LoadAllAsyncAsNoTracking();
     }
 }

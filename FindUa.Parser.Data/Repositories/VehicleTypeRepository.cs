@@ -13,9 +13,10 @@ namespace FindUa.Parser.Data.Repositories
         {
         }
 
-        public async Task<IList<VehicleType>> LoadAllAsync()
+        public async Task<IList<VehicleType>> LoadAllAsyncAsNoTracking()
         {
-            return await DbSet.ToListAsync();
+            return await DbSet.AsNoTracking()
+                              .ToListAsync();
         }
     }
 }

@@ -7,6 +7,6 @@ namespace FindUa.Parser.Core.DataAccess
 {
     public interface IBodyTypeRepository : IRepository<BodyType>
     {
-        Task<IList<BodyType>> LoadAllAsync();
+        Task<IList<BodyType>> LoadAllAsyncAsNoTracking();
     }
 }

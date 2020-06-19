@@ -43,8 +43,8 @@ namespace FindUa.Parser.Data.Repositories
         public ITransmissionTypeRepository TransmissionTypesRepository => _transmissionTypesRepository ?? new TransmissionTypeRepository(_dbContext);
 
 
-        private IRepository<TransportBrand> _brandsRepository;
-        public IRepository<TransportBrand> BrandsRepository => _brandsRepository ?? (_brandsRepository = new BaseRepository<TransportBrand>(_dbContext));
+        private ITransportBrandRepository _brandsRepository;
+        public ITransportBrandRepository BrandsRepository => _brandsRepository ?? (_brandsRepository = new TransportBrandRepository(_dbContext));
 
 
         private ITransportConditionRepository _transportConditionsRepository;

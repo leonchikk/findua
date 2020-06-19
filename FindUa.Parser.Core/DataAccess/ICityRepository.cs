@@ -7,6 +7,6 @@ namespace FindUa.Parser.Core.DataAccess
 {
     public interface ICityRepository : IRepository<City>
     {
-        Task<IList<City>> LoadAllAsync();
+        Task<IList<City>> LoadAllAsyncAsNoTracking();
     }
 }

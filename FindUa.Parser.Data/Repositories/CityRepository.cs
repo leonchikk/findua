@@ -13,10 +13,11 @@ namespace FindUa.Parser.Data.Repositories
         {
         }
 
-        public async Task<IList<City>> LoadAllAsync()
+        public async Task<IList<City>> LoadAllAsyncAsNoTracking()
         {
             return await DbSet.Include(city => city.Region)
                               .ThenInclude(region => region.Country)
+                              .AsNoTracking()
                               .ToListAsync();
         }
     }

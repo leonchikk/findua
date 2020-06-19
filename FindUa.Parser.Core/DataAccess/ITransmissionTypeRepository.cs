@@ -7,6 +7,6 @@ namespace FindUa.Parser.Core.DataAccess
 {
     public interface ITransmissionTypeRepository : IRepository<TransmissionType>
     {
-        Task<IList<TransmissionType>> LoadAllAsync();
+        Task<IList<TransmissionType>> LoadAllAsyncAsNoTracking();
     }
 }

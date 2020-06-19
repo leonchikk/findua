@@ -12,7 +12,7 @@ namespace FindUa.Parser.Core.DataAccess
         IFuelTypeRepository FuelTypesRepository { get; }
         IRepository<Region> RegionsRepository { get; }
         ITransmissionTypeRepository TransmissionTypesRepository { get; }
-        IRepository<TransportBrand> BrandsRepository { get; }
+        ITransportBrandRepository BrandsRepository { get; }
         ITransportConditionRepository TransportConditionsRepository { get; }
         IRepository<TransportConditionInSaleAnnounce> TransportConditionInSaleAnnouncesRepository { get; }
         ITransportModelRepository ModelsRepository { get; }

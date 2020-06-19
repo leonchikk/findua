@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[TransportModels]
 (
-	[Id]		INT				NOT NULL,
+	[Id]		INT				NOT NULL IDENTITY(1, 1),
 	[BrandId]	INT				NOT NULL,
 	[Name]		NVARCHAR(255)	NOT NULL,
 	[IsDeleted]	BIT				DEFAULT 0 NOT NULL,

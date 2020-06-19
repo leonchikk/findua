@@ -10,6 +10,10 @@ namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
         public string ParseForDetailed(HtmlNode htmlNode)
         {
             var content = htmlNode.SelectNodes("//*[@id=\"rst-page-oldcars-item-option-block-container-desc\"]");
+
+            if (content == null)
+                return string.Empty;
+
             var description = content["div"].InnerText
                 .RemoveSpecialCharacters()
                 .RemoveAllTabulations()

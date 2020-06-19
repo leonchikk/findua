@@ -13,10 +13,24 @@ namespace FindUa.Parser.Data.Repositories
         {
         }
 
-        public async Task<IList<TransportModel>> LoadAllAsync()
+        public TransportModel Create(string modelName, int brandId)
+        {
+            var model = new TransportModel()
+            {
+                BrandId = brandId,
+                Name = modelName
+            };
+
+            DbSet.Add(model);
+
+            return model;
+        }
+
+        public async Task<IList<TransportModel>> LoadAllAsyncAsNoTracking()
         {
             return await DbSet.Include(model => model.Brand)
                               .ThenInclude(brand => brand.VehicleType)
+                              .AsNoTracking()
                               .ToListAsync();
         }
     }

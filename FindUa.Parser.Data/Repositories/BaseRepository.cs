@@ -171,5 +171,10 @@ namespace FindUa.Parser.Data.Repositories
         {
             await _dbContext.BulkInsertAsync(entities);
         }
+
+        public void Detach(T obj)
+        {
+            _dbContext.Entry(obj).State = EntityState.Detached;
+        }
     }
 }

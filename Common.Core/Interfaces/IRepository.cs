@@ -38,6 +38,7 @@ namespace Common.Core.Interfaces
         T GetByIdAsNoTracking(int id);
         T GetByIdWithIncludies(int id, params Expression<Func<T, object>>[] includeProperties);
         T GetByIdWithIncludiesAsNoTracking(int id, params Expression<Func<T, object>>[] includeProperties);
+        void Detach(T obj);
 
         Task InsertBulkAsync(IList<T> entities);
     }

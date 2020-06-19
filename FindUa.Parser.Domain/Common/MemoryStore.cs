@@ -1,10 +1,8 @@
 ﻿using FindUa.Parser.Core.Common;
 using FindUa.Parser.Core.DataAccess;
 using FindUa.Parser.Core.Entities;
-using System;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace FindUa.Parser.Domain.Common
 {
@@ -22,18 +20,20 @@ namespace FindUa.Parser.Domain.Common
         public ConcurrentBag<FuelType> FuelTypes { get; private set; }
         public ConcurrentBag<TransmissionType> TransmissionTypes { get; private set; }
         public ConcurrentBag<TransportCondition> TransportConditions { get; private set; }
+        public ConcurrentBag<TransportBrand> TransportBrands  { get; private set; }
         public ConcurrentBag<TransportModel> TransportModels { get; private set; }
         public ConcurrentBag<VehicleType> VehicleTypes { get; private set; }
 
         public async Task LoadDataAsync()
         {
-            Cities = new ConcurrentBag<City>(await _unitOfWork.CitiesRepository.LoadAllAsync());
-            BodyTypes = new ConcurrentBag<BodyType>(await _unitOfWork.BodyTypesRepository.LoadAllAsync());
-            FuelTypes = new ConcurrentBag<FuelType>(await _unitOfWork.FuelTypesRepository.LoadAllAsync());
-            TransmissionTypes = new ConcurrentBag<TransmissionType>(await _unitOfWork.TransmissionTypesRepository.LoadAllAsync());
-            TransportConditions = new ConcurrentBag<TransportCondition>(await _unitOfWork.TransportConditionsRepository.LoadAllAsync());
-            TransportModels = new ConcurrentBag<TransportModel>(await _unitOfWork.ModelsRepository.LoadAllAsync());
-            VehicleTypes = new ConcurrentBag<VehicleType>(await _unitOfWork.VehicleTypesRepository.LoadAllAsync());
+            Cities = new ConcurrentBag<City>(await _unitOfWork.CitiesRepository.LoadAllAsyncAsNoTracking());
+            BodyTypes = new ConcurrentBag<BodyType>(await _unitOfWork.BodyTypesRepository.LoadAllAsyncAsNoTracking());
+            FuelTypes = new ConcurrentBag<FuelType>(await _unitOfWork.FuelTypesRepository.LoadAllAsyncAsNoTracking());
+            TransmissionTypes = new ConcurrentBag<TransmissionType>(await _unitOfWork.TransmissionTypesRepository.LoadAllAsyncAsNoTracking());
+            TransportConditions = new ConcurrentBag<TransportCondition>(await _unitOfWork.TransportConditionsRepository.LoadAllAsyncAsNoTracking());
+            TransportBrands = new ConcurrentBag<TransportBrand>(await _unitOfWork.BrandsRepository.LoadAllAsyncAsNoTracking());
+            TransportModels = new ConcurrentBag<TransportModel>(await _unitOfWork.ModelsRepository.LoadAllAsyncAsNoTracking());
+            VehicleTypes = new ConcurrentBag<VehicleType>(await _unitOfWork.VehicleTypesRepository.LoadAllAsyncAsNoTracking());
         }
     }
 }

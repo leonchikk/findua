@@ -7,6 +7,7 @@ namespace FindUa.Parser.Core.DataAccess
 {
     public interface ITransportModelRepository: IRepository<TransportModel>
     {
-        Task<IList<TransportModel>> LoadAllAsync();
+        TransportModel Create(string modelName, int brandId);
+        Task<IList<TransportModel>> LoadAllAsyncAsNoTracking();
     }
 }

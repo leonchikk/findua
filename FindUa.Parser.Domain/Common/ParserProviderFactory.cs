@@ -12,7 +12,8 @@ namespace FindUa.Parser.Domain.Common
     {
         public static ParserProvider CreateRtsParserProvider(IServiceScope serviceScope)
         {
-            var logger = serviceScope.ServiceProvider.GetService<ILogger<RstParserProvider>>();
+            var parseProviderLogger = serviceScope.ServiceProvider.GetService<ILogger<RstParserProvider>>();
+            var modelParseLogger = serviceScope.ServiceProvider.GetService<ILogger<RstModelParser>>();
             var unitOfWork = serviceScope.ServiceProvider.GetService<IUnitOfWork>();
             var memoryStore = serviceScope.ServiceProvider.GetService<IMemoryStore>();
             var dataLoader = serviceScope.ServiceProvider.GetService<IDataLoader>();
@@ -25,9 +26,10 @@ namespace FindUa.Parser.Domain.Common
             var regionParser = new RstRegionParser(memoryStore);
             var imageLinkParser = new RstImageLinkParser();
             var descriptionParser = new RstDescriptionParser();
+            var modelParser = new RstModelParser(memoryStore, unitOfWork, modelParseLogger);
 
             var parser = new RstParserProvider(
-                logger,
+                parseProviderLogger,
                 unitOfWork,
                 memoryStore,
                 dataLoader,
@@ -40,7 +42,7 @@ namespace FindUa.Parser.Domain.Common
                 imageLinkParser,
                 structureExtractor,
                 mileageParser,
-                null,
+                modelParser,
                 offerNumberParser,
                 null,
                 null,
