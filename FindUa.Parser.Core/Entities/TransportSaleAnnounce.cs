@@ -14,7 +14,7 @@ namespace FindUa.Parser.Core.Entities
         public long AdNumber { get; set; }
         public int Year { get; set; }
         public int Mileage { get; set; }
-        public double Price { get; set; }
+        public double PriceInDollars { get; set; }
         public string SourceLink { get; set; }
         public string PreviewImageLink { get; set; }
         public DateTime UpdateOfferTime { get; set; }

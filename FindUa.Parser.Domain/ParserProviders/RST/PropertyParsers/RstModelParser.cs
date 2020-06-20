@@ -2,6 +2,7 @@
 using FindUa.Parser.Core.DataAccess;
 using FindUa.Parser.Core.Entities;
 using FindUa.Parser.Core.ParserProvider.PropertyParsers;
+using FindUa.Parser.Domain.Enumerations;
 using FindUa.Parser.Domain.Extensions;
 using HtmlAgilityPack;
 using Microsoft.Extensions.Logging;
@@ -31,6 +32,8 @@ namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
             var modelBrandBlock = htmlNode.OwnerDocument
                 .GetElementbyId("rst-page-oldcars-tree-block");
 
+            var vehicleTypeId = (int) GetVehicleType(htmlNode);
+
             var brandBlock = modelBrandBlock.ChildNodes[4];
             var modelBlock = modelBrandBlock.ChildNodes[6];
 
@@ -39,24 +42,18 @@ namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
                                                 .RemoveAllDashes();
 
             var brand = _memoryStore.TransportBrands
-                .Where(x => x.Name.Equals(brandName, StringComparison.OrdinalIgnoreCase))
+                .Where(x => x.Name.Equals(brandName, StringComparison.OrdinalIgnoreCase) && x.VehicleTypeId == vehicleTypeId)
                 .FirstOrDefault();
 
             if (brand == null)
                 brand = _memoryStore.TransportBrands
-                    .Where(x => x.Name.Contains(brandName, StringComparison.OrdinalIgnoreCase) ||
-                           brandName.Contains(x.Name, StringComparison.OrdinalIgnoreCase))
+                    .Where(x => (x.Name.Contains(brandName, StringComparison.OrdinalIgnoreCase) ||
+                           brandName.Contains(x.Name, StringComparison.OrdinalIgnoreCase)) &&
+                           x.VehicleTypeId == vehicleTypeId)
                     .FirstOrDefault();
 
             if (brand == null)
-            {
-                brand = _unitOfWork.BrandsRepository.Create(modelName, brand.Id);
-                _unitOfWork.SaveChangesAsync().ConfigureAwait(false).GetAwaiter().GetResult();
-                _unitOfWork.BrandsRepository.Detach(brand);
-                _memoryStore.TransportBrands.Add(brand);
-
-                _logger.LogInformation($"Add new brand {brand.Name}");
-            }
+                brand = CreateBrand(brandName, vehicleTypeId);
 
             var model = _memoryStore.TransportModels
                 .Where
@@ -76,16 +73,7 @@ namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
                 .FirstOrDefault();
 
             if (model == null)
-            {
-                model = _unitOfWork.ModelsRepository.Create(modelName, brand.Id);
-                _unitOfWork.SaveChangesAsync().ConfigureAwait(false).GetAwaiter().GetResult();
-                _unitOfWork.ModelsRepository.Detach(model);
-
-                model.Brand = brand;
-                _memoryStore.TransportModels.Add(model);
-
-                _logger.LogInformation($"Add new model {modelName} to brand {brand.Name}");
-            }
+                model = CreateModel(modelName, brand);
 
             return model;
         }
@@ -93,6 +81,52 @@ namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
         public TransportModel ParseForPreview(HtmlNode htmlNode)
         {
             throw new NotImplementedException();
+        }
+
+        private VehicleTypeEnum GetVehicleType(HtmlNode offerBlock)
+        {
+            if (offerBlock.InnerText.Contains("Прицеп", StringComparison.OrdinalIgnoreCase))
+                return VehicleTypeEnum.Trailer;
+
+            if (offerBlock.InnerText.Contains("Мото", StringComparison.OrdinalIgnoreCase))
+                return VehicleTypeEnum.Moto;
+
+            if (offerBlock.InnerText.Contains("Авиатехника", StringComparison.OrdinalIgnoreCase))
+                return VehicleTypeEnum.AirTransport;
+
+            if (offerBlock.InnerText.Contains("Спецтехника", StringComparison.OrdinalIgnoreCase))
+                return VehicleTypeEnum.SpecialMachinery;
+
+            if (offerBlock.InnerText.Contains("ВОДНЫЙ ТР.", StringComparison.OrdinalIgnoreCase))
+                return VehicleTypeEnum.WaterTtransport;
+
+            return VehicleTypeEnum.PassengerCar;
+        }
+
+        private TransportModel CreateModel(string modelName, TransportBrand brand)
+        {
+            var model = _unitOfWork.ModelsRepository.Create(modelName, brand.Id);
+            _unitOfWork.SaveChangesAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+            _unitOfWork.ModelsRepository.Detach(model);
+
+            model.Brand = brand;
+            _memoryStore.TransportModels.Add(model);
+
+            _logger.LogInformation($"Add new model {modelName} to brand {brand.Name}");
+
+            return model;
+        }
+
+        private TransportBrand CreateBrand(string brandName, int vehicleTypeId)
+        {
+            var brand = _unitOfWork.BrandsRepository.Create(brandName, vehicleTypeId);
+            _unitOfWork.SaveChangesAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+            _unitOfWork.BrandsRepository.Detach(brand);
+            _memoryStore.TransportBrands.Add(brand);
+
+            _logger.LogInformation($"Add new brand {brand.Name}");
+
+            return brand;
         }
     }
 }

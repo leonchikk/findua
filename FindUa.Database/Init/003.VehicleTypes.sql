@@ -11,7 +11,8 @@ USING
 	(7, N'Bus'),
 	(8, N'Trailer'),
 	(9, N'HouseOnWheels'),
-	(10, N'Other')
+	(10, N'WaterTransport'),
+	(11, N'Other')
 ) AS Source ([Id], [Name])
 ON (Target.[Id] = Source.[Id])
 WHEN NOT MATCHED THEN

@@ -3,7 +3,7 @@
 	[Id]				 INT			NOT NULL IDENTITY(1, 1),
 	[AdNumber]			 BIGINT			NOT NULL,
 	[Year]				 INT			NOT NULL,
-	[Price]				 FLOAT			NOT NULL,
+	[PriceInDollars]	 FLOAT			NOT NULL,
 	[SourceLink]		 NVARCHAR(512)	NOT NULL,
 	[PreviewImageLink]	 NVARCHAR(512)	NOT NULL,
 	[Description]		 NVARCHAR(MAX)	NOT NULL,

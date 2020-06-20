@@ -36,7 +36,6 @@ namespace FindUa.Parser.Domain.Common
                 descriptionParser,
                 null,
                 null,
-                null,
                 engineVolumetric,
                 null,
                 imageLinkParser,
