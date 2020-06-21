@@ -8,7 +8,8 @@ USING
 	(4, N'Petrol/Gas'),
 	(5, N'Hybrid'),
 	(6, N'PropaneGas'),
-	(6, N'MethaneGas')
+	(7, N'MethaneGas'),
+	(8, N'Electric')
 ) AS Source ([Id], [Name])
 ON (Target.[Id] = Source.[Id])
 WHEN NOT MATCHED THEN

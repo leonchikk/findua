@@ -5,7 +5,7 @@ namespace FindUa.Parser.Core.ParserProvider.PropertyParsers
 {
     public interface IFuelTypeParser
     {
-        FuelType ParseForPreview(HtmlNode htmlNode);
-        FuelType ParseForDetailed(HtmlNode htmlNode);
+        int ParseForPreview(HtmlNode htmlNode);
+        int ParseForDetailed(HtmlNode htmlNode);
     }
 }

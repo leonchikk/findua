@@ -28,7 +28,8 @@ namespace FindUa.Parser.Domain.Common
             var descriptionParser = new RstDescriptionParser();
             var modelParser = new RstModelParser(memoryStore, unitOfWork, modelParseLogger);
             var priceParser = new RstPriceParser();
-
+            var fuelTypeParser = new RstFuelTypeParser();
+            
             var parser = new RstParserProvider(
                 parseProviderLogger,
                 unitOfWork,
@@ -38,7 +39,7 @@ namespace FindUa.Parser.Domain.Common
                 null,
                 null,
                 engineVolumetric,
-                null,
+                fuelTypeParser,
                 imageLinkParser,
                 structureExtractor,
                 mileageParser,

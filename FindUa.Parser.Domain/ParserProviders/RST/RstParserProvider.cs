@@ -85,7 +85,7 @@ namespace FindUa.Parser.Domain.ParserProviders.RST
                             CityId = RegionParser.ParseForDetailed(detailedOfferNode).Id,
                             Description = DescriptionParser.ParseForDetailed(detailedOfferNode),
                             EngineVolumetric = EngineVolumetricParser.ParseForDetailed(detailedOfferNode),
-                            FuelTypeId = 1,
+                            FuelTypeId = FuelTypeParser.ParseForDetailed(detailedOfferNode),
                             PreviewImageLink = ImageLinkParser.ParseForPreview(previewOfferNode),
                             Mileage = MileageParser.ParseForDetailed(detailedOfferNode),
                             ModelId = ModelParser.ParseForDetailed(detailedOfferNode).Id,
