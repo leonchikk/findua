@@ -89,7 +89,7 @@ namespace FindUa.Parser.Domain.ParserProviders.RST
                             PreviewImageLink = ImageLinkParser.ParseForPreview(previewOfferNode),
                             Mileage = MileageParser.ParseForDetailed(detailedOfferNode),
                             ModelId = ModelParser.ParseForDetailed(detailedOfferNode).Id,
-                            Price = 20,
+                            PriceInDollars = PriceParser.ParseForDetailed(detailedOfferNode),
                             UpdateOfferTime = DateTime.Now,
                             Year = YearParser.ParseForDetailed(detailedOfferNode),
                             CreatedAt = DateTime.Now

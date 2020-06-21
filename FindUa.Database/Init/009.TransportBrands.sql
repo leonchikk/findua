@@ -1,4 +1,6 @@
-﻿MERGE INTO [dbo].[TransportBrands] AS Target
+﻿SET IDENTITY_INSERT [dbo].[TransportBrands] ON
+GO
+MERGE INTO [dbo].[TransportBrands] AS Target
 USING
 (
 	VALUES
@@ -183,3 +185,5 @@ ON (Target.[Id] = Source.[Id])
 WHEN NOT MATCHED THEN
 	INSERT ([Id], [Name], [VehicleTypeId])
 	VALUES (Source.[Id], Source.[Name], Source.[VehicleTypeId]);
+GO
+SET IDENTITY_INSERT [dbo].[TransportBrands] OFF

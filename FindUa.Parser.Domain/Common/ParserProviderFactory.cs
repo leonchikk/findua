@@ -27,6 +27,7 @@ namespace FindUa.Parser.Domain.Common
             var imageLinkParser = new RstImageLinkParser();
             var descriptionParser = new RstDescriptionParser();
             var modelParser = new RstModelParser(memoryStore, unitOfWork, modelParseLogger);
+            var priceParser = new RstPriceParser();
 
             var parser = new RstParserProvider(
                 parseProviderLogger,
@@ -43,7 +44,7 @@ namespace FindUa.Parser.Domain.Common
                 mileageParser,
                 modelParser,
                 offerNumberParser,
-                null,
+                priceParser,
                 null,
                 regionParser,
                 sourceLinkParser,

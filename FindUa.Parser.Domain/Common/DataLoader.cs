@@ -17,7 +17,7 @@ namespace FindUa.Parser.Domain.Common
             var handler = new HttpClientHandler()
             {
                 //
-                Proxy = new WebProxy("157.245.104.241:3128"),
+                Proxy = new WebProxy("91.214.179.24:8080"),
                 UseProxy = true,
             };
 

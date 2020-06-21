@@ -32,7 +32,7 @@ namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
             var modelBrandBlock = htmlNode.OwnerDocument
                 .GetElementbyId("rst-page-oldcars-tree-block");
 
-            var vehicleTypeId = (int) GetVehicleType(htmlNode);
+            var vehicleTypeId = (int) GetVehicleType(modelBrandBlock);
 
             var brandBlock = modelBrandBlock.ChildNodes[4];
             var modelBlock = modelBrandBlock.ChildNodes[6];
