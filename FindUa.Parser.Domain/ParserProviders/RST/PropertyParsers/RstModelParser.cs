@@ -4,6 +4,7 @@ using FindUa.Parser.Core.Entities;
 using FindUa.Parser.Core.ParserProvider.PropertyParsers;
 using FindUa.Parser.Domain.Enumerations;
 using FindUa.Parser.Domain.Extensions;
+using FindUa.Parser.Domain.ParserProviders.RST.Helpers;
 using HtmlAgilityPack;
 using Microsoft.Extensions.Logging;
 using System;
@@ -32,7 +33,7 @@ namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
             var modelBrandBlock = htmlNode.OwnerDocument
                 .GetElementbyId("rst-page-oldcars-tree-block");
 
-            var vehicleTypeId = (int) GetVehicleType(modelBrandBlock);
+            var vehicleTypeId = (int)RstPropertyHelper.GetVehicleType(modelBrandBlock);
 
             var brandBlock = modelBrandBlock.ChildNodes[4];
             var modelBlock = modelBrandBlock.ChildNodes[6];
@@ -81,26 +82,6 @@ namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
         public TransportModel ParseForPreview(HtmlNode htmlNode)
         {
             throw new NotImplementedException();
-        }
-
-        private VehicleTypeEnum GetVehicleType(HtmlNode offerBlock)
-        {
-            if (offerBlock.InnerText.Contains("Прицеп", StringComparison.OrdinalIgnoreCase))
-                return VehicleTypeEnum.Trailer;
-
-            if (offerBlock.InnerText.Contains("Мото", StringComparison.OrdinalIgnoreCase))
-                return VehicleTypeEnum.Moto;
-
-            if (offerBlock.InnerText.Contains("Авиатехника", StringComparison.OrdinalIgnoreCase))
-                return VehicleTypeEnum.AirTransport;
-
-            if (offerBlock.InnerText.Contains("Спецтехника", StringComparison.OrdinalIgnoreCase))
-                return VehicleTypeEnum.SpecialMachinery;
-
-            if (offerBlock.InnerText.Contains("ВОДНЫЙ ТР.", StringComparison.OrdinalIgnoreCase))
-                return VehicleTypeEnum.WaterTtransport;
-
-            return VehicleTypeEnum.PassengerCar;
         }
 
         private TransportModel CreateModel(string modelName, TransportBrand brand)

@@ -83,7 +83,7 @@ namespace FindUa.Parser.Domain.ParserProviders.RST
                             SourceLink = sourceLink,
                             TransmissionTypeId = TransmissionTypeParser.ParseForDetailed(detailedOfferNode),
                             AdNumber = OfferNumberParser.ParseForDetailed(detailedOfferNode),
-                            BodyTypeId = 1,
+                            BodyTypeId = BodyTypeParser.ParseForDetailed(detailedOfferNode),
                             CityId = RegionParser.ParseForDetailed(detailedOfferNode).Id,
                             Description = DescriptionParser.ParseForDetailed(detailedOfferNode),
                             DriveUnitId = DriveUnitParser.ParseForDetailed(detailedOfferNode),

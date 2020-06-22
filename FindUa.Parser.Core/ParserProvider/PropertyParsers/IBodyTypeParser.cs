@@ -5,7 +5,7 @@ namespace FindUa.Parser.Core.ParserProvider.PropertyParsers
 {
     public interface IBodyTypeParser
     {
-        BodyType ParseForPreview(HtmlNode htmlNode);
-        BodyType ParseForDetailed(HtmlNode htmlNode);
+        int ParseForPreview(HtmlNode htmlNode);
+        int ParseForDetailed(HtmlNode htmlNode);
     }
 }

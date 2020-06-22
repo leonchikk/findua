@@ -31,6 +31,7 @@ namespace FindUa.Parser.Domain.Common
             var fuelTypeParser = new RstFuelTypeParser();
             var transmissionTypeParser = new RstTransmissionTypeParser();
             var driveUnitParser = new RstDriveUnitParser();
+            var bodyTypeParser = new RstBodyTypeParser(memoryStore);
             
             var parser = new RstParserProvider(
                 parseProviderLogger,
@@ -39,7 +40,7 @@ namespace FindUa.Parser.Domain.Common
                 dataLoader,
                 descriptionParser,
                 driveUnitParser,
-                null,
+                bodyTypeParser,
                 null,
                 engineVolumetric,
                 fuelTypeParser,
