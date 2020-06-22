@@ -1,10 +1,9 @@
 ﻿using FindUa.Parser.Core.Common;
 using FindUa.Parser.Core.DataAccess;
 using FindUa.Parser.Core.Entities;
+using FindUa.Parser.Core.Enumerations;
 using FindUa.Parser.Core.ParserProvider.PropertyParsers;
-using FindUa.Parser.Domain.Enumerations;
 using FindUa.Parser.Domain.Extensions;
-using FindUa.Parser.Domain.ParserProviders.RST.Helpers;
 using HtmlAgilityPack;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,28 +11,32 @@ using System.Linq;
 
 namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
 {
-    public class RstModelParser : IModelParser
+    public class RstModelParser : IBrandModelParser
     {
         private readonly IMemoryStore _memoryStore;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IVehicleTypeParser _vehicleTypeParser;
         private readonly ILogger<RstModelParser> _logger;
 
         public RstModelParser(
-            IMemoryStore memoryStore, 
+            IMemoryStore memoryStore,
             IUnitOfWork unitOfWork,
+            IVehicleTypeParser vehicleTypeParser,
             ILogger<RstModelParser> logger)
         {
             _memoryStore = memoryStore;
             _unitOfWork = unitOfWork;
+            _vehicleTypeParser = vehicleTypeParser;
             _logger = logger;
         }
 
-        public TransportModel ParseForDetailed(HtmlNode htmlNode)
+        public (int? BrandId, int? ModelId) ParseForDetailed(HtmlNode htmlNode)
         {
             var modelBrandBlock = htmlNode.OwnerDocument
                 .GetElementbyId("rst-page-oldcars-tree-block");
 
-            var vehicleTypeId = (int)RstPropertyHelper.GetVehicleType(modelBrandBlock);
+            var vehicleTypeId = _vehicleTypeParser.ParseForDetailed(htmlNode);
+            var vehicleType = (VehicleTypeEnum)vehicleTypeId;
 
             var brandBlock = modelBrandBlock.ChildNodes[4];
             var modelBlock = modelBrandBlock.ChildNodes[6];
@@ -41,6 +44,12 @@ namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
             var brandName = brandBlock.InnerText.Replace("Купить", "").TrimStart();
             var modelName = modelBlock.InnerText.Replace($"{brandName} ", "")
                                                 .RemoveAllDashes();
+
+            if (string.IsNullOrWhiteSpace(brandName) ||
+                vehicleType == VehicleTypeEnum.AirTransport ||
+                vehicleType == VehicleTypeEnum.Moto ||
+                vehicleType == VehicleTypeEnum.WaterTtransport)
+                return (BrandId: null, ModelId: null);
 
             var brand = _memoryStore.TransportBrands
                 .Where(x => x.Name.Equals(brandName, StringComparison.OrdinalIgnoreCase) && x.VehicleTypeId == vehicleTypeId)
@@ -56,30 +65,35 @@ namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
             if (brand == null)
                 brand = CreateBrand(brandName, vehicleTypeId);
 
-            var model = _memoryStore.TransportModels
-                .Where
-                (
-                    x => x.BrandId == brand.Id &&
+            TransportModel model = null;
+
+            if (!string.IsNullOrWhiteSpace(modelName))
+            {
+                 model = _memoryStore.TransportModels
+                    .Where
                     (
-                        (x.Name
-                            .RemoveAllDashes()
-                            .RemoveAllWhiteSpaces()
-                            .Contains(modelName.RemoveAllWhiteSpaces(), StringComparison.OrdinalIgnoreCase)) ||
+                        x => x.BrandId == brand.Id &&
+                        (
+                            (x.Name
+                                .RemoveAllDashes()
+                                .RemoveAllWhiteSpaces()
+                                .Contains(modelName.RemoveAllWhiteSpaces(), StringComparison.OrdinalIgnoreCase)) ||
 
-                        (modelName.RemoveAllWhiteSpaces() 
-                            .Contains(x.Name.RemoveAllDashes()
-                                            .RemoveAllWhiteSpaces(), StringComparison.OrdinalIgnoreCase))
+                            (modelName.RemoveAllWhiteSpaces()
+                                .Contains(x.Name.RemoveAllDashes()
+                                                .RemoveAllWhiteSpaces(), StringComparison.OrdinalIgnoreCase))
+                        )
                     )
-                )
-                .FirstOrDefault();
+                    .FirstOrDefault();
 
-            if (model == null)
-                model = CreateModel(modelName, brand);
+                if (model == null)
+                    model = CreateModel(modelName, brand);
+            }
 
-            return model;
+            return (brand?.Id, model?.Id);
         }
 
-        public TransportModel ParseForPreview(HtmlNode htmlNode)
+        public (int? BrandId, int? ModelId) ParseForPreview(HtmlNode htmlNode)
         {
             throw new NotImplementedException();
         }

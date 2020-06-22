@@ -1,5 +1,5 @@
-﻿using FindUa.Parser.Core.ParserProvider.PropertyParsers;
-using FindUa.Parser.Domain.Enumerations;
+﻿using FindUa.Parser.Core.Enumerations;
+using FindUa.Parser.Core.ParserProvider.PropertyParsers;
 using HtmlAgilityPack;
 using System;
 using System.Linq;

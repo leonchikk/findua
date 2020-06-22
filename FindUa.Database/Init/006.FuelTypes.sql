@@ -9,7 +9,8 @@ USING
 	(5, N'Hybrid'),
 	(6, N'PropaneGas'),
 	(7, N'MethaneGas'),
-	(8, N'Electric')
+	(8, N'Electric'), 
+	(9, N'NA')
 ) AS Source ([Id], [Name])
 ON (Target.[Id] = Source.[Id])
 WHEN NOT MATCHED THEN

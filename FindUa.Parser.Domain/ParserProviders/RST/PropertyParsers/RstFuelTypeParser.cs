@@ -1,5 +1,5 @@
-﻿using FindUa.Parser.Core.ParserProvider.PropertyParsers;
-using FindUa.Parser.Domain.Enumerations;
+﻿using FindUa.Parser.Core.Enumerations;
+using FindUa.Parser.Core.ParserProvider.PropertyParsers;
 using HtmlAgilityPack;
 using System;
 using System.Linq;
@@ -62,7 +62,7 @@ namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
                     return FuelTypeEnum.Electric;
 
                 default:
-                    return FuelTypeEnum.Petrol;
+                    return FuelTypeEnum.NA;
             }
         }
     }

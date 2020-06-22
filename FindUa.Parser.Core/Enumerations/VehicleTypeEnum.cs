@@ -1,4 +1,4 @@
-﻿namespace FindUa.Parser.Domain.Enumerations
+﻿namespace FindUa.Parser.Core.Enumerations
 {
     public enum VehicleTypeEnum
     {
@@ -12,6 +12,6 @@
         Trailer = 8,
         HouseOnWheels = 9,
         WaterTtransport = 10,
-        Other = 11
+        NA = 11
     }
 }

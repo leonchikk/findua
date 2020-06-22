@@ -9,11 +9,13 @@
 	[Description]		 NVARCHAR(MAX)	NOT NULL,
 	[EngineVolumetric]	 INT			NOT NULL,
 	[UpdateOfferTime]	 DateTime		NOT NULL,
-	[BodyTypeId]		 INT			NOT NULL,
+	[BodyTypeId]		 INT		    NULL,
 	[TransmissionTypeId] INT			NOT NULL,
 	[CityId]			 INT			NOT NULL,
 	[FuelTypeId]		 INT			NOT NULL,
-	[ModelId]			 INT			NOT NULL,
+	[BrandId]			 INT		    NULL,
+	[ModelId]			 INT		    NULL,
+	[VehicleTypeId]		 INT		    NOT NULL,
 	[DriveUnitId]		 INT		    NOT NULL,
 	[Mileage]			 INT			NOT NULL,
 	[IsDeleted]			BIT				DEFAULT 0 NOT NULL,
@@ -26,5 +28,7 @@
 	CONSTRAINT  [FK_TransportSaleAnnounces_CityId] FOREIGN KEY ([CityId]) REFERENCES [dbo].[Cities]	([Id]),
 	CONSTRAINT  [FK_TransportSaleAnnounces_FuelTypeId] FOREIGN KEY ([FuelTypeId]) REFERENCES [dbo].[FuelTypes] ([Id]),
 	CONSTRAINT  [FK_TransportSaleAnnounces_ModelId] FOREIGN KEY ([ModelId]) REFERENCES [dbo].[TransportModels] ([Id]),
+	CONSTRAINT  [FK_TransportSaleAnnounces_BrandId] FOREIGN KEY ([BrandId]) REFERENCES [dbo].[TransportBrands] ([Id]),
+	CONSTRAINT  [FK_TransportSaleAnnounces_VehicleTypeId] FOREIGN KEY ([VehicleTypeId]) REFERENCES [dbo].[VehicleTypes] ([Id]),
 	CONSTRAINT  [FK_TransportSaleAnnounces_DriveUnitId] FOREIGN KEY ([DriveUnitId]) REFERENCES [dbo].[DriveUnits] ([Id])
 )

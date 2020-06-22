@@ -26,13 +26,14 @@ namespace FindUa.Parser.Domain.Common
             var regionParser = new RstRegionParser(memoryStore);
             var imageLinkParser = new RstImageLinkParser();
             var descriptionParser = new RstDescriptionParser();
-            var modelParser = new RstModelParser(memoryStore, unitOfWork, modelParseLogger);
             var priceParser = new RstPriceParser();
             var fuelTypeParser = new RstFuelTypeParser();
             var transmissionTypeParser = new RstTransmissionTypeParser();
             var driveUnitParser = new RstDriveUnitParser();
             var bodyTypeParser = new RstBodyTypeParser(memoryStore);
-            
+            var vechicleParser = new RstVehicleTypeParser();
+            var modelParser = new RstModelParser(memoryStore, unitOfWork, vechicleParser, modelParseLogger);
+
             var parser = new RstParserProvider(
                 parseProviderLogger,
                 unitOfWork,
@@ -54,6 +55,7 @@ namespace FindUa.Parser.Domain.Common
                 regionParser,
                 sourceLinkParser,
                 transmissionTypeParser,
+                vechicleParser,
                 yearParser);
 
             return parser;

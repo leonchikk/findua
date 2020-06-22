@@ -20,11 +20,13 @@ namespace FindUa.Parser.Core.Entities
         public DateTime UpdateOfferTime { get; set; }
         public string Description { get; set; }
         public int EngineVolumetric { get; set; }
-        public int BodyTypeId { get; set; }
+        public int? BodyTypeId { get; set; }
         public int TransmissionTypeId { get; set; }
         public int CityId { get; set; }
         public int FuelTypeId { get; set; }
-        public int ModelId { get; set; }
+        public int? ModelId { get; set; }
+        public int? BrandId { get; set; }
+        public int VehicleTypeId { get; set; }
         public int DriveUnitId { get; set; }
 
         public BodyType BodyType { get; set; }
@@ -33,6 +35,8 @@ namespace FindUa.Parser.Core.Entities
         public City City { get; set; }
         public FuelType FuelType { get; set; }
         public TransportModel Model { get; set; }
+        public TransportBrand Brand { get; set; }
+        public VehicleType VehicleType { get; set; }
 
         public ICollection<TransportConditionInSaleAnnounce> TransportConditions { get; set; }
     }

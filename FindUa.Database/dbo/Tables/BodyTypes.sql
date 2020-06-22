@@ -2,7 +2,7 @@
 (
 	[Id]			INT					NOT NULL,
 	[Name]			NVARCHAR(255)		NOT NULL,
-	[VehicleTypeId]	INT					NOT NULL,
+	[VehicleTypeId]	INT				    NULL,
 	[IsDeleted]		BIT					DEFAULT 0 NOT NULL,
 	[CreatedAt]		DATETIME			NULL, 
 	[UpdatedAt]		DATETIME			NULL, 

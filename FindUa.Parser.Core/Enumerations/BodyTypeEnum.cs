@@ -1,4 +1,4 @@
-﻿namespace FindUa.Parser.Domain.Enumerations
+﻿namespace FindUa.Parser.Core.Enumerations
 {
     public enum BodyTypeEnum
     {
@@ -13,6 +13,6 @@
         Limousine = 9,
         Roadster = 10,
         Liftback = 11,
-        Other = 12
+        NA = 12
     }
 }

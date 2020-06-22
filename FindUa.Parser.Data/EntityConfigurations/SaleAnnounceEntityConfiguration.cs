@@ -18,9 +18,13 @@ namespace FindUa.Parser.Data.EntityConfigurations
 
             builder.HasOne(x => x.FuelType);
 
+            builder.HasOne(x => x.Brand);
+
             builder.HasOne(x => x.Model);
 
             builder.HasOne(x => x.City);
+
+            builder.HasOne(x => x.VehicleType);
 
             builder.HasOne(x => x.DriveUnit);
         }

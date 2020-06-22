@@ -29,13 +29,14 @@ namespace FindUa.Parser.Core.ParserProvider
         protected IFuelTypeParser FuelTypeParser;
         protected IImageLinkParser ImageLinkParser;
         protected IMileageParser MileageParser;
-        protected IModelParser ModelParser;
+        protected IBrandModelParser BrandModelParser;
         protected IOfferNumberParser OfferNumberParser;
         protected IPriceParser PriceParser;
         protected IPublishDateParser PublishDateParser;
         protected IRegionParser RegionParser;
         protected ISourceLinkParser SourceLinkParser;
         protected ITransmissionTypeParser TransmissionTypeParser;
+        protected IVehicleTypeParser VehicleTypeParser;
         protected IYearParser YearParser;
 
         public ParserProvider(
@@ -51,13 +52,14 @@ namespace FindUa.Parser.Core.ParserProvider
             IImageLinkParser imageLinkParser,
             IStructureExtractor structureExtractor,
             IMileageParser mileageParser,
-            IModelParser modelParser,
+            IBrandModelParser brandModelParser,
             IOfferNumberParser offerNumberParser,
             IPriceParser priceParser,
             IPublishDateParser publishDateParser,
             IRegionParser regionParser,
             ISourceLinkParser sourceLinkParser,
             ITransmissionTypeParser transmissionType,
+            IVehicleTypeParser vehicleTypeParser,
             IYearParser yearParser
         )
         {
@@ -73,13 +75,14 @@ namespace FindUa.Parser.Core.ParserProvider
             ImageLinkParser = imageLinkParser;
             StructureExtractor = structureExtractor;
             MileageParser = mileageParser;
-            ModelParser = modelParser;
+            BrandModelParser = brandModelParser;
             OfferNumberParser = offerNumberParser;
             PriceParser = priceParser;
             PublishDateParser = publishDateParser;
             RegionParser = regionParser;
             SourceLinkParser = sourceLinkParser;
             TransmissionTypeParser = transmissionType;
+            VehicleTypeParser = vehicleTypeParser;
             YearParser = yearParser;
 
             ScrappingPage = 1;

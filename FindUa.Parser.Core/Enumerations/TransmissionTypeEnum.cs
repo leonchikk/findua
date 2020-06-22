@@ -1,4 +1,4 @@
-﻿namespace FindUa.Parser.Domain.Enumerations
+﻿namespace FindUa.Parser.Core.Enumerations
 {
     public enum TransmissionTypeEnum
     {

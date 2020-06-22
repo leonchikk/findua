@@ -12,7 +12,7 @@ USING
 	(8, N'Trailer'),
 	(9, N'HouseOnWheels'),
 	(10, N'WaterTransport'),
-	(11, N'Other')
+	(11, N'NA')
 ) AS Source ([Id], [Name])
 ON (Target.[Id] = Source.[Id])
 WHEN NOT MATCHED THEN

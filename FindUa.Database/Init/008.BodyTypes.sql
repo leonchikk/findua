@@ -14,7 +14,7 @@ USING
 	(9, N'Limousine', 1),
 	(10, N'Roadster', 1),
 	(11, N'Liftback', 1),
-	(12, N'Other', 1)
+	(12, N'NA', NULL)
 ) AS Source ([Id], [Name], [VehicleTypeId])
 ON (Target.[Id] = Source.[Id])
 WHEN NOT MATCHED THEN

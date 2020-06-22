@@ -28,13 +28,14 @@ namespace FindUa.Parser.Domain.ParserProviders.RST
             IImageLinkParser imageLinkParser,
             IStructureExtractor structureExtractor,
             IMileageParser mileageParser,
-            IModelParser modelParser,
+            IBrandModelParser brandModelParser,
             IOfferNumberParser offerNumberParser,
             IPriceParser priceParser,
             IPublishDateParser publishDateParser,
             IRegionParser regionParser,
             ISourceLinkParser sourceLinkParser,
             ITransmissionTypeParser transmissionType,
+            IVehicleTypeParser vehicleTypeParser,
             IYearParser yearParser)
             : base(unitOfWork,
                   memoryStore,
@@ -48,13 +49,14 @@ namespace FindUa.Parser.Domain.ParserProviders.RST
                   imageLinkParser,
                   structureExtractor,
                   mileageParser,
-                  modelParser,
+                  brandModelParser,
                   offerNumberParser,
                   priceParser,
                   publishDateParser,
                   regionParser,
                   sourceLinkParser,
                   transmissionType,
+                  vehicleTypeParser,
                   yearParser)
         {
             _logger = logger;
@@ -78,6 +80,8 @@ namespace FindUa.Parser.Domain.ParserProviders.RST
                         var detailedHtmlDocument = await DataLoader.LoadHtmlDocumentAsync(sourceLink);
                         var detailedOfferNode = StructureExtractor.GetDetailedOfferStructure(detailedHtmlDocument);
 
+                        var brandModelInfo = BrandModelParser.ParseForDetailed(detailedOfferNode);
+
                         var saleAnnounce = new TransportSaleAnnounce()
                         {
                             SourceLink = sourceLink,
@@ -91,7 +95,9 @@ namespace FindUa.Parser.Domain.ParserProviders.RST
                             FuelTypeId = FuelTypeParser.ParseForDetailed(detailedOfferNode),
                             PreviewImageLink = ImageLinkParser.ParseForPreview(previewOfferNode),
                             Mileage = MileageParser.ParseForDetailed(detailedOfferNode),
-                            ModelId = ModelParser.ParseForDetailed(detailedOfferNode).Id,
+                            BrandId = brandModelInfo.BrandId,
+                            VehicleTypeId = VehicleTypeParser.ParseForDetailed(detailedOfferNode),
+                            ModelId = brandModelInfo.ModelId,
                             PriceInDollars = PriceParser.ParseForDetailed(detailedOfferNode),
                             UpdateOfferTime = DateTime.Now,
                             Year = YearParser.ParseForDetailed(detailedOfferNode),

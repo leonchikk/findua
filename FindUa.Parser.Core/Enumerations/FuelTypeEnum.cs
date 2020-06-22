@@ -1,4 +1,4 @@
-﻿namespace FindUa.Parser.Domain.Enumerations
+﻿namespace FindUa.Parser.Core.Enumerations
 {
     public enum FuelTypeEnum
     {
@@ -9,6 +9,7 @@
         Hybrid = 5,
         PropaneGas = 6,
         MethaneGas = 7,
-        Electric = 8
+        Electric = 8,
+        NA = 9
     }
 }

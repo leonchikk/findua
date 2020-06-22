@@ -1,7 +1,6 @@
 ﻿using FindUa.Parser.Core.Common;
+using FindUa.Parser.Core.Enumerations;
 using FindUa.Parser.Core.ParserProvider.PropertyParsers;
-using FindUa.Parser.Domain.Enumerations;
-using FindUa.Parser.Domain.ParserProviders.RST.Helpers;
 using HtmlAgilityPack;
 using System;
 using System.Linq;
@@ -17,12 +16,10 @@ namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
             _memoryStore = memoryStore;
         }
 
-        public int ParseForDetailed(HtmlNode htmlNode)
+        public int? ParseForDetailed(HtmlNode htmlNode)
         {
             var modelBrandBlock = htmlNode.OwnerDocument
                 .GetElementbyId("rst-page-oldcars-tree-block");
-
-            var vehicleTypeId = (int)RstPropertyHelper.GetVehicleType(modelBrandBlock);
 
             var bodyTypeBlock = htmlNode.Descendants()
                    .Where(n => n.InnerText.Contains("Тип кузова"))
@@ -33,10 +30,10 @@ namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
 
             var bodyTypeString = bodyTypeBlock.FirstOrDefault(x => x.Name == targetTag).ChildNodes.Last().InnerText;
 
-            return (int)GetBodyType(bodyTypeString);
+            return (int?)GetBodyType(bodyTypeString);
         }
 
-        public int ParseForPreview(HtmlNode htmlNode)
+        public int? ParseForPreview(HtmlNode htmlNode)
         {
             throw new NotImplementedException();
         }
@@ -67,7 +64,7 @@ namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
             if (bodyTypeString.Contains("Внедорожник", StringComparison.OrdinalIgnoreCase))
                 return BodyTypeEnum.SUV;
 
-            return BodyTypeEnum.Other;
+            return BodyTypeEnum.NA;
         }
     }
 }
