@@ -1,9 +1,8 @@
-﻿using FindUa.Parser.Core.Entities;
-using HtmlAgilityPack;
+﻿using HtmlAgilityPack;
 
 namespace FindUa.Parser.Core.ParserProvider.PropertyParsers
 {
-    public interface ITransmissionTypeParser
+    public interface IDriveUnitParser
     {
         int ParseForPreview(HtmlNode htmlNode);
         int ParseForDetailed(HtmlNode htmlNode);

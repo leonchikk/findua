@@ -25,8 +25,10 @@ namespace FindUa.Parser.Core.Entities
         public int CityId { get; set; }
         public int FuelTypeId { get; set; }
         public int ModelId { get; set; }
+        public int DriveUnitId { get; set; }
 
         public BodyType BodyType { get; set; }
+        public DriveUnit DriveUnit { get; set; }
         public TransmissionType TransmissionType { get; set; }
         public City City { get; set; }
         public FuelType FuelType { get; set; }

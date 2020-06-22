@@ -29,6 +29,7 @@ namespace FindUa.Parser.Domain.Common
             var modelParser = new RstModelParser(memoryStore, unitOfWork, modelParseLogger);
             var priceParser = new RstPriceParser();
             var fuelTypeParser = new RstFuelTypeParser();
+            var transmissionTypeParser = new RstTransmissionTypeParser();
             
             var parser = new RstParserProvider(
                 parseProviderLogger,
@@ -36,6 +37,7 @@ namespace FindUa.Parser.Domain.Common
                 memoryStore,
                 dataLoader,
                 descriptionParser,
+                null,
                 null,
                 null,
                 engineVolumetric,
@@ -49,7 +51,7 @@ namespace FindUa.Parser.Domain.Common
                 null,
                 regionParser,
                 sourceLinkParser,
-                null,
+                transmissionTypeParser,
                 yearParser);
 
             return parser;

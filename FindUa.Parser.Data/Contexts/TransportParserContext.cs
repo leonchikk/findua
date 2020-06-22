@@ -15,6 +15,7 @@ namespace FindUa.Parser.Data.Contexts
         public DbSet<BodyType> BodyTypes { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }
+        public DbSet<DriveUnit> DriveUnits { get; set; }
         public DbSet<FuelType> FuelTypes { get; set; }
         public DbSet<Localization> Localizations { get; set; }
         public DbSet<LocalizationKey> LocalizationKeys { get; set; }

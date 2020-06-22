@@ -24,6 +24,7 @@ namespace FindUa.Parser.Core.ParserProvider
         protected IBodyTypeParser BodyTypeParser;
         protected ICarConditionParser CarConditionParser;
         protected IDescriptionParser DescriptionParser;
+        protected IDriveUnitParser DriveUnitParser;
         protected IEngineVolumetricParser EngineVolumetricParser;
         protected IFuelTypeParser FuelTypeParser;
         protected IImageLinkParser ImageLinkParser;
@@ -34,7 +35,7 @@ namespace FindUa.Parser.Core.ParserProvider
         protected IPublishDateParser PublishDateParser;
         protected IRegionParser RegionParser;
         protected ISourceLinkParser SourceLinkParser;
-        protected ITransmissionTypeParser TransmissionType;
+        protected ITransmissionTypeParser TransmissionTypeParser;
         protected IYearParser YearParser;
 
         public ParserProvider(
@@ -44,6 +45,7 @@ namespace FindUa.Parser.Core.ParserProvider
             ICarConditionParser carConditionParser,
             IDataLoader dataLoader,
             IDescriptionParser descriptionParser,
+            IDriveUnitParser driveUnitParser,
             IEngineVolumetricParser engineVolumetricParser,
             IFuelTypeParser fuelTypeParser,
             IImageLinkParser imageLinkParser,
@@ -64,6 +66,7 @@ namespace FindUa.Parser.Core.ParserProvider
             BodyTypeParser = bodyTypeParser;
             CarConditionParser = carConditionParser;
             DescriptionParser = descriptionParser;
+            DriveUnitParser = driveUnitParser;
             DataLoader = dataLoader;
             EngineVolumetricParser = engineVolumetricParser;
             FuelTypeParser = fuelTypeParser;
@@ -76,7 +79,7 @@ namespace FindUa.Parser.Core.ParserProvider
             PublishDateParser = publishDateParser;
             RegionParser = regionParser;
             SourceLinkParser = sourceLinkParser;
-            TransmissionType = transmissionType;
+            TransmissionTypeParser = transmissionType;
             YearParser = yearParser;
 
             ScrappingPage = 1;
