@@ -5,6 +5,7 @@ using FindUa.RstParser.BackgroundWorkers;
 using FindUa.RstParser.Data.Contexts;
 using FindUa.RstParser.Data.Repositories;
 using FindUa.RstParser.Domain.Common;
+using FindUa.RstParser.Domain.Extensions;
 using FindUa.RstParser.Settings.Interfaces;
 using FindUa.RstParser.Settings.Models;
 using FindUa.RstParser.Settings.Services;
@@ -33,7 +34,6 @@ namespace FindUa.RstParser
             services.AddTransient(typeof(IRepository<>), typeof(BaseRepository<>));
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
-            services.AddSingleton<IDataLoader, DataLoader>();
             services.AddSingleton<IParserSettingsService, ParserSettingsService>();
             services.AddSingleton<IMemoryStore>(serviceProvider =>
             {
@@ -53,6 +53,8 @@ namespace FindUa.RstParser
             services.Configure<ParserSettings>(parserSettings);
 
             services.AddHostedService<RstParserBackgroundWorker>();
+
+            services.AddRstParser(); 
         }
 
         public void Configure(IApplicationBuilder app)

@@ -1,4 +1,5 @@
-﻿using FindUa.RstParser.Domain.Common;
+﻿using FindUa.Parser.Core.ParserProvider;
+using FindUa.RstParser.Domain.Common;
 using FindUa.RstParser.Settings.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -30,7 +31,7 @@ namespace FindUa.RstParser.BackgroundWorkers
             using (var scope = _serviceProvider.CreateScope())
             {
                 var processItemsCount = _settingsService.GetItemsCountForStep();
-                var provider = ParserProviderFactory.CreateRtsParserProvider(scope)
+                var provider = scope.ServiceProvider.GetRequiredService<ParserProvider>()
                                                 .SetDaysCountForProcessing(1)
                                                 .SetItemsCountForStep(processItemsCount)
                                                 .SetBaseUrl("https://rst.ua")

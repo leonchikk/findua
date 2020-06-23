@@ -1,7 +1,7 @@
 ﻿using HtmlAgilityPack;
 using System.Threading.Tasks;
 
-namespace FindUa.Parser.Core.Common
+namespace FindUa.Parser.Core
 {
     public interface IDataLoader
     {

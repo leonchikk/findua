@@ -1,4 +1,5 @@
-﻿using FindUa.Parser.Core.Common;
+﻿using FindUa.Parser.Core;
+using FindUa.Parser.Core.Common;
 using FindUa.Parser.Core.DataAccess;
 using FindUa.Parser.Core.Entities;
 using FindUa.Parser.Core.Enumerations;

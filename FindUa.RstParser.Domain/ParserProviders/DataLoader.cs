@@ -1,4 +1,4 @@
-﻿using FindUa.Parser.Core.Common;
+﻿using FindUa.Parser.Core;
 using HtmlAgilityPack;
 using System;
 using System.Net;
@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FindUa.RstParser.Domain.Common
+namespace FindUa.RstParser.Domain
 {
     public class DataLoader : IDataLoader
     {
@@ -18,7 +18,7 @@ namespace FindUa.RstParser.Domain.Common
             var handler = new HttpClientHandler()
             {
                 //
-                Proxy = new WebProxy("68.183.178.145:3128"),
+                Proxy = new WebProxy("79.104.197.58:8080"),
                 UseProxy = true,
             };
 

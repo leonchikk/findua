@@ -11,18 +11,18 @@ using System.Linq;
 
 namespace FindUa.RstParser.Domain.ParserProviders.RST.PropertyParsers
 {
-    public class RstModelParser : IBrandModelParser
+    public class RstBrandModelParser : IBrandModelParser
     {
         private readonly IMemoryStore _memoryStore;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IVehicleTypeParser _vehicleTypeParser;
-        private readonly ILogger<RstModelParser> _logger;
+        private readonly ILogger<RstBrandModelParser> _logger;
 
-        public RstModelParser(
+        public RstBrandModelParser(
             IMemoryStore memoryStore,
             IUnitOfWork unitOfWork,
             IVehicleTypeParser vehicleTypeParser,
-            ILogger<RstModelParser> logger)
+            ILogger<RstBrandModelParser> logger)
         {
             _memoryStore = memoryStore;
             _unitOfWork = unitOfWork;
