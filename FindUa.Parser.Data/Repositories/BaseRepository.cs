@@ -13,7 +13,7 @@ namespace FindUa.Parser.Data.Repositories
 {
     public class BaseRepository<T> : IRepository<T> where T : BaseEntity
     {
-        private readonly TransportParserContext _dbContext;
+        protected readonly TransportParserContext _dbContext;
         protected readonly DbSet<T> DbSet;
 
         public BaseRepository(TransportParserContext dbContext)

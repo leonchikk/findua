@@ -20,11 +20,11 @@ namespace FindUa.Parser.Data.Repositories
         }
 
         private IBodyTypeRepository _bodyTypesRepository;
-        public IBodyTypeRepository BodyTypesRepository => _bodyTypesRepository ?? new BodyTypeRepository(_dbContext);
+        public IBodyTypeRepository BodyTypesRepository => _bodyTypesRepository ?? (_bodyTypesRepository = new BodyTypeRepository(_dbContext));
 
 
         private ICityRepository _citiesRepository;
-        public ICityRepository CitiesRepository => _citiesRepository ?? new CityRepository(_dbContext);
+        public ICityRepository CitiesRepository => _citiesRepository ?? (_citiesRepository = new CityRepository(_dbContext));
 
 
         private IRepository<Country> _countiesRepository;
@@ -32,7 +32,7 @@ namespace FindUa.Parser.Data.Repositories
 
 
         private IFuelTypeRepository _fuelTypesRepository;
-        public IFuelTypeRepository FuelTypesRepository => _fuelTypesRepository ?? new FuelTypeRepository(_dbContext);
+        public IFuelTypeRepository FuelTypesRepository => _fuelTypesRepository ?? (_fuelTypesRepository = new FuelTypeRepository(_dbContext));
 
 
         private IRepository<Region> _regionsRepository;
@@ -40,7 +40,7 @@ namespace FindUa.Parser.Data.Repositories
 
 
         private ITransmissionTypeRepository _transmissionTypesRepository;
-        public ITransmissionTypeRepository TransmissionTypesRepository => _transmissionTypesRepository ?? new TransmissionTypeRepository(_dbContext);
+        public ITransmissionTypeRepository TransmissionTypesRepository => _transmissionTypesRepository ?? (_transmissionTypesRepository = new TransmissionTypeRepository(_dbContext));
 
 
         private ITransportBrandRepository _brandsRepository;
@@ -48,7 +48,7 @@ namespace FindUa.Parser.Data.Repositories
 
 
         private ITransportConditionRepository _transportConditionsRepository;
-        public ITransportConditionRepository TransportConditionsRepository => _transportConditionsRepository ?? new TransportConditionRepository(_dbContext);
+        public ITransportConditionRepository TransportConditionsRepository => _transportConditionsRepository ?? (_transportConditionsRepository = new TransportConditionRepository(_dbContext));
 
 
         private IRepository<TransportConditionInSaleAnnounce> _transportConditionInSaleAnnouncesRepository;
@@ -57,16 +57,16 @@ namespace FindUa.Parser.Data.Repositories
 
 
         private ITransportModelRepository _modelsRepository;
-        public ITransportModelRepository ModelsRepository => _modelsRepository ?? new TransportModelRepository(_dbContext);
+        public ITransportModelRepository ModelsRepository => _modelsRepository ?? (_modelsRepository =new TransportModelRepository(_dbContext));
 
 
-        private IRepository<TransportSaleAnnounce> _transportSaleAnnouncesRepository;
-        public IRepository<TransportSaleAnnounce> TransportSaleAnnouncesRepository => _transportSaleAnnouncesRepository ?? 
-            (_transportSaleAnnouncesRepository = new BaseRepository<TransportSaleAnnounce>(_dbContext));
+        private ITransportSaleAnnounceRepository _transportSaleAnnouncesRepository;
+        public ITransportSaleAnnounceRepository TransportSaleAnnouncesRepository => _transportSaleAnnouncesRepository ?? 
+            (_transportSaleAnnouncesRepository = new TransportSaleAnnounceRepository(_dbContext));
 
 
         private IVehicleTypeRepository _vehicleTypesRepository;
-        public IVehicleTypeRepository VehicleTypesRepository => _vehicleTypesRepository ?? new VehicleTypeRepository(_dbContext);
+        public IVehicleTypeRepository VehicleTypesRepository => _vehicleTypesRepository ?? (_vehicleTypesRepository = new VehicleTypeRepository(_dbContext));
 
         public void Dispose()
         {

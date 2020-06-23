@@ -104,12 +104,17 @@ namespace FindUa.Parser.Domain.ParserProviders.RST
                             CreatedAt = DateTime.Now
                         };
 
+                        var carConditionIds = CarConditionParser.ParseForPreview(previewOfferNode);
+                        foreach (var carConditionId in carConditionIds)
+                            saleAnnounce.TransportConditions.Add(new TransportConditionInSaleAnnounce()
+                            {
+                                TransportConditionId = carConditionId
+                            });
+
                         scrapedSaleAnnounces.Add(saleAnnounce);
                     }
-
-                    await UnitOfWork.TransportSaleAnnouncesRepository.InsertBulkAsync(scrapedSaleAnnounces);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     _logger.LogError($"{ex.Message}\n{ex.StackTrace}");
                 }
@@ -118,6 +123,8 @@ namespace FindUa.Parser.Domain.ParserProviders.RST
                     ScrappingPage++;
                 }
             }
+
+            await UnitOfWork.TransportSaleAnnouncesRepository.InsertRangeSaleAnnounces(scrapedSaleAnnounces);
         }
     }
 }

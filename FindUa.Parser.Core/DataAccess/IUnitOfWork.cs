@@ -16,7 +16,7 @@ namespace FindUa.Parser.Core.DataAccess
         ITransportConditionRepository TransportConditionsRepository { get; }
         IRepository<TransportConditionInSaleAnnounce> TransportConditionInSaleAnnouncesRepository { get; }
         ITransportModelRepository ModelsRepository { get; }
-        IRepository<TransportSaleAnnounce> TransportSaleAnnouncesRepository { get; }
+        ITransportSaleAnnounceRepository TransportSaleAnnouncesRepository { get; }
         IVehicleTypeRepository VehicleTypesRepository { get; }
 
         Task SaveChangesAsync();

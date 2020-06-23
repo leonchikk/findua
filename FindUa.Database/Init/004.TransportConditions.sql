@@ -13,9 +13,12 @@ USING
 	(9, N'CustomsCleared'),
 	(10, N'FirstRegistration'),
 	(11, N'FirstOwner'),
-	(12, N'GarageStorage')
-) AS Source ([Id], [Name])
+	(12, N'GarageStorage'),
+	(13, N'New'),
+	(14, N'ForParts'),
+	(15, N'NA')
+) AS Source ([Id], [Title])
 ON (Target.[Id] = Source.[Id])
 WHEN NOT MATCHED THEN
-	INSERT ([Id], [Name])
-	VALUES (Source.[Id], Source.[Name]);
+	INSERT ([Id], [Title])
+	VALUES (Source.[Id], Source.[Title]);

@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[TransportConditions]
 (
 	[Id]		INT					NOT NULL,
-	[Name]		NVARCHAR(255)		NOT NULL,
+	[Title]		NVARCHAR(255)		NOT NULL,
 	[IsDeleted]	BIT					DEFAULT 0 NOT NULL,
 	[CreatedAt]	DATETIME			NULL, 
 	[UpdatedAt]	DATETIME			NULL, 

@@ -6,7 +6,7 @@ namespace FindUa.Parser.Core.ParserProvider.PropertyParsers
 {
     public interface ICarConditionParser
     {
-        IEnumerable<TransportCondition> ParseForPreview(HtmlNode htmlNode);
-        IEnumerable<TransportCondition> ParseForDetailed(HtmlNode htmlNode);
+        IEnumerable<int> ParseForPreview(HtmlNode htmlNode);
+        IEnumerable<int> ParseForDetailed(HtmlNode htmlNode);
     }
 }

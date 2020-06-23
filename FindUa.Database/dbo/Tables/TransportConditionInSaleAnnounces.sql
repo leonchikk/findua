@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[TransportConditionInSaleAnnounces]
 (
-	[Id]					INT	NOT NULL,
+	[Id]					INT	NOT NULL IDENTITY(1, 1),
 	[SaleAnnounceId]		INT	NOT NULL,
 	[TransportConditionId]	INT	NOT NULL,
 	[IsDeleted]				BIT	DEFAULT 0 NOT NULL,

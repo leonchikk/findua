@@ -42,6 +42,9 @@ namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
             if (transmissionTypeString.Contains("Автомат"))
                 return TransmissionTypeEnum.Automatic;
 
+            if (transmissionTypeString.Contains("Типтроник"))
+                return TransmissionTypeEnum.Tiptronic;
+
             return TransmissionTypeEnum.NA;
         }
     }
