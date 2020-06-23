@@ -17,11 +17,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{74626E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FindUa.Parser.Data", "FindUa.Parser.Data\FindUa.Parser.Data.csproj", "{1845E620-AA5D-4FB9-A279-17F70F9FC109}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{6EA9161F-C58C-43A0-A8A3-37284A9606F8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Databases", "Databases", "{6EA9161F-C58C-43A0-A8A3-37284A9606F8}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "FindUa.Database", "FindUa.Database\FindUa.Database.sqlproj", "{61ED75DD-D1A8-48FC-AAC2-B7335FBE9279}"
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "FindUa.TransportDatabase", "FindUa.TransportDatabase\FindUa.TransportDatabase.sqlproj", "{61ED75DD-D1A8-48FC-AAC2-B7335FBE9279}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindUa.Parser.Domain", "FindUa.Parser.Domain\FindUa.Parser.Domain.csproj", "{5DD62364-DACB-4DEC-8D6B-4A06982DA1F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FindUa.Parser.Domain", "FindUa.Parser.Domain\FindUa.Parser.Domain.csproj", "{5DD62364-DACB-4DEC-8D6B-4A06982DA1F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
