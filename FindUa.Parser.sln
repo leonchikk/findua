@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FindUa.Parser.Core", "FindU
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{1508B0C6-62AD-402B-BF8C-F3C00AB39358}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TransportParser", "TransportParser", "{33975334-3C4B-45F9-87E9-CA3C81A8F859}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TransportParsers", "TransportParsers", "{33975334-3C4B-45F9-87E9-CA3C81A8F859}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Core", "Common.Core\Common.Core.csproj", "{18998832-08FE-47C3-BBB0-33B30393EFB1}"
 EndProject
