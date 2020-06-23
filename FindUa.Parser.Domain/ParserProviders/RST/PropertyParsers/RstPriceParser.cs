@@ -2,6 +2,7 @@
 using HtmlAgilityPack;
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
 {
@@ -28,9 +29,11 @@ namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
 
         private double ParsePriceString(string str)
         {
-            var matches = str.Split('/');
-            var dollarPriceStr = matches[1].Replace("'", "");
-            dollarPriceStr = dollarPriceStr.Replace("$", "");
+            var dollarPriceStr = str.Replace("'", "");
+
+            dollarPriceStr = Regex.Match(dollarPriceStr, @"\$\d+")
+                                    .Value
+                                    .Replace("$", "");
 
             return double.Parse(dollarPriceStr);
         }

@@ -32,6 +32,7 @@ namespace FindUa.Parser.Domain.Common
             var driveUnitParser = new RstDriveUnitParser();
             var bodyTypeParser = new RstBodyTypeParser(memoryStore);
             var vechicleParser = new RstVehicleTypeParser();
+            var publishDateParser = new RstPublishDateParser();
             var modelParser = new RstModelParser(memoryStore, unitOfWork, vechicleParser, modelParseLogger);
 
             var parser = new RstParserProvider(
@@ -51,7 +52,7 @@ namespace FindUa.Parser.Domain.Common
                 modelParser,
                 offerNumberParser,
                 priceParser,
-                null,
+                publishDateParser,
                 regionParser,
                 sourceLinkParser,
                 transmissionTypeParser,

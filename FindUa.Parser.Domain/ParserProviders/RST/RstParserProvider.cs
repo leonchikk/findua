@@ -80,7 +80,7 @@ namespace FindUa.Parser.Domain.ParserProviders.RST
                         var detailedHtmlDocument = await DataLoader.LoadHtmlDocumentAsync(sourceLink);
                         var detailedOfferNode = StructureExtractor.GetDetailedOfferStructure(detailedHtmlDocument);
 
-                        var brandModelInfo = BrandModelParser.ParseForDetailed(detailedOfferNode);
+                        var (brandId, modelId) = BrandModelParser.ParseForDetailed(detailedOfferNode);
 
                         var saleAnnounce = new TransportSaleAnnounce()
                         {
@@ -95,11 +95,11 @@ namespace FindUa.Parser.Domain.ParserProviders.RST
                             FuelTypeId = FuelTypeParser.ParseForDetailed(detailedOfferNode),
                             PreviewImageLink = ImageLinkParser.ParseForPreview(previewOfferNode),
                             Mileage = MileageParser.ParseForDetailed(detailedOfferNode),
-                            BrandId = brandModelInfo.BrandId,
+                            BrandId = brandId,
                             VehicleTypeId = VehicleTypeParser.ParseForDetailed(detailedOfferNode),
-                            ModelId = brandModelInfo.ModelId,
+                            ModelId = modelId,
                             PriceInDollars = PriceParser.ParseForDetailed(detailedOfferNode),
-                            UpdateOfferTime = DateTime.Now,
+                            UpdateOfferTime = PublishDateParser.ParseForDetailed(detailedOfferNode),
                             Year = YearParser.ParseForDetailed(detailedOfferNode),
                             CreatedAt = DateTime.Now
                         };
