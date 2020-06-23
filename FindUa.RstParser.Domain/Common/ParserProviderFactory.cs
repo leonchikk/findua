@@ -1,12 +1,13 @@
 ﻿using FindUa.Parser.Core.Common;
 using FindUa.Parser.Core.DataAccess;
 using FindUa.Parser.Core.ParserProvider;
-using FindUa.Parser.Domain.ParserProviders.RST;
-using FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers;
+using FindUa.RstParser.Domain.ParserProviders.RST;
+using FindUa.RstParser.Domain.ParserProviders.RST.PropertyParsers;
+using FindUa.RstParser.Domain.RST.PropertyParsers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace FindUa.Parser.Domain.Common
+namespace FindUa.RstParser.Domain.Common
 {
     public static class ParserProviderFactory
     {

@@ -1,10 +1,11 @@
 ﻿using FindUa.Parser.Core.Common;
 using FindUa.Parser.Core.DataAccess;
 using FindUa.Parser.Core.Entities;
+using FindUa.RstParser.Core.Entities;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
 
-namespace FindUa.Parser.Domain.Common
+namespace FindUa.RstParser.Domain.Common
 {
     public class MemoryStore : IMemoryStore
     {

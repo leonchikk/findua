@@ -1,7 +1,7 @@
 ﻿using FindUa.Parser.Core.ParserProvider.PropertyParsers;
 using HtmlAgilityPack;
 
-namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
+namespace FindUa.RstParser.Domain.ParserProviders.RST.PropertyParsers
 {
     public class RstSourceLinkParser : ISourceLinkParser
     {

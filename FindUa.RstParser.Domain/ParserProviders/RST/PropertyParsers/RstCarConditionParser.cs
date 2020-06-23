@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using FindUa.Parser.Core.Enumerations;
+﻿using FindUa.Parser.Core.Enumerations;
 using FindUa.Parser.Core.ParserProvider.PropertyParsers;
 using HtmlAgilityPack;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
+namespace FindUa.RstParser.Domain.ParserProviders.RST.PropertyParsers
 {
     public class RstCarConditionParser : ICarConditionParser
     {

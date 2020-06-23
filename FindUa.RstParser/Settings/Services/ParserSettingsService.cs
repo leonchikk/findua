@@ -1,8 +1,8 @@
-﻿using FindUa.Parser.Settings.Interfaces;
-using FindUa.Parser.Settings.Models;
+﻿using FindUa.RstParser.Settings.Interfaces;
+using FindUa.RstParser.Settings.Models;
 using Microsoft.Extensions.Options;
 
-namespace FindUa.Parser.Settings.Services
+namespace FindUa.RstParser.Settings.Services
 {
     public class ParserSettingsService : IParserSettingsService
     {

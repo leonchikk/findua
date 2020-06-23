@@ -1,12 +1,11 @@
 ﻿using EFCore.BulkExtensions;
 using FindUa.Parser.Core.DataAccess;
 using FindUa.Parser.Core.Entities;
-using FindUa.Parser.Data.Contexts;
-using System;
+using FindUa.RstParser.Data.Contexts;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace FindUa.Parser.Data.Repositories
+namespace FindUa.RstParser.Data.Repositories
 {
     public class TransportSaleAnnounceRepository : BaseRepository<TransportSaleAnnounce>, ITransportSaleAnnounceRepository
     {

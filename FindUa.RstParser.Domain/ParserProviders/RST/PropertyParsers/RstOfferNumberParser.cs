@@ -2,7 +2,7 @@
 using HtmlAgilityPack;
 using System;
 
-namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
+namespace FindUa.RstParser.Domain.ParserProviders.RST.PropertyParsers
 {
     public class RstOfferNumberParser : IOfferNumberParser
     {

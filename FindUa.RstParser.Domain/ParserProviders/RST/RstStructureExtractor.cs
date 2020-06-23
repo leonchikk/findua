@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FindUa.Parser.Domain.ParserProviders.RST
+namespace FindUa.RstParser.Domain.ParserProviders.RST
 {
     public class RstStructureExtractor : IStructureExtractor
     {

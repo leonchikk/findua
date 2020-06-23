@@ -5,9 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FindUa.Parser.Data\FindUa.Parser.Data.csproj" />
-    <ProjectReference Include="..\FindUa.Parser.Domain\FindUa.Parser.Domain.csproj" />
+    <ProjectReference Include="..\FindUa.RstParser.Data\FindUa.RstParser.Data.csproj" />
+    <ProjectReference Include="..\FindUa.RstParser.Domain\FindUa.RstParser.Domain.csproj" />
   </ItemGroup>
+
 
   <ItemGroup>
     <Content Update="appsettings.json">

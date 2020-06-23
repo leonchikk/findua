@@ -3,13 +3,13 @@ using FindUa.Parser.Core.DataAccess;
 using FindUa.Parser.Core.Entities;
 using FindUa.Parser.Core.Enumerations;
 using FindUa.Parser.Core.ParserProvider.PropertyParsers;
-using FindUa.Parser.Domain.Extensions;
+using FindUa.RstParser.Domain.Extensions;
 using HtmlAgilityPack;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 
-namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
+namespace FindUa.RstParser.Domain.ParserProviders.RST.PropertyParsers
 {
     public class RstModelParser : IBrandModelParser
     {
@@ -69,22 +69,22 @@ namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
 
             if (!string.IsNullOrWhiteSpace(modelName))
             {
-                 model = _memoryStore.TransportModels
-                    .Where
-                    (
-                        x => x.BrandId == brand.Id &&
-                        (
-                            (x.Name
-                                .RemoveAllDashes()
-                                .RemoveAllWhiteSpaces()
-                                .Contains(modelName.RemoveAllWhiteSpaces(), StringComparison.OrdinalIgnoreCase)) ||
+                model = _memoryStore.TransportModels
+                   .Where
+                   (
+                       x => x.BrandId == brand.Id &&
+                       (
+                           (x.Name
+                               .RemoveAllDashes()
+                               .RemoveAllWhiteSpaces()
+                               .Contains(modelName.RemoveAllWhiteSpaces(), StringComparison.OrdinalIgnoreCase)) ||
 
-                            (modelName.RemoveAllWhiteSpaces()
-                                .Contains(x.Name.RemoveAllDashes()
-                                                .RemoveAllWhiteSpaces(), StringComparison.OrdinalIgnoreCase))
-                        )
-                    )
-                    .FirstOrDefault();
+                           (modelName.RemoveAllWhiteSpaces()
+                               .Contains(x.Name.RemoveAllDashes()
+                                               .RemoveAllWhiteSpaces(), StringComparison.OrdinalIgnoreCase))
+                       )
+                   )
+                   .FirstOrDefault();
 
                 if (model == null)
                     model = CreateModel(modelName, brand);

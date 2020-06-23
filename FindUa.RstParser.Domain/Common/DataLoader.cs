@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FindUa.Parser.Domain.Common
+namespace FindUa.RstParser.Domain.Common
 {
     public class DataLoader : IDataLoader
     {

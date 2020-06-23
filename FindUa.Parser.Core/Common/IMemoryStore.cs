@@ -1,4 +1,5 @@
 ﻿using FindUa.Parser.Core.Entities;
+using FindUa.RstParser.Core.Entities;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
 

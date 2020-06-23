@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace FindUa.Parser.Data.EntityConfigurations
+namespace FindUa.RstParser.Data.EntityConfigurations
 {
     public class TransportConditionInSaleAnnounceEntityConfiguration : IEntityTypeConfiguration<TransportConditionInSaleAnnounce>
     {

@@ -1,11 +1,11 @@
 ﻿using FindUa.Parser.Core.DataAccess;
-using FindUa.Parser.Core.Entities;
-using FindUa.Parser.Data.Contexts;
+using FindUa.RstParser.Core.Entities;
+using FindUa.RstParser.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace FindUa.Parser.Data.Repositories
+namespace FindUa.RstParser.Data.Repositories
 {
     public class TransportConditionRepository : BaseRepository<TransportCondition>, ITransportConditionRepository
     {

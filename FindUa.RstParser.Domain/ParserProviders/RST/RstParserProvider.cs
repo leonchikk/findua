@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace FindUa.Parser.Domain.ParserProviders.RST
+namespace FindUa.RstParser.Domain.ParserProviders.RST
 {
     public class RstParserProvider : ParserProvider
     {

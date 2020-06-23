@@ -1,11 +1,11 @@
 ﻿using Common.Core.Interfaces;
 using FindUa.Parser.Core.DataAccess;
 using FindUa.Parser.Core.Entities;
-using FindUa.Parser.Data.Contexts;
+using FindUa.RstParser.Data.Contexts;
 using System;
 using System.Threading.Tasks;
 
-namespace FindUa.Parser.Data.Repositories
+namespace FindUa.RstParser.Data.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {

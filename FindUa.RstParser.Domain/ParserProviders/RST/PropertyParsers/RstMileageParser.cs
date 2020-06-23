@@ -4,11 +4,11 @@ using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
+namespace FindUa.RstParser.Domain.ParserProviders.RST.PropertyParsers
 {
     public class RstMileageParser : IMileageParser
     {
-        private  int MileageStringToInt(string str)
+        private int MileageStringToInt(string str)
         {
             var resultString = Regex.Match(str, @"\d+").Value;
             return int.Parse(resultString);

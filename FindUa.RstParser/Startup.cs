@@ -1,19 +1,19 @@
 using Common.Core.Interfaces;
-using FindUa.Parser.BackgroundWorkers;
 using FindUa.Parser.Core.Common;
 using FindUa.Parser.Core.DataAccess;
-using FindUa.Parser.Data.Contexts;
-using FindUa.Parser.Data.Repositories;
-using FindUa.Parser.Domain.Common;
-using FindUa.Parser.Settings.Interfaces;
-using FindUa.Parser.Settings.Models;
-using FindUa.Parser.Settings.Services;
+using FindUa.RstParser.BackgroundWorkers;
+using FindUa.RstParser.Data.Contexts;
+using FindUa.RstParser.Data.Repositories;
+using FindUa.RstParser.Domain.Common;
+using FindUa.RstParser.Settings.Interfaces;
+using FindUa.RstParser.Settings.Models;
+using FindUa.RstParser.Settings.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace FindUa.Parser
+namespace FindUa.RstParser
 {
     public class Startup
     {

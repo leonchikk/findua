@@ -1,5 +1,5 @@
 ﻿using Common.Core.Interfaces;
-using FindUa.Parser.Core.Entities;
+using FindUa.RstParser.Core.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

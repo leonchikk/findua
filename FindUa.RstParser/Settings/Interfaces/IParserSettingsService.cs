@@ -1,4 +1,4 @@
-﻿namespace FindUa.Parser.Settings.Interfaces
+﻿namespace FindUa.RstParser.Settings.Interfaces
 {
     public interface IParserSettingsService
     {

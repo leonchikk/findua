@@ -4,7 +4,7 @@ using HtmlAgilityPack;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
+namespace FindUa.RstParser.Domain.ParserProviders.RST.PropertyParsers
 {
     public class RstTransmissionTypeParser : ITransmissionTypeParser
     {

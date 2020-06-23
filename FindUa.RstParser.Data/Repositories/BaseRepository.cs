@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using Common.Core.Interfaces;
 using Common.Core.Models;
 using EFCore.BulkExtensions;
-using FindUa.Parser.Data.Contexts;
+using FindUa.RstParser.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 
-namespace FindUa.Parser.Data.Repositories
+namespace FindUa.RstParser.Data.Repositories
 {
     public class BaseRepository<T> : IRepository<T> where T : BaseEntity
     {

@@ -1,9 +1,9 @@
 ﻿using FindUa.Parser.Core.ParserProvider.PropertyParsers;
-using FindUa.Parser.Domain.Extensions;
+using FindUa.RstParser.Domain.Extensions;
 using HtmlAgilityPack;
 using System;
 
-namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
+namespace FindUa.RstParser.Domain.ParserProviders.RST.PropertyParsers
 {
     public class RstDescriptionParser : IDescriptionParser
     {

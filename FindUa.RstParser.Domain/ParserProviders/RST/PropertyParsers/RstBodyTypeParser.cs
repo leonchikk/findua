@@ -5,7 +5,7 @@ using HtmlAgilityPack;
 using System;
 using System.Linq;
 
-namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
+namespace FindUa.RstParser.Domain.RST.PropertyParsers
 {
     public class RstBodyTypeParser : IBodyTypeParser
     {

@@ -1,6 +1,6 @@
 ﻿using Common.Core.Models;
 
-namespace FindUa.Parser.Core.Entities
+namespace FindUa.RstParser.Core.Entities
 {
     public class TransportCondition : BaseEntity
     {

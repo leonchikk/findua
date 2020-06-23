@@ -1,8 +1,9 @@
 ﻿using FindUa.Parser.Core.Entities;
-using FindUa.Parser.Data.EntityConfigurations;
+using FindUa.RstParser.Core.Entities;
+using FindUa.RstParser.Data.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 
-namespace FindUa.Parser.Data.Contexts
+namespace FindUa.RstParser.Data.Contexts
 {
     public class TransportParserContext : DbContext
     {

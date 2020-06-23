@@ -1,4 +1,4 @@
-﻿namespace FindUa.Parser.Settings.Models
+﻿namespace FindUa.RstParser.Settings.Models
 {
     public class ParserSettings
     {

@@ -15,13 +15,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Core", "Common.Core\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{74626EC1-813A-4F98-84AC-EE509C8248CA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FindUa.Rst.Parser.Data", "FindUa.RstParser.Data\FindUa.Rst.Parser.Data.csproj", "{1845E620-AA5D-4FB9-A279-17F70F9FC109}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FindUa.RstParser.Data", "FindUa.RstParser.Data\FindUa.RstParser.Data.csproj", "{1845E620-AA5D-4FB9-A279-17F70F9FC109}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Databases", "Databases", "{6EA9161F-C58C-43A0-A8A3-37284A9606F8}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "FindUa.TransportDatabase", "FindUa.TransportDatabase\FindUa.TransportDatabase.sqlproj", "{61ED75DD-D1A8-48FC-AAC2-B7335FBE9279}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FindUa.Rst.Parser.Domain", "FindUa.RstParser.Domain\FindUa.Rst.Parser.Domain.csproj", "{5DD62364-DACB-4DEC-8D6B-4A06982DA1F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FindUa.RstParser.Domain", "FindUa.RstParser.Domain\FindUa.RstParser.Domain.csproj", "{5DD62364-DACB-4DEC-8D6B-4A06982DA1F9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{3F2500E1-F998-4409-AF05-E96FAAA1AD3A}"
 EndProject

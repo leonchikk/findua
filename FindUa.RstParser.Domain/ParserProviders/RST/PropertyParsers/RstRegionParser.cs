@@ -6,7 +6,7 @@ using System;
 using System.Linq;
 using UnidecodeSharpCore;
 
-namespace FindUa.Parser.Domain.ParserProviders.RST.PropertyParsers
+namespace FindUa.RstParser.Domain.ParserProviders.RST.PropertyParsers
 {
     public class RstRegionParser : IRegionParser
     {
