@@ -42,6 +42,10 @@ GO
 :r .\Init\011.DriveUnits.sql
 GO
 
+/*012.SourceProviders*/
+:r .\Init\012.SourceProviders.sql
+GO
+
 /*020.Regions*/
 :r .\Init\Regions\020.RegionsOfUkraine.sql
 GO

@@ -1,6 +1,7 @@
 ﻿using FindUa.Parser.Core.Common;
 using FindUa.Parser.Core.DataAccess;
 using FindUa.Parser.Core.Entities;
+using FindUa.Parser.Core.Enumerations;
 using FindUa.Parser.Core.ParserProvider;
 using FindUa.Parser.Core.ParserProvider.PropertyParsers;
 using Microsoft.Extensions.Logging;
@@ -101,7 +102,8 @@ namespace FindUa.Parser.Domain.ParserProviders.RST
                             PriceInDollars = PriceParser.ParseForDetailed(detailedOfferNode),
                             UpdateOfferTime = PublishDateParser.ParseForDetailed(detailedOfferNode),
                             Year = YearParser.ParseForDetailed(detailedOfferNode),
-                            CreatedAt = DateTime.Now
+                            CreatedAt = DateTime.Now,
+                            SourceProviderId = (int)SourceProviderEnum.RST
                         };
 
                         var carConditionIds = CarConditionParser.ParseForPreview(previewOfferNode);

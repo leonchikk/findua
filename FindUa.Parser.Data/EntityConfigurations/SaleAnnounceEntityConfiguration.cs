@@ -27,6 +27,8 @@ namespace FindUa.Parser.Data.EntityConfigurations
             builder.HasOne(x => x.VehicleType);
 
             builder.HasOne(x => x.DriveUnit);
+
+            builder.HasOne(x => x.SourceProvider);
         }
     }
 }

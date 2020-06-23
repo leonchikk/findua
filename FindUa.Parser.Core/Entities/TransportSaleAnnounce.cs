@@ -27,6 +27,7 @@ namespace FindUa.Parser.Core.Entities
         public int? ModelId { get; set; }
         public int? BrandId { get; set; }
         public int VehicleTypeId { get; set; }
+        public int SourceProviderId { get; set; }
         public int DriveUnitId { get; set; }
 
         public BodyType BodyType { get; set; }
@@ -37,6 +38,7 @@ namespace FindUa.Parser.Core.Entities
         public TransportModel Model { get; set; }
         public TransportBrand Brand { get; set; }
         public VehicleType VehicleType { get; set; }
+        public SourceProvider SourceProvider { get; set; }
 
         public ICollection<TransportConditionInSaleAnnounce> TransportConditions { get; set; }
     }

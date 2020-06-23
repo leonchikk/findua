@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[SourceProviders]
+(
+	[Id]	INT			  NOT NULL,
+	[NAME]	NVARCHAR(MAX) NOT NULL,
+	CONSTRAINT [PK_SourceProviders] PRIMARY KEY CLUSTERED ([Id] ASC)
+)

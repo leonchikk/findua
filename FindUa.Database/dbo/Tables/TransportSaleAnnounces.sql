@@ -17,6 +17,7 @@
 	[ModelId]			 INT		    NULL,
 	[VehicleTypeId]		 INT		    NOT NULL,
 	[DriveUnitId]		 INT		    NOT NULL,
+	[SourceProviderId]	 INT			NOT NULL,
 	[Mileage]			 INT			NOT NULL,
 	[IsDeleted]			BIT				DEFAULT 0 NOT NULL,
 	[CreatedAt]			DATETIME		NULL, 
@@ -30,5 +31,6 @@
 	CONSTRAINT  [FK_TransportSaleAnnounces_ModelId] FOREIGN KEY ([ModelId]) REFERENCES [dbo].[TransportModels] ([Id]),
 	CONSTRAINT  [FK_TransportSaleAnnounces_BrandId] FOREIGN KEY ([BrandId]) REFERENCES [dbo].[TransportBrands] ([Id]),
 	CONSTRAINT  [FK_TransportSaleAnnounces_VehicleTypeId] FOREIGN KEY ([VehicleTypeId]) REFERENCES [dbo].[VehicleTypes] ([Id]),
-	CONSTRAINT  [FK_TransportSaleAnnounces_DriveUnitId] FOREIGN KEY ([DriveUnitId]) REFERENCES [dbo].[DriveUnits] ([Id])
+	CONSTRAINT  [FK_TransportSaleAnnounces_DriveUnitId] FOREIGN KEY ([DriveUnitId]) REFERENCES [dbo].[DriveUnits] ([Id]),
+	CONSTRAINT  [FK_TransportSaleAnnounces_SourceProviderId] FOREIGN KEY ([SourceProviderId]) REFERENCES [dbo].[SourceProviders] ([Id])
 )

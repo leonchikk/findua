@@ -27,6 +27,7 @@ namespace FindUa.Parser.Data.Contexts
         public DbSet<TransportModel> Models { get; set; }
         public DbSet<TransportSaleAnnounce> SaleAnnounces { get; set; }
         public DbSet<VehicleType> VehicleTypes { get; set; }
+        public DbSet<SourceProvider> SourceProviders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
