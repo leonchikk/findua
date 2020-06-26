@@ -4,4 +4,15 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Domain\ProxyParseProviders\" />
+    <Folder Include="Settings\Models\" />
+    <Folder Include="Settings\Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CachingFramework.Redis" Version="12.0.1" />
+    <PackageReference Include="HtmlAgilityPack.NetCore" Version="1.5.0.1" />
+  </ItemGroup>
+
 </Project>
