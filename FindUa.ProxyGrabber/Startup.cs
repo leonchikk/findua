@@ -26,6 +26,8 @@ namespace FindUa.ProxyGrabber
 
             services.AddSingleton<IProxyGrabberSettingsService, ProxyGrabberSettingsService>();
             services.AddRedisCache();
+
+            services.AddHostedService<ProxyGrabberBackgroundWorker>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
