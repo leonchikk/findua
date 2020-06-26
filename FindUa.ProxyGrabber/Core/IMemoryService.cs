@@ -2,6 +2,6 @@
 {
     public interface IMemoryService
     {
-
+        void SaveProxy(string url);
     }
 }

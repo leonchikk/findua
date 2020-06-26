@@ -3,9 +3,8 @@ using CachingFramework.Redis.Contracts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
-using System.Collections.Generic;
 
-namespace FindUa.ProxyGrabber.Extensions
+namespace Common.Core.Extensions
 {
     public static class RedisServicesExtensions
     {

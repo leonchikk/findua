@@ -1,17 +1,19 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\ProxyParseProviders\" />
+    <Folder Include="Domain\ProxyParseProviders\FreeProxyList\" />
+    <Folder Include="Domain\ProxyParseProviders\Free-Proxy-List\" />
+    <Folder Include="Domain\ProxyParseProviders\Spys\" />
+    <Folder Include="Domain\ProxyParseProviders\ProxyDb\" />
     <Folder Include="Settings\Models\" />
     <Folder Include="Settings\Services\" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CachingFramework.Redis" Version="12.0.1" />
     <PackageReference Include="HtmlAgilityPack.NetCore" Version="1.5.0.1" />
   </ItemGroup>
 

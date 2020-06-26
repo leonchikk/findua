@@ -1,4 +1,4 @@
-using FindUa.ProxyGrabber.Extensions;
+using Common.Core.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
