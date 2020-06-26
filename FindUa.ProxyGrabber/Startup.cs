@@ -1,4 +1,7 @@
 using Common.Core.Extensions;
+using FindUa.ProxyGrabber.BackgroundWorkers;
+using FindUa.ProxyGrabber.Core;
+using FindUa.ProxyGrabber.Domain.Services;
 using FindUa.ProxyGrabber.Settings.Interfaces;
 using FindUa.ProxyGrabber.Settings.Models;
 using FindUa.ProxyGrabber.Settings.Services;
@@ -25,6 +28,7 @@ namespace FindUa.ProxyGrabber
             services.Configure<ProxyGrabberSettings>(proxyGrabberSettings);
 
             services.AddSingleton<IProxyGrabberSettingsService, ProxyGrabberSettingsService>();
+            services.AddSingleton<IMemoryService, MemoryService>();
             services.AddRedisCache();
 
             services.AddHostedService<ProxyGrabberBackgroundWorker>();
