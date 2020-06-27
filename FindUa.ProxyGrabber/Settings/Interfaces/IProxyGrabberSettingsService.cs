@@ -3,5 +3,6 @@
     public interface IProxyGrabberSettingsService
     {
         int GetDelayBetweenGrabbing();
+        string GetProxyFilePath();
     }
 }

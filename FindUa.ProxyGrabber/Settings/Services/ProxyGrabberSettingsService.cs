@@ -18,5 +18,10 @@ namespace FindUa.ProxyGrabber.Settings.Services
         {
             return _proxyGrabberSettings.DelayBetweenGrabbingInMilliseconds;
         }
+
+        public string GetProxyFilePath()
+        {
+            return _proxyGrabberSettings.ProxyFilePath;
+        }
     }
 }

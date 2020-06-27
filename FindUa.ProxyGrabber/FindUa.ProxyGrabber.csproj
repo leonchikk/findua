@@ -5,8 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\ProxyParseProviders\FreeProxyList\" />
-    <Folder Include="Domain\ProxyParseProviders\Free-Proxy-List\" />
+    <None Remove="proxies.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="proxies.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Domain\ProxyParseProviders\Spys\" />
     <Folder Include="Domain\ProxyParseProviders\ProxyDb\" />
   </ItemGroup>
