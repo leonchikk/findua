@@ -2,6 +2,8 @@ using Common.Core.Extensions;
 using FindUa.ProxyGrabber.BackgroundWorkers;
 using FindUa.ProxyGrabber.Core;
 using FindUa.ProxyGrabber.Domain.ProxyParseProviders.FreeProxyListNet;
+using FindUa.ProxyGrabber.Domain.ProxyParseProviders.ProxyDb;
+using FindUa.ProxyGrabber.Domain.ProxyParseProviders.Spys;
 using FindUa.ProxyGrabber.Domain.Services;
 using FindUa.ProxyGrabber.Settings.Interfaces;
 using FindUa.ProxyGrabber.Settings.Models;
@@ -31,11 +33,14 @@ namespace FindUa.ProxyGrabber
             services.AddSingleton<IDataLoader, DataLoader>();
             services.AddSingleton<IProxyHealthChecker, ProxyHealthChecker>();
             services.AddSingleton<IProxyParseProvider, FreeProxyListNetProxyParseProvider>();
+            services.AddSingleton<IProxyParseProvider, ProxyDbParserProvider>();
+            services.AddSingleton<IProxyParseProvider, SpysProxyParserProvider>();
             services.AddSingleton<IProxyGrabberSettingsService, ProxyGrabberSettingsService>();
             services.AddSingleton<IProxyService, ProxyService>();
             services.AddRedisCache();
 
             services.AddHostedService<ProxyGrabberBackgroundWorker>();
+            services.AddHostedService<ProxyHealthCheckerBackfroundWorker>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

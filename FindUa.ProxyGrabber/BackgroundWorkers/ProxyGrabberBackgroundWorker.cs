@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using FindUa.ProxyGrabber.Core;
 using FindUa.ProxyGrabber.Settings.Interfaces;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace FindUa.ProxyGrabber.BackgroundWorkers
 {
@@ -13,19 +15,22 @@ namespace FindUa.ProxyGrabber.BackgroundWorkers
         private readonly IProxyGrabberSettingsService _settings;
         private readonly IProxyHealthChecker _proxyHealthChecker;
         private readonly IProxyService _proxyService;
+        private readonly ILogger<ProxyGrabberBackgroundWorker> _logger;
 
         public ProxyGrabberBackgroundWorker
         (
             IEnumerable<IProxyParseProvider> proxyParseProviders,
             IProxyGrabberSettingsService settings,
             IProxyHealthChecker proxyHealthChecker,
-            IProxyService proxyService
+            IProxyService proxyService,
+            ILogger<ProxyGrabberBackgroundWorker> logger
         )
         {
             _proxyParseProviders = proxyParseProviders;
             _proxyHealthChecker = proxyHealthChecker;
             _proxyService = proxyService;
             _settings = settings;
+            _logger = logger;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -34,26 +39,34 @@ namespace FindUa.ProxyGrabber.BackgroundWorkers
 
             while (!stoppingToken.IsCancellationRequested)
             {
-                var parsedProxies = new List<string>();
-
-                foreach (var proxyParseProvider in _proxyParseProviders)
+                try
                 {
-                    parsedProxies.AddRange(await proxyParseProvider.GetProxiesAsync());
-                }
+                    var parsedProxies = new List<string>();
 
-                for (int i = 0; i < parsedProxies.Count; i++)
-                {
-                    var proxy = parsedProxies[i];
-                    var isWorking = await _proxyHealthChecker.IsWorking(proxy);
-
-                    if (isWorking)
+                    foreach (var proxyParseProvider in _proxyParseProviders)
                     {
-                        _proxyService.SaveProxyToRedis(proxy);
-                        _proxyService.SaveProxyToFile(proxy);
+                        parsedProxies.AddRange(await proxyParseProvider.GetProxiesAsync());
                     }
-                }
 
-                await Task.Delay(_settings.GetDelayBetweenGrabbing());
+                    for (int i = 0; i < parsedProxies.Count; i++)
+                    {
+                        var proxy = parsedProxies[i];
+                        var isWorking = await _proxyHealthChecker.IsWorking(proxy);
+                        var isAlreadyExists = _proxyService.IsAlreadyExists(proxy);
+
+                        if (!isAlreadyExists && isWorking)
+                        {
+                            _proxyService.SaveProxyToRedis(proxy);
+                            _proxyService.SaveProxyToFile(proxy);
+                        }
+                    }
+
+                    await Task.Delay(_settings.GetDelayBetweenGrabbing());
+                }
+                catch(Exception ex)
+                {
+                    _logger.LogError(ex.Message + "\n" + ex.StackTrace);
+                }
             }
         }
     }

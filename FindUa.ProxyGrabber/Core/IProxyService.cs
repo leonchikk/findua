@@ -9,5 +9,10 @@ namespace FindUa.ProxyGrabber.Core
         void SaveProxyToFile(IEnumerable<string> proxyUrls);
         void SaveProxyToRedis(string proxyUrl);
         void SaveProxyToRedis(IEnumerable<string> proxyUrls);
+        void RemoveFromFile(string proxyUrl);
+        void RemoveFromRedis(string proxyUrl);
+        bool IsAlreadyExists(string proxyUrl);
+
+        IEnumerable<string> GetProxiesFromFile();
     }
 }

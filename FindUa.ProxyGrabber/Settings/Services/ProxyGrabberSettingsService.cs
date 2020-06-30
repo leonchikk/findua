@@ -1,7 +1,7 @@
 ﻿using FindUa.ProxyGrabber.Settings.Interfaces;
 using FindUa.ProxyGrabber.Settings.Models;
 using Microsoft.Extensions.Options;
-using System;
+using System.Collections.Generic;
 
 namespace FindUa.ProxyGrabber.Settings.Services
 {
@@ -19,9 +19,19 @@ namespace FindUa.ProxyGrabber.Settings.Services
             return _proxyGrabberSettings.DelayBetweenGrabbingInMilliseconds;
         }
 
+        public int GetHealthCheckFrequencyInMilliseconds()
+        {
+            return _proxyGrabberSettings.HealthCheckFrequencyInMilliseconds;
+        }
+
         public string GetProxyFilePath()
         {
             return _proxyGrabberSettings.ProxyFilePath;
+        }
+
+        public IEnumerable<string> GetUrlsForCheck()
+        {
+            return _proxyGrabberSettings.UrlsForCheck;
         }
     }
 }

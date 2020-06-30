@@ -6,6 +6,7 @@ using FindUa.ProxyGrabber.Settings.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace FindUa.ProxyGrabber.Domain.Services
 {
@@ -24,7 +25,7 @@ namespace FindUa.ProxyGrabber.Domain.Services
 
         public void WriteToRedisExistingProxiesFromFile()
         {
-            var proxies = File.ReadAllLines(_settings.GetProxyFilePath());
+            var proxies = GetProxiesFromFile();
             SaveProxyToRedis(proxies);
         }
 
@@ -49,6 +50,28 @@ namespace FindUa.ProxyGrabber.Domain.Services
         public void SaveProxyToRedis(IEnumerable<string> urls)
         {
             _proxiesSet.AddRange(urls);
+        }
+
+        public void RemoveFromFile(string proxyUrl)
+        {
+            var proxies = File.ReadAllLines(_settings.GetProxyFilePath()).ToList();
+            proxies.Remove(proxyUrl);
+            File.WriteAllLines(_settings.GetProxyFilePath(), proxies);
+        }
+
+        public void RemoveFromRedis(string proxyUrl)
+        {
+            _proxiesSet.Remove(proxyUrl);
+        }
+
+        public IEnumerable<string> GetProxiesFromFile()
+        {
+            return File.ReadAllLines(_settings.GetProxyFilePath());
+        }
+
+        public bool IsAlreadyExists(string proxyUrl)
+        {
+            return _proxiesSet.Any(x => x == proxyUrl);
         }
     }
 }

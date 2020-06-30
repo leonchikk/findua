@@ -1,5 +1,6 @@
 ﻿
 using FindUa.ProxyGrabber.Core;
+using FindUa.ProxyGrabber.Settings.Interfaces;
 using System;
 using System.Net;
 using System.Threading.Tasks;
@@ -9,6 +10,13 @@ namespace FindUa.ProxyGrabber.Domain.Services
     public class ProxyHealthChecker : IProxyHealthChecker
     {
         private ExtendedWebClient _webClient;
+
+        private readonly IProxyGrabberSettingsService _settings;
+
+        public ProxyHealthChecker(IProxyGrabberSettingsService settings)
+        {
+            _settings = settings;
+        }
 
         public async Task<bool> IsWorking(string proxyUrl)
         {
@@ -21,11 +29,14 @@ namespace FindUa.ProxyGrabber.Domain.Services
                     _webClient.Proxy = new WebProxy(proxyUrl);
                     _webClient.Timeout = 5000;
 
-                    await _webClient.DownloadStringTaskAsync("https://rst.ua/oldcars/skoda/octavia/skoda_octavia_11086052.html");
+                    foreach (var url in _settings.GetUrlsForCheck())
+                    {
+                        await _webClient.DownloadStringTaskAsync(url);
+                    }
 
                     return true;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     return false;
                 }
