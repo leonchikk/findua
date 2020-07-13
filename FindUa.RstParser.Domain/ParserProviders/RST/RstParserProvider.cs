@@ -8,6 +8,8 @@ using FindUa.Parser.Core.ParserProvider.PropertyParsers;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace FindUa.RstParser.Domain.ParserProviders.RST
@@ -72,62 +74,72 @@ namespace FindUa.RstParser.Domain.ParserProviders.RST
             {
                 try
                 {
-                    UrlForScrapping += $"&start={ScrappingPage}";
-                    var htmlDocument = await DataLoader.LoadHtmlDocumentAsync(UrlForScrapping);
-                    var previewOffers = StructureExtractor.GetPreviewOfferStructure(htmlDocument, ScrappingPage);
+                    var urlForScrapping = UrlForScrapping + $"&start={ScrappingPage}";
+                    var htmlDocument = await DataLoader.LoadHtmlDocumentAsync(urlForScrapping);
+                    var previewOffers = StructureExtractor.GetPreviewOfferStructure(htmlDocument, ScrappingPage).ToList();
 
-                    foreach (var previewOfferNode in previewOffers)
+                    for (int i = 0; i < previewOffers.Count; i++)
                     {
-                        var sourceLink = SourceLinkParser.GetLink(previewOfferNode, BaseUrl);
-                        var detailedHtmlDocument = await DataLoader.LoadHtmlDocumentAsync(sourceLink);
-                        var detailedOfferNode = StructureExtractor.GetDetailedOfferStructure(detailedHtmlDocument);
+                        tryAgain:
 
-                        var (brandId, modelId) = BrandModelParser.ParseForDetailed(detailedOfferNode);
-
-                        var saleAnnounce = new TransportSaleAnnounce()
+                        try
                         {
-                            SourceLink = sourceLink,
-                            TransmissionTypeId = TransmissionTypeParser.ParseForDetailed(detailedOfferNode),
-                            AdNumber = OfferNumberParser.ParseForDetailed(detailedOfferNode),
-                            BodyTypeId = BodyTypeParser.ParseForDetailed(detailedOfferNode),
-                            CityId = RegionParser.ParseForDetailed(detailedOfferNode).Id,
-                            Description = DescriptionParser.ParseForDetailed(detailedOfferNode),
-                            DriveUnitId = DriveUnitParser.ParseForDetailed(detailedOfferNode),
-                            EngineVolumetric = EngineVolumetricParser.ParseForDetailed(detailedOfferNode),
-                            FuelTypeId = FuelTypeParser.ParseForDetailed(detailedOfferNode),
-                            PreviewImageLink = ImageLinkParser.ParseForPreview(previewOfferNode),
-                            Mileage = MileageParser.ParseForDetailed(detailedOfferNode),
-                            BrandId = brandId,
-                            VehicleTypeId = VehicleTypeParser.ParseForDetailed(detailedOfferNode),
-                            ModelId = modelId,
-                            PriceInDollars = PriceParser.ParseForDetailed(detailedOfferNode),
-                            UpdateOfferTime = PublishDateParser.ParseForDetailed(detailedOfferNode),
-                            Year = YearParser.ParseForDetailed(detailedOfferNode),
-                            CreatedAt = DateTime.Now,
-                            SourceProviderId = (int)SourceProviderEnum.RST
-                        };
+                            var sourceLink = SourceLinkParser.GetLink(previewOffers[i], BaseUrl);
+                            var detailedHtmlDocument = await DataLoader.LoadHtmlDocumentAsync(sourceLink);
+                            var detailedOfferNode = StructureExtractor.GetDetailedOfferStructure(detailedHtmlDocument);
 
-                        var carConditionIds = CarConditionParser.ParseForPreview(previewOfferNode);
-                        foreach (var carConditionId in carConditionIds)
-                            saleAnnounce.TransportConditions.Add(new TransportConditionInSaleAnnounce()
+                            var (brandId, modelId) = BrandModelParser.ParseForDetailed(detailedOfferNode);
+
+                            var saleAnnounce = new TransportSaleAnnounce()
                             {
-                                TransportConditionId = carConditionId
-                            });
+                                SourceLink = sourceLink,
+                                TransmissionTypeId = TransmissionTypeParser.ParseForDetailed(detailedOfferNode),
+                                AdNumber = OfferNumberParser.ParseForDetailed(detailedOfferNode),
+                                BodyTypeId = BodyTypeParser.ParseForDetailed(detailedOfferNode),
+                                CityId = RegionParser.ParseForDetailed(detailedOfferNode).Id,
+                                Description = DescriptionParser.ParseForDetailed(detailedOfferNode),
+                                DriveUnitId = DriveUnitParser.ParseForDetailed(detailedOfferNode),
+                                EngineVolumetric = EngineVolumetricParser.ParseForDetailed(detailedOfferNode),
+                                FuelTypeId = FuelTypeParser.ParseForDetailed(detailedOfferNode),
+                                PreviewImageLink = ImageLinkParser.ParseForPreview(previewOffers[i]),
+                                Mileage = MileageParser.ParseForDetailed(detailedOfferNode),
+                                BrandId = brandId,
+                                VehicleTypeId = VehicleTypeParser.ParseForDetailed(detailedOfferNode),
+                                ModelId = modelId,
+                                PriceInDollars = PriceParser.ParseForDetailed(detailedOfferNode),
+                                UpdateOfferTime = PublishDateParser.ParseForDetailed(detailedOfferNode),
+                                Year = YearParser.ParseForDetailed(detailedOfferNode),
+                                CreatedAt = DateTime.Now,
+                                SourceProviderId = (int)SourceProviderEnum.RST
+                            };
 
-                        scrapedSaleAnnounces.Add(saleAnnounce);
+                            var carConditionIds = CarConditionParser.ParseForPreview(previewOffers[i]);
+                            foreach (var carConditionId in carConditionIds)
+                                saleAnnounce.TransportConditions.Add(new TransportConditionInSaleAnnounce()
+                                {
+                                    TransportConditionId = carConditionId
+                                });
+
+                            scrapedSaleAnnounces.Add(saleAnnounce);
+
+                            UnitOfWork.TransportSaleAnnouncesRepository.Add(saleAnnounce);
+                            await UnitOfWork.SaveChangesAsync();
+
+                            ScrappingPage++;
+                        }
+                        catch (WebException)
+                        {
+                            goto tryAgain;
+                        }
                     }
                 }
                 catch (Exception ex)
                 {
                     _logger.LogError($"{ex.Message}\n{ex.StackTrace}");
                 }
-                finally
-                {
-                    ScrappingPage++;
-                }
             }
 
-            await UnitOfWork.TransportSaleAnnouncesRepository.InsertRangeSaleAnnounces(scrapedSaleAnnounces);
+            //await UnitOfWork.TransportSaleAnnouncesRepository.InsertRangeSaleAnnounces(scrapedSaleAnnounces);
         }
     }
 }

@@ -1,8 +1,9 @@
-﻿using FindUa.Parser.Core;
+﻿using Common.Core;
+using FindUa.Parser.Core;
+using FindUa.Parser.Core.Common;
 using HtmlAgilityPack;
-using System;
+using Microsoft.Extensions.Logging;
 using System.Net;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,53 +11,34 @@ namespace FindUa.RstParser.Domain
 {
     public class DataLoader : IDataLoader
     {
-        private readonly HttpClient _httpClient;
+        private readonly ExtendedWebClient _webClient;
+        private readonly IProxyService _proxyService;
+        private readonly ILogger<DataLoader> _logger;
 
-        public DataLoader()
+        public DataLoader(IProxyService proxyService, ILogger<DataLoader> logger)
         {
-            //149.13.94.38:80
-            var handler = new HttpClientHandler()
-            {
-                //
-                Proxy = new WebProxy("79.104.197.58:8080"),
-                UseProxy = true,
-            };
-
-            _httpClient = new HttpClient(handler);
+            _webClient = new ExtendedWebClient();
+            _proxyService = proxyService;
+            _logger = logger;
         }
 
         public async Task<HtmlDocument> LoadHtmlDocumentAsync(string url)
         {
-            using (var getRequest = new HttpRequestMessage(HttpMethod.Get, url))
-            {
-                getRequest.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36");
-                getRequest.Headers.TryAddWithoutValidation("Accept-Language", "en-US,en;q=0.9,ru;q=0.8");
+            var proxyUrl = _proxyService.GetRandomProxyUrlFromRedis();
 
-                var response = await _httpClient.SendAsync(getRequest);
+            _webClient.Proxy = new WebProxy(proxyUrl);
+            _webClient.Timeout = 10000;
+            _webClient.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36");
+            _webClient.Headers.Add("Accept-Language", "en-US,en;q=0.9,ru;q=0.8");
+            _webClient.Encoding = Encoding.GetEncoding(1251);
 
-                if (response.StatusCode == HttpStatusCode.Forbidden)
-                {
-                    throw new Exception("Get request has been failed. 403 - status response");
-                }
+            _logger.LogInformation($"Make request to {url} , using proxy: {proxyUrl}");
+            string htmlString = await _webClient.DownloadStringTaskAsync(url);
 
-                if (response.StatusCode == HttpStatusCode.BadRequest)
-                {
-                    throw new Exception("Get request has been failed. 400 - status response");
-                }
+            var htmlDoc = new HtmlDocument();
+            htmlDoc.LoadHtml(htmlString);
 
-                if (response.StatusCode != HttpStatusCode.OK)
-                {
-                    throw new Exception($"Get request has been failed. Status code is {response.StatusCode}");
-                }
-
-                byte[] responseBytes = await response.Content.ReadAsByteArrayAsync();
-                string htmlString = Encoding.GetEncoding(1251).GetString(responseBytes);
-
-                var htmlDoc = new HtmlDocument();
-                htmlDoc.LoadHtml(htmlString);
-
-                return htmlDoc;
-            }
+            return htmlDoc;
         }
     }
 }

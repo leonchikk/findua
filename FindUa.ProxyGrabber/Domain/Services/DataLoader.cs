@@ -1,6 +1,7 @@
-﻿using FindUa.ProxyGrabber.Core;
+﻿using Common.Core;
+using FindUa.ProxyGrabber.Core;
+using FindUa.ProxyGrabber.Settings.Interfaces;
 using HtmlAgilityPack;
-using System;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -10,14 +11,21 @@ namespace FindUa.ProxyGrabber.Domain.Services
 {
     public class DataLoader : IDataLoader
     {
-        private WebClient _webClient;
+        private ExtendedWebClient _webClient;
+        private readonly IProxyGrabberSettingsService _settingsService;
+
+        public DataLoader(IProxyGrabberSettingsService settingsService)
+        {
+            _settingsService = settingsService;
+        }
 
         public async Task<HtmlDocument> LoadHtmlDocumentAsync(string url)
         {
-            using (_webClient = new WebClient())
+            using (_webClient = new ExtendedWebClient())
             {
                 _webClient.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36");
                 _webClient.Headers.Add("Accept-Language", "en-US,en;q=0.9,ru;q=0.8");
+                _webClient.Timeout = _settingsService.GetAllowedTimeoutForProxy();
 
                 var htmlString = await _webClient.DownloadStringTaskAsync(url);
 
@@ -36,6 +44,7 @@ namespace FindUa.ProxyGrabber.Domain.Services
             getRequest.Method = "POST";
             getRequest.ContentType = "application/x-www-form-urlencoded";
             getRequest.ContentLength = encodedData.Length;
+            getRequest.Timeout = _settingsService.GetAllowedTimeoutForProxy();
 
             getRequest.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36");
             getRequest.Headers.Add("Accept-Language", "en-US,en;q=0.9,ru;q=0.8");
