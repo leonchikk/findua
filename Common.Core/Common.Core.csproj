@@ -15,5 +15,11 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="3.1.5" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.5" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="ExtendedWebClient.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
   
 </Project>

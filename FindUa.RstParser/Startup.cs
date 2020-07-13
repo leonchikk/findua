@@ -1,3 +1,4 @@
+using Common.Core.Extensions;
 using Common.Core.Interfaces;
 using FindUa.Parser.Core.Common;
 using FindUa.Parser.Core.DataAccess;
@@ -34,6 +35,7 @@ namespace FindUa.RstParser
             services.AddTransient(typeof(IRepository<>), typeof(BaseRepository<>));
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
+            services.AddSingleton<IProxyService, ProxyService>();
             services.AddSingleton<IParserSettingsService, ParserSettingsService>();
             services.AddSingleton<IMemoryStore>(serviceProvider =>
             {
@@ -54,7 +56,8 @@ namespace FindUa.RstParser
 
             services.AddHostedService<RstParserBackgroundWorker>();
 
-            services.AddRstParser(); 
+            services.AddRstParser();
+            services.AddRedisCache();
         }
 
         public void Configure(IApplicationBuilder app)
