@@ -73,5 +73,10 @@ namespace FindUa.ProxyGrabber.Domain.Services
         {
             return _proxiesSet.Any(x => x == proxyUrl);
         }
+
+        public IEnumerable<string> GetProxiesFromRedis()
+        {
+            return _proxiesSet;
+        }
     }
 }

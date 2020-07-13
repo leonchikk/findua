@@ -14,5 +14,6 @@ namespace FindUa.ProxyGrabber.Core
         bool IsAlreadyExists(string proxyUrl);
 
         IEnumerable<string> GetProxiesFromFile();
+        IEnumerable<string> GetProxiesFromRedis();
     }
 }
