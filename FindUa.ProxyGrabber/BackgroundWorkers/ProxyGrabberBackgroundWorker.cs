@@ -48,6 +48,8 @@ namespace FindUa.ProxyGrabber.BackgroundWorkers
                         parsedProxies.AddRange(await proxyParseProvider.GetProxiesAsync());
                     }
 
+                    _logger.LogInformation($"Total amount of parsed proxies {parsedProxies.Count}");
+
                     for (int i = 0; i < parsedProxies.Count; i++)
                     {
                         var proxy = parsedProxies[i];
@@ -58,6 +60,13 @@ namespace FindUa.ProxyGrabber.BackgroundWorkers
                         {
                             _proxyService.SaveProxyToRedis(proxy);
                             _proxyService.SaveProxyToFile(proxy);
+
+                            _logger.LogInformation($"Added new proxy {proxy}");
+                        }
+
+                        if ((i % 50) == 0)
+                        {
+                            _logger.LogInformation($"Processed {i}/{parsedProxies.Count}");
                         }
                     }
 
