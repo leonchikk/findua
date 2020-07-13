@@ -3,6 +3,7 @@ using FindUa.ProxyGrabber.Settings.Interfaces;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace FindUa.ProxyGrabber.BackgroundWorkers
         private readonly IProxyHealthChecker _proxyHealthChecker;
         private readonly IProxyGrabberSettingsService _settings;
         private readonly ILogger<ProxyHealthCheckerBackfroundWorker> _logger;
+        private readonly IDictionary<string, int> _candidatesToRemove;
 
         public ProxyHealthCheckerBackfroundWorker
             (
@@ -28,6 +30,7 @@ namespace FindUa.ProxyGrabber.BackgroundWorkers
             _proxyHealthChecker = proxyHealthChecker;
             _settings = settings;
             _logger = logger;
+            _candidatesToRemove = new Dictionary<string, int>();
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -38,18 +41,39 @@ namespace FindUa.ProxyGrabber.BackgroundWorkers
                 {
                     await Task.Delay(_settings.GetHealthCheckFrequencyInMilliseconds());
 
-                    var existsProxies = _proxyService.GetProxiesFromFile().ToList();
+                    _logger.LogInformation($"Started work to check proxy healthy");
+
+                    var existsProxies = _proxyService.GetProxiesFromRedis().ToList();
 
                     for (int i = 0; i < existsProxies.Count; i++)
                     {
                         var proxyUrl = existsProxies[i];
 
-                        var isStillWorking = await _proxyHealthChecker.IsWorking(proxyUrl);
+                        var isWorking = await _proxyHealthChecker.IsWorking(proxyUrl);
+                        var isCandidateToDelete = _candidatesToRemove.Any(x => x.Key == proxyUrl);
 
-                        if (!isStillWorking)
+                        if (isWorking && isCandidateToDelete)
+                            _candidatesToRemove[proxyUrl] = 0;
+                        
+
+                        if (!isWorking)
                         {
-                            _proxyService.RemoveFromFile(proxyUrl);
-                            _proxyService.RemoveFromRedis(proxyUrl);
+                            if (!isCandidateToDelete)
+                                _candidatesToRemove.Add(proxyUrl, 1);
+
+                            else
+                            {
+                                var currentAttemptCount = _candidatesToRemove[proxyUrl];
+                                currentAttemptCount += 1;
+
+                                if (currentAttemptCount >= _settings.GetFailedHealthCheckAttemptCount())
+                                {
+                                    _proxyService.RemoveFromFile(proxyUrl);
+                                    _proxyService.RemoveFromRedis(proxyUrl);
+
+                                    _logger.LogInformation($"Removed {proxyUrl}, it has failed checking {_settings.GetFailedHealthCheckAttemptCount()} times");
+                                }
+                            }
                         }
                     }
                 }
