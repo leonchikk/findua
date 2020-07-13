@@ -14,9 +14,19 @@ namespace FindUa.ProxyGrabber.Settings.Services
             _proxyGrabberSettings = parserSettings.CurrentValue;
         }
 
+        public int GetAllowedTimeoutForProxy()
+        {
+            return _proxyGrabberSettings.AllowedTimeout;
+        }
+
         public int GetDelayBetweenGrabbing()
         {
             return _proxyGrabberSettings.DelayBetweenGrabbingInMilliseconds;
+        }
+
+        public int GetFailedHealthCheckAttemptCount()
+        {
+            return _proxyGrabberSettings.FailedHealthCheckAttemptCount;
         }
 
         public int GetHealthCheckFrequencyInMilliseconds()

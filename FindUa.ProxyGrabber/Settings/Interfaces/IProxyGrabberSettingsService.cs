@@ -8,5 +8,7 @@ namespace FindUa.ProxyGrabber.Settings.Interfaces
         string GetProxyFilePath();
         IEnumerable<string> GetUrlsForCheck();
         int GetHealthCheckFrequencyInMilliseconds();
+        int GetAllowedTimeoutForProxy();
+        int GetFailedHealthCheckAttemptCount();
     }
 }
