@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FindUa.Parser.Core.Entities
 {
-    public class LocalizationKey : BaseEntity
+    public class LocalizationKey : BaseEntity<int>
     {
         public LocalizationKey()
         {

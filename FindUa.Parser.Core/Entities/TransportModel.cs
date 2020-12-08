@@ -2,7 +2,7 @@
 
 namespace FindUa.Parser.Core.Entities
 {
-    public class TransportModel : BaseEntity
+    public class TransportModel : BaseEntity<int>
     {
         public int BrandId { get; set; }
         public string Name { get; set; }

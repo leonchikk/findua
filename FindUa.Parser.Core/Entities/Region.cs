@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FindUa.Parser.Core.Entities
 {
-    public class Region : BaseEntity
+    public class Region : BaseEntity<int>
     {
         public Region()
         {

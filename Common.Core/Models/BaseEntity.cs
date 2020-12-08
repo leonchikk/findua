@@ -2,9 +2,9 @@
 
 namespace Common.Core.Models
 {
-    public class BaseEntity
+    public class BaseEntity<TKey>
     {
-        public int Id { get; set; }
+        public TKey Id { get; set; }
         public bool IsDeleted { get; set; }
 
         public DateTime? CreatedAt { get; set; }

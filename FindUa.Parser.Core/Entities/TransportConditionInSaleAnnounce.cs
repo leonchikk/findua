@@ -3,7 +3,7 @@ using FindUa.RstParser.Core.Entities;
 
 namespace FindUa.Parser.Core.Entities
 {
-    public class TransportConditionInSaleAnnounce : BaseEntity
+    public class TransportConditionInSaleAnnounce : BaseEntity<int>
     {
         public int SaleAnnounceId { get; set; }
         public int TransportConditionId { get; set; }

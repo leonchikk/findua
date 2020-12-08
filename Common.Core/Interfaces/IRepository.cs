@@ -1,5 +1,4 @@
-﻿using Common.Core.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -7,39 +6,32 @@ using System.Threading.Tasks;
 
 namespace Common.Core.Interfaces
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<TEntity> where TEntity : class
     {
-        bool Any(Expression<Func<T, bool>> predicate);
+        bool Any(Expression<Func<TEntity, bool>> predicate);
 
-        T Add(T obj);
-        T Update(T obj);
+        TEntity Add(TEntity obj);
+        TEntity Update(TEntity obj);
         void Delete(int id);
-        bool Contains(T entity);
+        bool Contains(TEntity entity);
 
-        Task<T> AddAsync(T obj);
-        Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> obj);
+        Task<TEntity> AddAsync(TEntity obj);
+        Task<IEnumerable<TEntity>> AddRangeAsync(IEnumerable<TEntity> obj);
         Task DeleteAsync(int id);
-        void Delete(T obj);
-        void DeleteRange(IEnumerable<T> obj);
+        void Delete(TEntity obj);
+        void DeleteRange(IEnumerable<TEntity> obj);
 
-        T FirstOrDefault(Expression<Func<T, bool>> predicate);
-        Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate);
+        TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicate);
+        Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
 
-        IQueryable<T> FindBy(Expression<Func<T, bool>> predicate);
-        IQueryable<T> FindBy<T2>(Expression<Func<T, bool>> predicate, params Expression<Func<T, T2>>[] paths);
-        IQueryable<T> GetAll();
-        IQueryable<T> GetAllAsNoTracking();
+        IQueryable<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate);
+        IQueryable<TEntity> FindBy<T2>(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, T2>>[] paths);
+        IQueryable<TEntity> GetAll();
+        IQueryable<TEntity> GetAllAsNoTracking();
 
-        IQueryable<T> GetAllWithIncludies(params Expression<Func<T, object>>[] includeProperties);
-        IQueryable<T> GetAllWithIncludiesAsNoTracking(params Expression<Func<T, object>>[] includeProperties);
+        TEntity GetById(int id);
+        void Detach(TEntity obj);
 
-
-        T GetById(int id);
-        T GetByIdAsNoTracking(int id);
-        T GetByIdWithIncludies(int id, params Expression<Func<T, object>>[] includeProperties);
-        T GetByIdWithIncludiesAsNoTracking(int id, params Expression<Func<T, object>>[] includeProperties);
-        void Detach(T obj);
-
-        Task InsertBulkAsync(IList<T> entities);
+        Task InsertBulkAsync(IList<TEntity> entities);
     }
 }

@@ -1,10 +1,9 @@
 ﻿using Common.Core.Interfaces;
 using FindUa.Parser.Core.Entities;
-using System.Threading.Tasks;
 
 namespace FindUa.Parser.Core.DataAccess
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IBaseUnitOfWork
     {
         IBodyTypeRepository BodyTypesRepository { get; }
         ICityRepository CitiesRepository { get; }
@@ -18,7 +17,5 @@ namespace FindUa.Parser.Core.DataAccess
         ITransportModelRepository ModelsRepository { get; }
         ITransportSaleAnnounceRepository TransportSaleAnnouncesRepository { get; }
         IVehicleTypeRepository VehicleTypesRepository { get; }
-
-        Task SaveChangesAsync();
     }
 }

@@ -2,7 +2,7 @@
 
 namespace FindUa.Parser.Core.Entities
 {
-    public class FuelType: BaseEntity
+    public class FuelType: BaseEntity<int>
     {
         public string Name { get; set; }
     }

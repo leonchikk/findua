@@ -2,7 +2,7 @@
 
 namespace FindUa.Parser.Core.Entities
 {
-    public class TransmissionType : BaseEntity
+    public class TransmissionType : BaseEntity<int>
     {
         public string Name { get; set; }
     }

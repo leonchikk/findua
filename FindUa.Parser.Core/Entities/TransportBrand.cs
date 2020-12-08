@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FindUa.Parser.Core.Entities
 {
-    public class TransportBrand : BaseEntity
+    public class TransportBrand : BaseEntity<int>
     {
         public TransportBrand()
         {

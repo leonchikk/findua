@@ -3,7 +3,7 @@ using System;
 
 namespace FindUa.Parser.Core.Entities
 {
-    public class City : BaseEntity
+    public class City : BaseEntity<int>
     {
         public string Title { get; set; }
         public bool IsRegionalCenter { get; set; }

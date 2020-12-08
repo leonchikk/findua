@@ -1,17 +1,16 @@
-﻿using System;
+﻿using Common.Core.Interfaces;
+using EFCore.BulkExtensions;
+using FindUa.RstParser.Data.Contexts;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Common.Core.Interfaces;
-using Common.Core.Models;
-using EFCore.BulkExtensions;
-using FindUa.RstParser.Data.Contexts;
-using Microsoft.EntityFrameworkCore;
 
 namespace FindUa.RstParser.Data.Repositories
 {
-    public class BaseRepository<T> : IRepository<T> where T : BaseEntity
+    public class BaseRepository<T> : IRepository<T> where T : class
     {
         protected readonly TransportParserContext _dbContext;
         protected readonly DbSet<T> DbSet;
@@ -52,7 +51,7 @@ namespace FindUa.RstParser.Data.Repositories
 
         public void Delete(int id)
         {
-            T obj = DbSet.First(x => x.Id == id);
+            T obj = DbSet.Find(id);
             DbSet.Remove(obj);
         }
 
@@ -63,7 +62,7 @@ namespace FindUa.RstParser.Data.Repositories
 
         public async Task DeleteAsync(int id)
         {
-            T obj = await DbSet.FirstAsync(x => x.Id == id);
+            T obj = await DbSet.FindAsync(id);
             DbSet.Remove(obj);
         }
 
@@ -131,34 +130,7 @@ namespace FindUa.RstParser.Data.Repositories
 
         public T GetById(int id)
         {
-            return DbSet.FirstOrDefault(x => x.Id == id);
-        }
-
-        public T GetByIdAsNoTracking(int id)
-        {
-            return DbSet.AsNoTracking().FirstOrDefault(x => x.Id == id);
-        }
-
-        public T GetByIdWithIncludies(int id, params Expression<Func<T, object>>[] includeProperties)
-        {
-            IQueryable<T> query = DbSet.Where(x => x.Id == id);
-            foreach (Expression<Func<T, object>> include in includeProperties)
-            {
-                query = query.Include(include);
-            }
-
-            return query.FirstOrDefault();
-        }
-
-        public T GetByIdWithIncludiesAsNoTracking(int id, params Expression<Func<T, object>>[] includeProperties)
-        {
-            IQueryable<T> query = DbSet.Where(x => x.Id == id).AsNoTracking();
-            foreach (Expression<Func<T, object>> include in includeProperties)
-            {
-                query = query.Include(include);
-            }
-
-            return query.FirstOrDefault();
+            return DbSet.Find(id);
         }
 
         public T Update(T obj)

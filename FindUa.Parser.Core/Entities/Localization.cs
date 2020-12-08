@@ -2,7 +2,7 @@
 
 namespace FindUa.Parser.Core.Entities
 {
-    public class Localization : BaseEntity
+    public class Localization : BaseEntity<int>
     {
         public int LocalizationKeyId { get; set; }
         public LocalizationKey LocalizationKey { get; set; }

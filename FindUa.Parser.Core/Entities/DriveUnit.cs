@@ -2,7 +2,7 @@
 
 namespace FindUa.Parser.Core.Entities
 {
-    public class DriveUnit : BaseEntity
+    public class DriveUnit : BaseEntity<int>
     {
         public string Title { get; set; }
     }

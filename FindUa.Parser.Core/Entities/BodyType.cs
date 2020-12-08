@@ -2,7 +2,7 @@
 
 namespace FindUa.Parser.Core.Entities
 {
-    public class BodyType : BaseEntity
+    public class BodyType : BaseEntity<int>
     {
         public string Name { get; set; }
         public int VehicleTypeId { get; set; }

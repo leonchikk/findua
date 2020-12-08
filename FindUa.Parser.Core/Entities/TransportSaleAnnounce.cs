@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace FindUa.Parser.Core.Entities
 {
-    public class TransportSaleAnnounce : BaseEntity
+    public class TransportSaleAnnounce : BaseEntity<int>
     {
         public TransportSaleAnnounce()
         {
