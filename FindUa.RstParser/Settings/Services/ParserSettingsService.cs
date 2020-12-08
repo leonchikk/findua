@@ -6,26 +6,26 @@ namespace FindUa.RstParser.Settings.Services
 {
     public class ParserSettingsService : IParserSettingsService
     {
-        private readonly ParserSettings _parserSettings;
+        private readonly IOptionsMonitor<ParserSettings> _parserSettings;
 
         public ParserSettingsService(IOptionsMonitor<ParserSettings> parserSettings)
         {
-            _parserSettings = parserSettings.CurrentValue;
+            _parserSettings = parserSettings;
         }
 
         public int GetDaysCountForProcessing()
         {
-            return _parserSettings.ProcessingDepthInDays;
+            return _parserSettings.CurrentValue.ProcessingDepthInDays;
         }
 
         public int GetDelayBetweenStepsInMilliseconds()
         {
-            return _parserSettings.DelayBetweenStepsInMilliseconds;
+            return _parserSettings.CurrentValue.DelayBetweenStepsInMilliseconds;
         }
 
         public int GetItemsCountForStep()
         {
-            return _parserSettings.ItemsCountForStep;
+            return _parserSettings.CurrentValue.ItemsCountForStep;
         }
     }
 }

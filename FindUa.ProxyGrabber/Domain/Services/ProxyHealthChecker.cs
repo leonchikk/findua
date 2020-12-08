@@ -19,7 +19,7 @@ namespace FindUa.ProxyGrabber.Domain.Services
             _settings = settings;
         }
 
-        public async Task<bool> IsWorking(string proxyUrl)
+        public async Task<(string proxyUrl, bool isWorking)> IsWorking(string proxyUrl)
         {
             using (_webClient = new ExtendedWebClient())
             {
@@ -35,11 +35,11 @@ namespace FindUa.ProxyGrabber.Domain.Services
                         await _webClient.DownloadStringTaskAsync(url);
                     }
 
-                    return true;
+                    return (proxyUrl, isWorking: true);
                 }
                 catch (Exception ex)
                 {
-                    return false;
+                    return (proxyUrl, isWorking: false);
                 }
             }
         }

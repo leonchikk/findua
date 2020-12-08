@@ -3,6 +3,7 @@ using FindUa.ProxyGrabber.Settings.Interfaces;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -30,11 +31,13 @@ namespace FindUa.ProxyGrabber.BackgroundWorkers
             _proxyHealthChecker = proxyHealthChecker;
             _settings = settings;
             _logger = logger;
-            _candidatesToRemove = new Dictionary<string, int>();
+            _candidatesToRemove = new ConcurrentDictionary<string, int>();
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            var proxyHealthCheckersTaskList = new List<Task<(string proxyUrl, bool isWorking)>>();
+
             while (!stoppingToken.IsCancellationRequested)
             {
                 try
@@ -46,15 +49,21 @@ namespace FindUa.ProxyGrabber.BackgroundWorkers
                     var existsProxies = _proxyService.GetProxiesFromRedis().ToList();
 
                     for (int i = 0; i < existsProxies.Count; i++)
-                    {
-                        var proxyUrl = existsProxies[i];
+                        proxyHealthCheckersTaskList.Add(_proxyHealthChecker.IsWorking(existsProxies[i]));
 
-                        var isWorking = await _proxyHealthChecker.IsWorking(proxyUrl);
+                    await Task.WhenAll(proxyHealthCheckersTaskList);
+
+                    var resultOfCheck = proxyHealthCheckersTaskList.Select(x => x.Result).ToList();
+
+                    for (int i = 0; i < resultOfCheck.Count; i++)
+                    {
+                        var proxyUrl = resultOfCheck[i].proxyUrl;
+                        var isWorking = resultOfCheck[i].isWorking;
                         var isCandidateToDelete = _candidatesToRemove.Any(x => x.Key == proxyUrl);
 
                         if (isWorking && isCandidateToDelete)
                             _candidatesToRemove[proxyUrl] = 0;
-                        
+
 
                         if (!isWorking)
                         {

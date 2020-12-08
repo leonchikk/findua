@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using FindUa.ProxyGrabber.Core;
@@ -35,6 +36,7 @@ namespace FindUa.ProxyGrabber.BackgroundWorkers
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            var proxyHealthCheckersTaskList = new List<Task<(string proxyUrl, bool isWorking)>>();
             _proxyService.WriteToRedisExistingProxiesFromFile();
 
             while (!stoppingToken.IsCancellationRequested)
@@ -51,9 +53,16 @@ namespace FindUa.ProxyGrabber.BackgroundWorkers
                     _logger.LogInformation($"Total amount of parsed proxies {parsedProxies.Count}");
 
                     for (int i = 0; i < parsedProxies.Count; i++)
+                        proxyHealthCheckersTaskList.Add(_proxyHealthChecker.IsWorking(parsedProxies[i]));
+
+                    await Task.WhenAll(proxyHealthCheckersTaskList);
+
+                    var resultOfCheck = proxyHealthCheckersTaskList.Select(x => x.Result).ToList();
+
+                    for (int i = 0; i < resultOfCheck.Count; i++)
                     {
-                        var proxy = parsedProxies[i];
-                        var isWorking = await _proxyHealthChecker.IsWorking(proxy);
+                        var proxy = resultOfCheck[i].proxyUrl;
+                        var isWorking = resultOfCheck[i].isWorking;
                         var isAlreadyExists = _proxyService.IsAlreadyExists(proxy);
 
                         if (!isAlreadyExists && isWorking)
