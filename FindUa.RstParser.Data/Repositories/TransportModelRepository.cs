@@ -2,6 +2,7 @@
 using FindUa.Parser.Core.Entities;
 using FindUa.RstParser.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
+using Services.Shared.DataAccess.UoW.Implementations;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Services.Shared.DataAccess.UoW.Abstractions;
+using Services.Shared.DataAccess.UoW.Implementations;
 
 namespace FindUa.RstParser
 {
