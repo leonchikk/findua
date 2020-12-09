@@ -1,5 +1,5 @@
-﻿using Common.Core.Interfaces;
-using FindUa.Parser.Core.Entities;
+﻿using FindUa.Parser.Core.Entities;
+using Services.Shared.DataAccess.UoW.Abstractions;
 
 namespace FindUa.Parser.Core.DataAccess
 {
@@ -7,13 +7,13 @@ namespace FindUa.Parser.Core.DataAccess
     {
         IBodyTypeRepository BodyTypesRepository { get; }
         ICityRepository CitiesRepository { get; }
-        IRepository<Country> CountiesRepository { get; }
+        IBaseRepository<Country> CountiesRepository { get; }
         IFuelTypeRepository FuelTypesRepository { get; }
-        IRepository<Region> RegionsRepository { get; }
+        IBaseRepository<Region> RegionsRepository { get; }
         ITransmissionTypeRepository TransmissionTypesRepository { get; }
         ITransportBrandRepository BrandsRepository { get; }
         ITransportConditionRepository TransportConditionsRepository { get; }
-        IRepository<TransportConditionInSaleAnnounce> TransportConditionInSaleAnnouncesRepository { get; }
+        IBaseRepository<TransportConditionInSaleAnnounce> TransportConditionInSaleAnnouncesRepository { get; }
         ITransportModelRepository ModelsRepository { get; }
         ITransportSaleAnnounceRepository TransportSaleAnnouncesRepository { get; }
         IVehicleTypeRepository VehicleTypesRepository { get; }

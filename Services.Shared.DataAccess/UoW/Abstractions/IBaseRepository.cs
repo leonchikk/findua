@@ -4,20 +4,20 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Common.Core.Interfaces
+namespace Services.Shared.DataAccess.UoW.Abstractions
 {
-    public interface IRepository<TEntity> where TEntity : class
+    public interface IBaseRepository<TEntity> where TEntity : class
     {
         bool Any(Expression<Func<TEntity, bool>> predicate);
 
         TEntity Add(TEntity obj);
         TEntity Update(TEntity obj);
-        void Delete(int id);
+        void Delete(object id);
         bool Contains(TEntity entity);
 
         Task<TEntity> AddAsync(TEntity obj);
         Task<IEnumerable<TEntity>> AddRangeAsync(IEnumerable<TEntity> obj);
-        Task DeleteAsync(int id);
+        Task DeleteAsync(object id);
         void Delete(TEntity obj);
         void DeleteRange(IEnumerable<TEntity> obj);
 
@@ -29,7 +29,7 @@ namespace Common.Core.Interfaces
         IQueryable<TEntity> GetAll();
         IQueryable<TEntity> GetAllAsNoTracking();
 
-        TEntity GetById(int id);
+        TEntity GetById(object id);
         void Detach(TEntity obj);
 
         Task InsertBulkAsync(IList<TEntity> entities);

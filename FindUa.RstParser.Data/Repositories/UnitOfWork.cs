@@ -1,22 +1,15 @@
-﻿using Common.Core.Interfaces;
-using FindUa.Parser.Core.DataAccess;
+﻿using FindUa.Parser.Core.DataAccess;
 using FindUa.Parser.Core.Entities;
 using FindUa.RstParser.Data.Contexts;
-using System;
-using System.Threading.Tasks;
+using Services.Shared.DataAccess.UoW.Abstractions;
+using Services.Shared.DataAccess.UoW.Implementations;
 
 namespace FindUa.RstParser.Data.Repositories
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : BaseUnitOfWork<TransportParserContext>
     {
-        private readonly TransportParserContext _dbContext;
-
-        public UnitOfWork
-        (
-            TransportParserContext dbContext
-        )
+        public UnitOfWork(TransportParserContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
         }
 
         private IBodyTypeRepository _bodyTypesRepository;
@@ -27,16 +20,16 @@ namespace FindUa.RstParser.Data.Repositories
         public ICityRepository CitiesRepository => _citiesRepository ?? (_citiesRepository = new CityRepository(_dbContext));
 
 
-        private IRepository<Country> _countiesRepository;
-        public IRepository<Country> CountiesRepository => _countiesRepository ?? (_countiesRepository = new BaseRepository<Country>(_dbContext));
+        private IBaseRepository<Country> _countiesRepository;
+        public IBaseRepository<Country> CountiesRepository => _countiesRepository ?? (_countiesRepository = new BaseRepository<Country>(_dbContext));
 
 
         private IFuelTypeRepository _fuelTypesRepository;
         public IFuelTypeRepository FuelTypesRepository => _fuelTypesRepository ?? (_fuelTypesRepository = new FuelTypeRepository(_dbContext));
 
 
-        private IRepository<Region> _regionsRepository;
-        public IRepository<Region> RegionsRepository => _regionsRepository ?? (_regionsRepository = new BaseRepository<Region>(_dbContext));
+        private IBaseRepository<Region> _regionsRepository;
+        public IBaseRepository<Region> RegionsRepository => _regionsRepository ?? (_regionsRepository = new BaseRepository<Region>(_dbContext));
 
 
         private ITransmissionTypeRepository _transmissionTypesRepository;
@@ -51,32 +44,21 @@ namespace FindUa.RstParser.Data.Repositories
         public ITransportConditionRepository TransportConditionsRepository => _transportConditionsRepository ?? (_transportConditionsRepository = new TransportConditionRepository(_dbContext));
 
 
-        private IRepository<TransportConditionInSaleAnnounce> _transportConditionInSaleAnnouncesRepository;
-        public IRepository<TransportConditionInSaleAnnounce> TransportConditionInSaleAnnouncesRepository => _transportConditionInSaleAnnouncesRepository ?? 
+        private IBaseRepository<TransportConditionInSaleAnnounce> _transportConditionInSaleAnnouncesRepository;
+        public IBaseRepository<TransportConditionInSaleAnnounce> TransportConditionInSaleAnnouncesRepository => _transportConditionInSaleAnnouncesRepository ??
             (_transportConditionInSaleAnnouncesRepository = new BaseRepository<TransportConditionInSaleAnnounce>(_dbContext));
 
 
         private ITransportModelRepository _modelsRepository;
-        public ITransportModelRepository ModelsRepository => _modelsRepository ?? (_modelsRepository =new TransportModelRepository(_dbContext));
+        public ITransportModelRepository ModelsRepository => _modelsRepository ?? (_modelsRepository = new TransportModelRepository(_dbContext));
 
 
         private ITransportSaleAnnounceRepository _transportSaleAnnouncesRepository;
-        public ITransportSaleAnnounceRepository TransportSaleAnnouncesRepository => _transportSaleAnnouncesRepository ?? 
+        public ITransportSaleAnnounceRepository TransportSaleAnnouncesRepository => _transportSaleAnnouncesRepository ??
             (_transportSaleAnnouncesRepository = new TransportSaleAnnounceRepository(_dbContext));
 
 
         private IVehicleTypeRepository _vehicleTypesRepository;
         public IVehicleTypeRepository VehicleTypesRepository => _vehicleTypesRepository ?? (_vehicleTypesRepository = new VehicleTypeRepository(_dbContext));
-
-        public void Dispose()
-        {
-            _dbContext.Dispose();
-            GC.SuppressFinalize(this);
-        }
-
-        public async Task SaveChangesAsync()
-        {
-            await _dbContext.SaveChangesAsync();
-        }
     }
 }

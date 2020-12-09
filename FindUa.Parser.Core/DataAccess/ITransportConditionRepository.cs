@@ -1,11 +1,11 @@
-﻿using Common.Core.Interfaces;
-using FindUa.RstParser.Core.Entities;
+﻿using FindUa.RstParser.Core.Entities;
+using Services.Shared.DataAccess.UoW.Abstractions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FindUa.Parser.Core.DataAccess
 {
-    public interface ITransportConditionRepository : IRepository<TransportCondition>
+    public interface ITransportConditionRepository : IBaseRepository<TransportCondition>
     {
         Task<IList<TransportCondition>> LoadAllAsyncAsNoTracking();
     }

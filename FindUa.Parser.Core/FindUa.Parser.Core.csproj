@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Common.Core\Common.Core.csproj" />
+    <ProjectReference Include="..\Services.Shared.DataAccess\Services.Shared.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

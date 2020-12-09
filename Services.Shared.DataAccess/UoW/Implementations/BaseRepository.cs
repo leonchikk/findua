@@ -1,5 +1,4 @@
 ﻿using EFCore.BulkExtensions;
-using FindUa.RstParser.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Services.Shared.DataAccess.UoW.Abstractions;
 using System;
@@ -8,14 +7,14 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace FindUa.RstParser.Data.Repositories
+namespace Services.Shared.DataAccess.UoW.Implementations
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
-        protected readonly TransportParserContext _dbContext;
+        protected readonly DbContext _dbContext;
         protected readonly DbSet<T> DbSet;
 
-        public BaseRepository(TransportParserContext dbContext)
+        public BaseRepository(DbContext dbContext)
         {
             _dbContext = dbContext;
             DbSet = _dbContext.Set<T>();

@@ -3,7 +3,7 @@ using Authentication.API.Interfaces;
 using Authentication.Models.Requests;
 using Authentication.Models.Responses;
 using Common.Core.Helpers;
-using Common.Core.Interfaces;
+using Services.Shared.DataAccess.UoW.Abstractions;
 using System;
 using System.Linq;
 
@@ -11,10 +11,10 @@ namespace Authentication.API.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
-        private readonly IRepository<Account> _accountsRepository;
+        private readonly IBaseRepository<Account> _accountsRepository;
         private readonly ITokenService _tokenService;
 
-        public AuthenticationService(IRepository<Account> accountsRepository, ITokenService tokenService)
+        public AuthenticationService(IBaseRepository<Account> accountsRepository, ITokenService tokenService)
         {
             _accountsRepository = accountsRepository;
             _tokenService = tokenService;

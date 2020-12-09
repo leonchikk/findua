@@ -5,7 +5,7 @@ using System;
 
 namespace Auth.Core.Entities
 {
-    public class Account : BaseEntity
+    public class Account : BaseEntity<Guid>
     {
         private Account() { }
 

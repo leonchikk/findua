@@ -10,13 +10,13 @@ using Auth.Data.Repositories;
 using Authentication.API.Interfaces;
 using Authentication.API.Services;
 using Authentication.Services;
-using Common.Core.Interfaces;
 using Common.Messaging.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Services.Shared.DataAccess.UoW.Abstractions;
 
 namespace Auth
 {
@@ -34,7 +34,7 @@ namespace Auth
             services.AddMvc(option => option.EnableEndpointRouting = false);
             services.AddDbContext<AuthContext>(options => options.UseSqlServer(Configuration.GetConnectionString("local")));
             services.AddRabbitMQEventBus(Configuration);
-            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            services.AddTransient(typeof(IBaseRepository<>), typeof(Repository<>));
             services.AddTransient<IBaseUnitOfWork, UnitOfWork>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();

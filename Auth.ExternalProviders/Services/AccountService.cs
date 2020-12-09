@@ -1,7 +1,7 @@
 ﻿using Auth.Core.Entities;
 using Auth.ExternalProviders.Interfaces.Internal;
 using Auth.ExternalProviders.Models;
-using Common.Core.Interfaces;
+using Services.Shared.DataAccess.UoW.Abstractions;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,7 +9,7 @@ namespace Auth.ExternalProviders.Services
 {
     internal class AccountService : Interfaces.Public.IExternalAuthProvider
     {
-        private readonly IRepository<Account> _accountsRepository;
+        private readonly IBaseRepository<Account> _accountsRepository;
         private readonly IBaseUnitOfWork _unitOfWork;
         private readonly ITokenService _tokenService;
         private readonly IVkAuthProvider _vkAuthProvider;
@@ -18,7 +18,7 @@ namespace Auth.ExternalProviders.Services
 
 
         public AccountService(
-            IRepository<Account> accountsRepository,
+            IBaseRepository<Account> accountsRepository,
             IBaseUnitOfWork unitOfWork,
             ITokenService tokenService,
             IVkAuthProvider vkAuthProvider,

@@ -1,5 +1,4 @@
 using Common.Core.Extensions;
-using Common.Core.Interfaces;
 using FindUa.Parser.Core.Common;
 using FindUa.Parser.Core.DataAccess;
 using FindUa.RstParser.BackgroundWorkers;
@@ -14,6 +13,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Services.Shared.DataAccess.UoW.Abstractions;
 
 namespace FindUa.RstParser
 {
@@ -32,8 +32,8 @@ namespace FindUa.RstParser
 
             services.AddDbContext<TransportParserContext>(options => options.UseSqlServer(Configuration.GetConnectionString("local")));
 
-            services.AddTransient(typeof(IRepository<>), typeof(BaseRepository<>));
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            services.AddTransient<IBaseUnitOfWork, UnitOfWork>();
 
             services.AddSingleton<IProxyService, ProxyService>();
             services.AddSingleton<IParserSettingsService, ParserSettingsService>();

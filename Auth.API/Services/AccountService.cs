@@ -4,10 +4,10 @@ using Auth.Core.Entities;
 using Auth.Core.Enumerations;
 using Auth.Core.Events;
 using Common.Core.Helpers;
-using Common.Core.Interfaces;
 using Common.Messaging.Abstractions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using Services.Shared.DataAccess.UoW.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,12 +17,12 @@ namespace Auth.API.Services
 {
     public class AccountService : IAccountService
     {
-        private readonly IRepository<Account> _accountsRepository;
+        private readonly IBaseRepository<Account> _accountsRepository;
         private readonly IBaseUnitOfWork _unitOfWork;
         private readonly IEventBus _serviceBus;
         private readonly string _apiGatewayAddress;
 
-        public AccountService(IRepository<Account> accountsRepository, IBaseUnitOfWork unitOfWork, IEventBus serviceBus, IConfiguration configuration)
+        public AccountService(IBaseRepository<Account> accountsRepository, IBaseUnitOfWork unitOfWork, IEventBus serviceBus, IConfiguration configuration)
         {
             _accountsRepository = accountsRepository;
             _apiGatewayAddress = configuration["ApiGatewayAddress"];
