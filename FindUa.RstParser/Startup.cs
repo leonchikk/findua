@@ -1,8 +1,8 @@
 using Common.Core.Extensions;
 using FindUa.Parser.Core.Common;
 using FindUa.Parser.Core.DataAccess;
+using FindUa.Parser.Data.Contexts;
 using FindUa.RstParser.BackgroundWorkers;
-using FindUa.RstParser.Data.Contexts;
 using FindUa.RstParser.Data.Repositories;
 using FindUa.RstParser.Domain.Common;
 using FindUa.RstParser.Domain.Extensions;

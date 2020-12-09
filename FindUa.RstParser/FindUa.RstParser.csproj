@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FindUa.RstParser.Data\FindUa.RstParser.Data.csproj" />
+    <ProjectReference Include="..\FindUa.Parser.Data\FindUa.Parser.Data.csproj" />
     <ProjectReference Include="..\FindUa.RstParser.Domain\FindUa.RstParser.Domain.csproj" />
   </ItemGroup>
 

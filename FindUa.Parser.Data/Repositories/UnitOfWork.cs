@@ -1,6 +1,6 @@
 ﻿using FindUa.Parser.Core.DataAccess;
 using FindUa.Parser.Core.Entities;
-using FindUa.RstParser.Data.Contexts;
+using FindUa.Parser.Data.Contexts;
 using Services.Shared.DataAccess.UoW.Abstractions;
 using Services.Shared.DataAccess.UoW.Implementations;
 

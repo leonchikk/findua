@@ -1,7 +1,7 @@
 ﻿using EFCore.BulkExtensions;
 using FindUa.Parser.Core.DataAccess;
 using FindUa.Parser.Core.Entities;
-using FindUa.RstParser.Data.Contexts;
+using FindUa.Parser.Data.Contexts;
 using Services.Shared.DataAccess.UoW.Implementations;
 using System.Collections.Generic;
 using System.Threading.Tasks;

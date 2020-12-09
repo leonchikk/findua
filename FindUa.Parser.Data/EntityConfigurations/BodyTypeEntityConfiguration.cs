@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 
-namespace FindUa.RstParser.Data.EntityConfigurations
+namespace FindUa.Parser.Data.EntityConfigurations
 {
     class BodyTypeEntityConfiguration : IEntityTypeConfiguration<BodyType>
     {

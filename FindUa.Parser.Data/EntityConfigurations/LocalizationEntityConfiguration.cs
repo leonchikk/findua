@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace FindUa.RstParser.Data.EntityConfigurations
+namespace FindUa.Parser.Data.EntityConfigurations
 {
     public class LocalizationEntityConfiguration : IEntityTypeConfiguration<Localization>
     {
