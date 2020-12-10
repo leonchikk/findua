@@ -5,7 +5,7 @@ using FindUa.RstParser.Core.Entities;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
 
-namespace FindUa.RstParser.Domain.Common
+namespace FindUa.Parser.Shared.Common
 {
     public class MemoryStore : IMemoryStore
     {

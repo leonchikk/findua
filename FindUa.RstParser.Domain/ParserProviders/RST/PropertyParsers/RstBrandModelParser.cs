@@ -3,7 +3,7 @@ using FindUa.Parser.Core.DataAccess;
 using FindUa.Parser.Core.Entities;
 using FindUa.Parser.Core.Enumerations;
 using FindUa.Parser.Core.ParserProvider.PropertyParsers;
-using FindUa.RstParser.Domain.Extensions;
+using FindUa.Parser.Shared.Extensions;
 using HtmlAgilityPack;
 using Microsoft.Extensions.Logging;
 using System;

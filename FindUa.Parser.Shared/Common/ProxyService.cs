@@ -5,7 +5,7 @@ using System;
 using System.Linq;
 using System.Net;
 
-namespace FindUa.RstParser.Domain.Common
+namespace FindUa.Parser.Shared.Common
 {
     public class ProxyService : IProxyService
     {

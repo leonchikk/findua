@@ -1,5 +1,4 @@
 ﻿using FindUa.Parser.Core.ParserProvider;
-using FindUa.RstParser.Domain.Common;
 using FindUa.RstParser.Settings.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

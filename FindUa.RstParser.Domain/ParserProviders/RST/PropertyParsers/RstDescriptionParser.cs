@@ -1,5 +1,5 @@
 ﻿using FindUa.Parser.Core.ParserProvider.PropertyParsers;
-using FindUa.RstParser.Domain.Extensions;
+using FindUa.Parser.Shared.Extensions;
 using HtmlAgilityPack;
 using System;
 

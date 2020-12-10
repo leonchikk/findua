@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FindUa.Parser.Core\FindUa.Parser.Core.csproj" />
+    <ProjectReference Include="..\FindUa.Parser.Shared\FindUa.Parser.Shared.csproj" />
   </ItemGroup>
 
 </Project>
